@@ -27,9 +27,9 @@ namespace Instart.Service
             return _worksRepository.GetByIdAsync(id);
         }
 
-        public PageModel<Works> GetListAsync(int pageIndex, int pageSize, string name = null)
+        public PageModel<Works> GetListAsync(int pageIndex, int pageSize, int major = -1, string name = null)
         {
-            return _worksRepository.GetListAsync(pageIndex, pageSize, name);
+            return _worksRepository.GetListAsync(pageIndex, pageSize, major, name);
         }
 
         public bool InsertAsync(Works model)
@@ -37,11 +37,6 @@ namespace Instart.Service
             if (model == null)
             {
                 throw new ArgumentNullException("model不能为null");
-            }
-
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                throw new ArgumentNullException("Name不能为null");
             }
 
             return _worksRepository.InsertAsync(model);
@@ -85,6 +80,16 @@ namespace Instart.Service
             }
 
             return _worksRepository.GetListByMajorIdAsync(majorId, topCount);
+        }
+
+        public List<Works> GetListByCourseIdAsync(int courseId, int topCount)
+        {
+            if (courseId <= 0)
+            {
+                throw new ArgumentException("courseId错误");
+            }
+
+            return _worksRepository.GetListByCourseIdAsync(courseId, topCount);
         }
     }
 }

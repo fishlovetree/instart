@@ -26,13 +26,17 @@ namespace Instart.Web2.Areas.Manage.Controllers
             base.AddDisposableObject(_majorService);
         }
 
-        public ActionResult Index(int page = 1, string name = null)
+        public ActionResult Index(int page = 1, int major = -1, string keyword = null)
         {
             int pageSize = 10;
-            var list = _worksService.GetListAsync(page, pageSize, name);
+            var list = _worksService.GetListAsync(page, pageSize, major, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
+
+            ViewBag.Keyword = keyword;
+            ViewBag.majorList = _majorService.GetAllAsync();
+            ViewBag.major = major;
             return View(list.Data);
         }
 

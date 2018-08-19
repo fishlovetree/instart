@@ -9,9 +9,9 @@ namespace Instart.Repository
 {
     public interface IWorksRepository
     {
-        Works GetByIdAsync(int id);        
+        Works GetByIdAsync(int id);
 
-        PageModel<Works> GetListAsync(int pageIndex, int pageSize, string name = null);
+        PageModel<Works> GetListAsync(int pageIndex, int pageSize, int major = -1, string name = null);
 
         bool InsertAsync(Works model);
 
@@ -20,5 +20,7 @@ namespace Instart.Repository
         bool DeleteAsync(int id);
 
         List<Works> GetListByMajorIdAsync(int majorId, int topCount);
+
+        List<Works> GetListByCourseIdAsync(int courseId, int topCount);
     }
 }

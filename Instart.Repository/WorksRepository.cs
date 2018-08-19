@@ -17,10 +17,18 @@ namespace Instart.Repository
             }
         }
 
-        public PageModel<Works> GetListAsync(int pageIndex, int pageSize, string name = null) {
+        public PageModel<Works> GetListAsync(int pageIndex, int pageSize, int major = -1, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
                 string where = "where a.Status=1";
+                if (!string.IsNullOrEmpty(name))
+                {
+                    where += string.Format(" and a.Name like '%{0}%'", name);
+                }
+                if (major != -1)
+                {
+                    where += string.Format(" and a.MajorId = {0}", major);
+                }
                 #endregion
 
                 string countSql = string.Format("select count(1) from [Works] as a {0};",where);
@@ -47,6 +55,19 @@ namespace Instart.Repository
             {
                 string sql = string.Format("select top {0} Id,Name,ImgUrl,Introduce,CreateTime from Works where MajorId=@MajorId and Status=1 order by Id desc",topCount);
                 var list = conn.Query<Works>(sql, new { MajorId = majorId });
+                return list != null ? list.ToList() : null;
+            }
+        }
+
+        public List<Works> GetListByCourseIdAsync(int courseId, int topCount)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select top {0} t.* from (select distinct w.Id,w.Name,w.ImgUrl from Works w
+                    left join Student s on s.MajorId = w.MajorId
+                    left join StudentCourse sc on sc.StudentId = s.Id
+                    where sc.CourseId=@CourseId and w.Status=1) as t order by t.Id desc", topCount);
+                var list = conn.Query<Works>(sql, new { CourseId = courseId });
                 return list != null ? list.ToList() : null;
             }
         }

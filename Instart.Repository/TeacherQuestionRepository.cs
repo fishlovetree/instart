@@ -35,7 +35,7 @@ namespace Instart.Repository
                 }
 
                 string sql = string.Format(@"select * from ( select h.*, m.Name as MajorName, m.NameEn as MajorNameEn, 
-                    t.Name as TeacherName, m.NameEn as TeacherNameEn,
+                    t.Name as TeacherName, t.NameEn as TeacherNameEn,
                     ROW_NUMBER() over (Order by h.Id desc) as RowNumber from [TeacherQuestion] as h 
                     left join [Major] m on m.Id = h.MajorId
                     left join [Teacher] t on t.Id = h.TeacherId {0} ) as b
@@ -80,7 +80,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select top {0} * from TeacherQuestion order by Id Desc;", topCount);
+                string sql = string.Format("select top {0} a.*, t.Name as TeacherName, t.NameEn as TeacherNameEn from TeacherQuestion as a left join [Teacher] t on t.Id = a.TeacherId order by a.Id Desc;", topCount);
                 var list = conn.Query<TeacherQuestion>(sql, null);
                 return list != null ? list.ToList() : null;
             }

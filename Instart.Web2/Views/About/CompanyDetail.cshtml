@@ -18,7 +18,7 @@
                 <p> <b>招聘职务</b> </p>
             </div>
             <div class="c-infos"> @Model.Postions</div>
-            <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@Model.Id)">实习预约</a></div>
+            <div class="c-yue"><a href="javascript:void(0)" onclick="companyOrder(@Model.Id)">实习预约</a></div>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    function apply(id) {
+    function companyOrder(id) {
         window.parent.companyOrder(id);
     }
 </script>

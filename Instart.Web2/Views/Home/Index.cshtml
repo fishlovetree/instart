@@ -46,8 +46,8 @@
                         <dl>
                             <dt><a href="/teacher/details/@item.Id">@(item.Name) @(item.NameEn)</a></dt>
                             <dd class="teac-m">
-                                <p><span>@item.SchoolName</span><small>@item.SchoolNameEn</small></p>
-                                <p><span>@item.MajorName</span><small>@item.MajorNameEn</small></p>
+                                <p><a href="/school/details/@item.SchoolId"><span>@item.SchoolName</span><small>@item.SchoolNameEn</small></a></p>
+                                <p><a href="/major/details/@item.MajorId"><span>@item.MajorName</span><small>@item.MajorNameEn</small></a></p>
                             </dd>
                             <dd class="teac-b"><i style="display:inline-block; width:8px; height:8px; border-radius:50%; background:@item.DivisionColor; margin-right:6px;"></i>@(item.DivisionName) @(item.DivisionNameEn)</dd>
                         </dl>
@@ -97,11 +97,11 @@
         <h2>合作伙伴</h2>
     </div>
     <div class="teamwork com-cont">
-        <ul>
+        <ul style="border-bottom: hidden;">
             @foreach (Partner item in ViewBag.PartnerList)
             {
                 <li>
-                    <p><a href="@item.Link" target="_blank"><img src="@item.ImageUrl" alt="@item.Name" /></a></p>
+                    <p style="padding:10px 20px;"><a href="@item.Link" target="_blank"><img src="@item.ImageUrl" alt="@item.Name" /></a></p>
                 </li>
             }
         </ul>

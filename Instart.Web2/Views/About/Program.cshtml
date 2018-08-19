@@ -16,16 +16,20 @@
                             <p> <b><a href="/about/show/@item.Id">@item.Name</a></b> <span>@item.NameEn</span> </p>
                         </div>
                         <div class="c-infos">@item.Introduce</div>
-                        <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@item.Id)">项目咨询</a></div>
+                        <div class="c-yue"><a href="javascript:void(0)" onclick="programApply(@item.Id)">项目咨询</a></div>
                     </div>
                 </li>
             }
         </ul>
     </div>
 </div>
+<script src="/content/js/pubu.js" type="text/javascript"></script>
 <script>
-    function apply(id) {
+    window.onload = function () {
+        water("main");
+    }
+
+    function programApply(id) {
         window.parent.programApply(id);
     }
 </script>
-<script src="/content/js/pubu.js" type="text/javascript"></script>

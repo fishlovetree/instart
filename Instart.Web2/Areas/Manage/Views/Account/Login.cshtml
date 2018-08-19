@@ -23,6 +23,17 @@
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        $(function () {
+            $('#txtUserName').focus();
+
+            $("body").keydown(function (event) {
+                if (event.keyCode == "13") {//keyCode=13是回车键
+                    $("#btnLogin").click();
+                }
+            });
+        })
+    </script>
 </head>
 
 <body class="yunBg">
@@ -31,7 +42,7 @@
             <a class="yunLogo" href="#"></a>
         </div>
         <div class="yunItmName">
-            <img src="/content/images/admin.jpg" width="31" height="32" /><span class="yunItmS">管理员登录</span>
+            <img src="/content/images/admin.jpg" width="31" height="32" /><span class="yunItmS">Instart后台登录</span>
         </div>
         <div class="yunBox">
             <div class="yun_u1">

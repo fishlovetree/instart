@@ -46,7 +46,7 @@
     </div>
 </div>
 <div class="padding30">
-    <iframe src="" scrolling="no" frameborder="0" id="contmain" name="cont" height="200"></iframe>
+    <iframe src="" scrolling="no" frameborder="0" id="contmain" name="cont"></iframe>
 </div>
 
 <!--课程推荐-->
@@ -69,8 +69,18 @@
 
         function initMenu() {
             var pos = parseInt("@ViewBag.Type");
-            var cur = $("a.feature-menu").eq(pos - 1);
+            var cur = $(".insliu li").find("a").eq(pos - 1);
             cur.click();
+            var dang;
+            $(".insliu li").each(function () {
+                var alen = $(this).find("a.active").length;
+                if (alen > 0) {
+                    dang = $(this).index();
+                }
+            });
+            if (dang >= 5) {
+                $(".insliu ul").css("left", -(dang - 4) * $(".insliu li").width());
+            }
         }
 
         //计算子页面的高度
@@ -78,12 +88,12 @@
             var iframe = document.getElementById(id);
             if (iframe.attachEvent) {
                 iframe.attachEvent("onload", function () {
-                    iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
+                    iframe.height = iframe.contentWindow.document.documentElement.clientHeight;
                 });
                 return;
             } else {
                 iframe.onload = function () {
-                    iframe.height = iframe.contentDocument.body.scrollHeight;
+                    iframe.height = iframe.contentDocument.body.clientHeight;
                 };
                 return;
             }

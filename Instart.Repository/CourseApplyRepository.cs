@@ -88,7 +88,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select top {0} * from CourseApply order by Id Desc;",topCount);
+                string sql = string.Format("select top {0} a.*, c.Name as CourseName, c.NameEn as CourseNameEn from CourseApply as a left join [Course] as c on c.Id = a.CourseId order by a.Id Desc;", topCount);
                 var list = conn.Query<CourseApply>(sql, null);
                 return list != null ? list.ToList() : null;
             }

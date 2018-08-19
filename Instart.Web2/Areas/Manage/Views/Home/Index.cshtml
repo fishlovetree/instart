@@ -16,7 +16,7 @@
                         <div class="panel-body panel-height">
                             <ul>
                                 <li>
-                                    <a href="/manage/school">艺术学校</a>
+                                    <a href="/manage/school">艺术院校</a>
                                     <a href="/manage/teacher">艺术导师</a>
                                     <a href="/manage/student">成功学员</a>
                                     <a href="/manage/works">作品管理</a>
@@ -36,7 +36,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <span class="badge">@ViewBag.Statistics.SchoolCount</span>
-                                    学校数量
+                                    院校数量
                                 </li>
                                 <li class="list-group-item">
                                     <span class="badge">@ViewBag.Statistics.TeacherCount</span>
@@ -56,11 +56,11 @@
                                 </li>
                                 <li class="list-group-item">
                                     <span class="badge">@ViewBag.Statistics.SchoolApplyCount</span>
-                                    学校申请
+                                    院校咨询
                                 </li>
                                 <li class="list-group-item">
                                     <span class="badge">@ViewBag.Statistics.CourseApplyCount</span>
-                                    课程申请
+                                    课程咨询
                                 </li>
                             </ul>
                         </div>
@@ -72,12 +72,12 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a href="/manage/schoolapply" style="float:right;">全部</a>
-                            <h3 class="panel-title">最近学校申请</h3>
+                            <h3 class="panel-title">最近院校咨询</h3>
                         </div>
                         <table class="table table-hover table-bordered">
                             <tr>
                                 <th>申请人</th>
-                                <th>学校</th>
+                                <th>院校</th>
                                 <th>申请时间</th>
                             </tr>
                             @foreach (Instart.Models.SchoolApply item in ViewBag.SchoolApplyList)
@@ -95,7 +95,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a href="/manage/courseapply" style="float:right;">全部</a>
-                            <h3 class="panel-title">最近课程申请</h3>
+                            <h3 class="panel-title">最近课程咨询</h3>
                         </div>
                         <table class="table table-hover table-bordered">
                             <tr>
@@ -108,6 +108,54 @@
                                 <tr>
                                     <td>@item.Name</td>
                                     <td>@item.CourseName</td>
+                                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="/manage/majorapply" style="float:right;">全部</a>
+                            <h3 class="panel-title">最近专业咨询</h3>
+                        </div>
+                        <table class="table table-hover table-bordered">
+                            <tr>
+                                <th>申请人</th>
+                                <th>专业</th>
+                                <th>申请时间</th>
+                            </tr>
+                            @foreach (Instart.Models.MajorApply item in ViewBag.MajorApplyList)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.MajorName</td>
+                                    <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="/manage/teacherquestion" style="float:right;">全部</a>
+                            <h3 class="panel-title">最近向导师提问</h3>
+                        </div>
+                        <table class="table table-hover table-bordered">
+                            <tr>
+                                <th>申请人</th>
+                                <th>导师</th>
+                                <th>申请时间</th>
+                            </tr>
+                            @foreach (Instart.Models.TeacherQuestion item in ViewBag.TeacherQuestionList)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.TeacherName</td>
                                     <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                                 </tr>
                             }

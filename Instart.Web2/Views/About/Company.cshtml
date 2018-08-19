@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_LayoutFeature.cshtml";
 }
 
-<div class="maincont">
+<div class="maincont padding30 overflow">
     <div class="course-info com-cont" id="main">
         <ul>
             @foreach (Company item in Model)
@@ -23,7 +23,7 @@
                             <p> <b>招聘职务</b> </p>
                         </div>
                         <div class="c-infos"> @item.Postions</div>
-                        <div class="c-yue"><a href="javascript:void(0)" onclick="apply(@item.Id)">实习预约</a></div>
+                        <div class="c-yue"><a href="javascript:void(0)" onclick="companyOrder(@item.Id)">实习预约</a></div>
                     </div>
                 </li>
             }
@@ -34,11 +34,20 @@
 <div class="workbo">
     <div class="bd">
         <ul>
-            @foreach (var item in Model)
+            @foreach (Company item in Model)
             {
-                <li>
-                    <a href="javascript:void(0)"><img src="@item.ImgUrl" /></a>
-                </li>
+                if (!String.IsNullOrEmpty(item.Environment))
+                {
+                    <li>
+                        <a href="javascript:void(0)"><img src="@item.Environment" /></a>
+                    </li>
+                }
+                if (!String.IsNullOrEmpty(item.Works))
+                {
+                    <li>
+                        <a href="javascript:void(0)"><img src="@item.Works" /></a>
+                    </li>
+                }
             }
 
         </ul>
@@ -48,16 +57,16 @@
         <a class="next"></a>
     </div>
 </div>
-
+<script src="/content/js/pubu.js" type="text/javascript"></script>
 <script>
-    $(function () {
+    window.onload = function () {
+        water("main");
         $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
-    })
+    }
 
-    function apply(id) {
+    function companyOrder(id) {
         window.parent.companyOrder(id);
     }
 </script>
-<script src="/content/js/pubu.js" type="text/javascript"></script>
 
 

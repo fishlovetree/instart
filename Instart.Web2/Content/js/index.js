@@ -34,8 +34,6 @@ var index={
 		lis.css("width",Math.floor(PW*0.2));
         var lisW=lis.width();
         var len=lis.length;
-		var len=lis.length;
-		var yinlen=len-5;
 		var herelink=window.location.href;
         _ul.css("width",lisW*len+"px");
 	    //下一页

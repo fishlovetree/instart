@@ -138,7 +138,7 @@
 .list-cont dt strong{ font-size:18px;}
 .list-cont dt small{ font-size:13px;}
 .list-cont dt a:hover strong{ color:#0000ff;}
-.list-cont dd.teac-m{ padding:15px; height:155px; overflow:hidden; text-align:left; text-align:justify; text-indent:2em; border-bottom:1px dotted #bebebe; overflow:hidden;}
+.list-cont dd.teac-m{ padding:15px; height:235px; overflow:hidden; text-align:left; text-align:justify; text-indent:2em; border-bottom:1px dotted #bebebe; overflow:hidden;}
 .list-cont dd.teac-b:before{ background:#39b54a;}
 .pagelist{ text-align:center;}
 .pagelist li{ display:inline-block; width:20px; height:20px; line-height:20px; text-indent:-999em; margin:0 6px}

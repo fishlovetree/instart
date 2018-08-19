@@ -27,5 +27,5 @@ function water(parent){
         oparent.style.height=maxHeight+"px";
         oparent.style.width=awidth*cols+"px"
 }
-water("main");
+//water("main");
 //window.onresize=function(){water("main");}
