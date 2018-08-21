@@ -17,7 +17,7 @@
         <div class="course-item">
             <a href="#" class="cimg"><img src="@Model.Picture" alt="" /></a>
             <div class="c-guide">
-                <p> <b>课程名称</b> <span>@Model.Name</span> </p>
+                <p> <b>@Model.Name</b> <span>@Model.Name</span> </p>
             </div>
             <div class="c-infos"> @Html.Raw(Model.Introduce) </div>
             <div class="c-guide">
@@ -52,7 +52,7 @@
             <ul>
                 @foreach (Works item in ViewBag.WorkList)
                 {
-                    <li><a href="#"><img src="@item.ImgUrl" /></a></li>
+                    <li><a href="javascript:void(0)"><img src="@item.ImgUrl" /></a></li>
                 }
             </ul>
         </div>
@@ -66,7 +66,7 @@
     <div class="title topborder">
         <h2>成功学员</h2>
     </div>
-    <div class="chenggong padding30">
+    <div class="chenggong1 padding30">
         <div class="success-people com-cont noborder bd">
             <ul>
                 @foreach (Student item in ViewBag.StudentList)
@@ -94,7 +94,7 @@
 @section Bottom
     {
     <script type="text/javascript">
-        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 2, vis: 4, trigger: "click" });
+        $(".chenggong1").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 2, vis: 4, trigger: "click" });
         $(".consequent").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
 
         function apply(id) {

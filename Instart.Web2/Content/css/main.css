@@ -62,7 +62,7 @@
 .teacher-cont dt{ font-size:18px; padding:13px 0; overflow:hidden; border-bottom:1px dotted #bfbfbf; font-weight:bold; height:18px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .teacher-cont dt a{ display:block;}
 .teacher-cont dt a:hover{ color:#0100fe; -webkit-transform:translateX(10px); transform:translateX(10px)}
-.teacher-cont dd.teac-m{ border-bottom:1px dotted #bfbfbf; height:100px; overflow:hidden; padding:10px 0; line-height:22px;}
+.teacher-cont dd.teac-m{ border-bottom:1px dotted #bfbfbf; height:120px; overflow:hidden; padding:10px 0; line-height:22px;}
 .teacher-cont dd.teac-m p{ margin-bottom:10px;}
 .teacher-cont dd.teac-m p span{ font-size:17px; display:block;}
 .teacher-cont dd.teac-m p small{ font-size:12px; display:block; color:#999;}

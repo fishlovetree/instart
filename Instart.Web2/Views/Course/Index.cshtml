@@ -21,7 +21,7 @@
                         <div class="course-item">
                             <a href="/course/details/@item.Id" class="cimg"><img src="@item.Picture" alt="" /></a>
                             <div class="c-guide">
-                                <p> <b>@item.Name</b> <span>@item.NameEn</span> </p>
+                                <p><a href="/course/details/@item.Id"><b>@item.Name</b> <span>@item.NameEn</span> </a></p>
                             </div>
                             <div class="c-infos"> @Html.Raw(item.Introduce)</div>
                             <div class="c-guide">
