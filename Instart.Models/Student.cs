@@ -37,26 +37,6 @@ namespace Instart.Models
         public string Background { get; set; }
 
         /// <summary>
-        /// 录取院校Id
-        /// </summary>
-        public int SchoolId { get; set; }
-
-        /// <summary>
-        /// 录取院校名称
-        /// </summary>
-        public string SchoolName { get; set; }
-
-        /// <summary>
-        /// 录取院校英文名称
-        /// </summary>
-        public string SchoolNameEn { get; set; }
-
-        /// <summary>
-        /// 录取院校Logo
-        /// </summary>
-        public string SchoolLogo { get; set; }
-
-        /// <summary>
         /// 录取专业Id
         /// </summary>
         public int MajorId { get; set; }
@@ -175,5 +155,10 @@ namespace Instart.Models
         /// 座右铭
         /// </summary>
         public string Motto { get; set; }
+
+        /// <summary>
+        /// OFFER列表
+        /// </summary>
+        public List<School> SchoolList { get; set; }
     }
 }

@@ -14,13 +14,13 @@ namespace Instart.Repository
         public Student GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = @"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn,d.BgColor as DivisionColor, e.Name as SchoolName, 
-                     e.NameEn as SchoolNameEn, f.Name as CampusName, f.NameEn as CampusNameEn from Student t 
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn,d.BgColor as DivisionColor, 
+                     f.Name as CampusName, f.NameEn as CampusNameEn from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [Division] as d on d.Id = t.DivisionId 
                      left join [Campus] as f on f.Id = t.CampusId
-                     left join [School] as e on e.Id = t.SchoolId where t.Id = @Id and t.Status=1;";
+                     where t.Id = @Id and t.Status=1;";
                 return conn.QueryFirstOrDefault<Student>(sql, new { Id = id });
             }
         }
@@ -46,11 +46,10 @@ namespace Instart.Repository
 
                 string sql = string.Format(@"select * from (
                      select a.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, c.NameEn as TeacherNameEn, 
-                     e.Name as SchoolName, e.NameEn as SchoolNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn,d.BgColor as DivisionColor, 
+                     d.Name as DivisionName, d.NameEn as DivisionNameEn,d.BgColor as DivisionColor, 
                      f.Name as CampusName, f.NameEn as CampusNameEn, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Student] as a
                      left join [Major] as b on b.Id = a.MajorId 
                      left join [Teacher] as c on c.Id = a.TeacherId 
-                     left join [School] as e on e.Id = a.SchoolId
                      left join [Division] as d on d.Id = a.DivisionId
                      left join [Campus] as f on f.Id = a.CampusId {0}
                      ) as d
@@ -73,11 +72,10 @@ namespace Instart.Repository
                 #endregion
 
                 string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
                      f.Name as CampusName, f.NameEn as CampusNameEn from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
-                     left join [School] as e on e.Id = t.SchoolId
                      left join [Division] as d on d.Id = t.DivisionId
                      left join [Campus] as f on f.Id = t.CampusId {0} order by t.Id;", where);
                 return conn.Query<Student>(sql);
@@ -99,8 +97,8 @@ namespace Instart.Repository
 
         public bool InsertAsync(Student model) {
             using (var conn = DapperFactory.GetConnection()) {
-                var fields = model.ToFields(removeFields: new List<string> { "Id", "SchoolName", "SchoolNameEn","MajorName", "MajorNameEn", "TeacherName", "TeacherNameEn",
-                    "DivisionName", "DivisionNameEn", "DivisionColor", "IsRecommend", "SchoolLogo", "CampusName", "CampusNameEn"});
+                var fields = model.ToFields(removeFields: new List<string> { "Id","MajorName", "MajorNameEn", "TeacherName", "TeacherNameEn",
+                    "DivisionName", "DivisionNameEn", "DivisionColor", "IsRecommend", "CampusName", "CampusNameEn", "SchoolList"});
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -118,8 +116,8 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string>
                 {
-                    "Id", "SchoolName", "SchoolNameEn","MajorName", "MajorNameEn", "TeacherName", "TeacherNameEn",
-                    "DivisionName", "DivisionNameEn", "DivisionColor", "IsRecommend", "SchoolLogo", "Status", "CreateTime", "CampusName", "CampusNameEn"
+                    "Id", "MajorName", "MajorNameEn", "TeacherName", "TeacherNameEn",
+                    "DivisionName", "DivisionNameEn", "DivisionColor", "IsRecommend", "Status", "CreateTime", "CampusName", "CampusNameEn", "SchoolList"
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -150,11 +148,10 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = string.Format(@"select top {0} t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
                      f.Name as CampusName, f.NameEn as CampusNameEn from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
-                     left join [School] as e on e.Id = t.SchoolId
                      left join [Division] as d on d.Id = t.DivisionId
                      left join [Campus] as f on f.Id = t.CampusId
                      where t.Status=1 and t.IsRecommend=1
@@ -223,17 +220,66 @@ namespace Instart.Repository
             return result > 0;
         }
 
+        public IEnumerable<int> GetSchoolsByIdAsync(int id)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format("select SchoolId from [StudentSchool] where StudentId={0};", id);
+                return conn.Query<int>(sql); ;
+            }
+        }
+
+        public bool SetSchools(int studentId, string schoolIds)
+        {
+            var result = 0;
+            using (var conn = DapperFactory.GetConnection())
+            {
+                conn.Open();
+                var tran = conn.BeginTransaction();
+
+                string sql = "delete from [StudentSchool] where StudentId = @StudentId; ";
+
+                var insertImg = @" INSERT INTO [StudentSchool] ([StudentId],[SchoolId]) VALUES(@StudentId,@SchoolId)";
+                try
+                {
+
+                    result = conn.Execute(sql, new { StudentId = studentId }, tran);
+                    if (!String.IsNullOrEmpty(schoolIds))
+                    {
+                        string[] ids = schoolIds.Split(',');
+                        foreach (var item in ids)
+                        {
+                            result = conn.Execute(insertImg, new { StudentId = studentId, SchoolId = item }, tran);
+                        }
+                    }
+                    tran.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    result = 0;
+                    tran.Rollback();
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    result = 0;
+                    tran.Rollback();
+                    return false;
+                }
+            }//end using
+            return result > 0;
+        }
+
         public List<Student> GetListByCourseAsync(int courseId = -1)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
                      f.Name as CampusName, f.NameEn as CampusNameEn from StudentCourse s 
                      left join [STUDENT] as t on s.StudentId = t.Id
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
-                     left join [School] as e on e.Id = t.SchoolId
                      left join [Division] as d on d.Id = t.DivisionId
                      left join [Campus] as f on f.Id = t.CampusId
                      where s.CourseId = {0} and t.Status=1
@@ -248,11 +294,10 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, e.Logo as SchoolLogo, d.Name as DivisionName, 
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, 
                      d.NameEn as DivisionNameEn, d.BgColor as DivisionColor, f.Name as CampusName, f.NameEn as CampusNameEn from [STUDENT] t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
-                     left join [School] as e on e.Id = t.SchoolId
                      left join [Division] as d on d.Id = t.DivisionId
                      left join [Campus] as f on f.Id = t.CampusId
                      where t.TeacherId = {0} and t.Status=1
@@ -267,16 +312,28 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = string.Format(@"select top {0} t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, e.Name as SchoolName, e.NameEn as SchoolNameEn, e.Logo as SchoolLogo, d.Name as DivisionName, 
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, 
                      d.NameEn as DivisionNameEn, d.BgColor as DivisionColor, f.Name as CampusName, f.NameEn as CampusNameEn from [STUDENT] t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
-                     left join [School] as e on e.Id = t.SchoolId
                      left join [Division] as d on d.Id = t.DivisionId
                      left join [Campus] as f on f.Id = t.CampusId
                      where t.CampusId = {1} and t.Status=1
                      order by t.Id Desc;", topCount, campusId);
                 var list = conn.Query<Student>(sql, null);
+                return list != null ? list.ToList() : null;
+            }
+        }
+
+        public List<School> GetStudentSchools(int studentId = -1)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select s.* from [StudentSchool] as t
+                     left join [School] as s on s.Id = t.SchoolId
+                     where t.StudentId = {0} and s.Status=1
+                     order by s.Id Desc;", studentId);
+                var list = conn.Query<School>(sql, null);
                 return list != null ? list.ToList() : null;
             }
         }

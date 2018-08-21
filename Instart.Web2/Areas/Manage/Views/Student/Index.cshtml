@@ -43,7 +43,6 @@
                     <th>#</th>
                     <th>学员名称</th>
                     <th>头像</th>
-                    <th>OFFER</th>
                     <th>录取专业</th>
                     <th>专访视频</th>
                     <th>创建时间</th>
@@ -62,7 +61,6 @@
                             <td>
                                 <img src="@item.Avatar" style="width:100px;height:100px" alt="" />
                             </td>
-                            <td>@item.SchoolName</td>
                             <td>@item.MajorName</td>
                             <td>
                                 @if (!String.IsNullOrEmpty(item.VideoUrl))
@@ -81,10 +79,11 @@
                                     <input class="chkRecommend" type="checkbox" data-id="@item.Id" />
                                 }
                             </td>
-                            <td style="width:15%;">
+                            <td style="width:18%;">
                                 <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
                                 <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
                                 <a href="javascript:void(0)" onclick="setcourse(@item.Id)">所学课程</a>
+                                <a href="javascript:void(0)" onclick="setschool(@item.Id)">OFFER管理</a>
                             </td>
                         </tr>
                     }
@@ -177,6 +176,10 @@
 
         function setcourse(id) {
             location.href = '@Url.Action("courseselect", "student", new { area="manage" })' + "?id=" + id;
+        }
+
+        function setschool(id) {
+            location.href = '@Url.Action("schoolselect", "student", new { area="manage" })' + "?id=" + id;
         }
     </script>
 }

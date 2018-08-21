@@ -12,9 +12,6 @@
 .meun{ background:url(/content/images/instart.png) 96% center no-repeat; height:88px; position:relative; z-index:100;}
 .nav{ text-align:center;}
 .nav ul{ height:88px; line-height:88px; text-align:center; padding-right:13%;}
-@media screen and (max-width: 1500px){
-     .nav ul{ padding-right:23%}
-}
 .nav li{ display:inline-block;}
 .nav li a{ display:block; padding:0 20px; font-size:18px; color:#4d4d4d;}
 .nav li a:hover{ color:#0802ff;}
@@ -73,10 +70,10 @@
 .school li{ width:33.333%; margin-bottom:40px;}
 .s-name{ padding:15px;height:162px; border-bottom:1px dotted #bfbfbf; overflow:hidden; border-left:1px dotted #bfbfbf; border-right:1px dotted #bfbfbf; display:-webkit-box;display:-webkit-flex;-webkit-box-align:center;-webkit-align-items:center;}
 .s-name:hover{ background:#f2f2f2}
-.yuanxiao{ border:1px dotted #bfbfbf; height:130px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:16px;}
-.yuanxiao p{ margin-bottom:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; height:16px;}
+.yuanxiao{ border:1px dotted #bfbfbf; height:130px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:16px; position:relative;}
+.yuanxiao p{ margin-bottom:10px; /*overflow:hidden; text-overflow:ellipsis; white-space:nowrap;*/ height:16px;}
 .yuanxiao p span{ margin-right:10px; display:inline-block;}
-.yuanxiao .morea{ text-align:right;}
+.yuanxiao .morea{ text-align:right; position:absolute; bottom:10px; right:10px;}
 .yuanxiao .morea a{ color:#808080; display:inline-block; border:1px dotted #c2c2c2; padding:6px 16px; border-radius:6px;}
 .yuanxiao .morea a:hover{ color:#0100fe; border-color:#0100fe;}
 .s-name div{ width:50%; float:left; text-align:center;}
@@ -138,7 +135,7 @@
 .list-cont dt strong{ font-size:18px;}
 .list-cont dt small{ font-size:13px;}
 .list-cont dt a:hover strong{ color:#0000ff;}
-.list-cont dd.teac-m{ padding:15px; height:235px; overflow:hidden; text-align:left; text-align:justify; text-indent:2em; border-bottom:1px dotted #bebebe; overflow:hidden;}
+.list-cont dd.teac-m{ padding:15px; height:255px; overflow:hidden; text-align:left; text-align:justify; text-indent:2em; border-bottom:1px dotted #bebebe; overflow:hidden;}
 .list-cont dd.teac-b:before{ background:#39b54a;}
 .pagelist{ text-align:center;}
 .pagelist li{ display:inline-block; width:20px; height:20px; line-height:20px; text-indent:-999em; margin:0 6px}
@@ -175,7 +172,7 @@
 .mee-left{ width:43%;}
 .mee-left img{ width:100%; border-radius:5px;}
 .mee-right{ border:1px dotted #bebebe; border-radius:5px; width:54%;}
-.stel{ position:absolute; z-index:1; bottom:18px; right:16%; width:130px; height:130px; line-height:130px; border-radius:50%; background:#0100fe; text-align:center; font-size:18px; font-weight:bold; -webkit-transform:rotate(-15deg); transform:rotate(-15deg)}
+.stel{ position:absolute; z-index:1; top:58px; right:16%; width:130px; height:130px; line-height:130px; border-radius:50%; background:#0100fe; text-align:center; font-size:18px; font-weight:bold; -webkit-transform:rotate(-15deg); transform:rotate(-15deg)}
 .stel a{ color:#fff; width:100%; height:100%; display:block;}
 .stel a:hover{ -webkit-transform:rotate(360deg); transform:rotate(360deg);}
 .mee-info{}
@@ -313,6 +310,7 @@
 .c-guide,.c-infos,.c-yue{ border:1px dotted #bebebe; border-top:0; overflow:hidden;}
 .c-guide{ text-align:center; line-height:26px; height:83px;}
 .c-infos{ padding:10px 30px; text-align:justify; line-height:1.8em; text-indent:2em; height:121px;}
+.c-guide+ .c-infos{ height:168px}
 .c-guide p{ display:inline-block; padding:15px 20px; position:relative;}
 .c-guide p:after{ content:""; position:absolute; bottom:-1px; left:0; width:100%; height:8px; background:#0000ff}
 .c-guide p b{ display:block; font-size:20px;}
@@ -394,7 +392,12 @@
 .flltext{ position:absolute; top:28px; left:0; color:#999; height:20px; line-height:20px; width:100%; font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .flltext span{ margin-right:10px; width:90px; height:30px; display:inline-block;}
 .dengpao{ padding-top:150px; background:url(/content/images/deng.png) center 45px no-repeat; margin-bottom:30px;}
-
 #contmain{ width:100%;}
 
+@media screen and (max-width: 1500px){
+     .nav ul{ padding-right:23%}
+	 .teacher-cont dd.teac-m{ height:140px!important;}
+	 .list-cont dd.teac-m{ height:295px;}
+	 .c-guide+ .c-infos{ height:218px}
+}
 

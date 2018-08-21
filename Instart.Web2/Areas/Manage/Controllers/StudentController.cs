@@ -63,14 +63,6 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
             ViewBag.Action = action;
 
-            List<SelectListItem> schoolList = new List<SelectListItem>();
-            IEnumerable<School> schools = _schoolService.GetAllAsync();
-            foreach (var item in schools)
-            {
-                schoolList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
-            }
-            ViewBag.SchoolList = schoolList;
-
             List<SelectListItem> teacherList = new List<SelectListItem>();
             IEnumerable<Teacher> teachers = _teacherService.GetAllAsync();
             foreach (var item in teachers)
@@ -266,7 +258,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        [Operation("设置学员课程")]
+        [Operation("设置学员OFFER")]
         public JsonResult SetCourses(int studentId, string courseIds)
         {
             try
@@ -279,6 +271,55 @@ namespace Instart.Web2.Areas.Manage.Controllers
             catch (Exception ex)
             {
                 LogHelper.Error("StudentController.SetCourses异常", ex);
+                return Error(ex.Message);
+            }
+        }
+
+        public ActionResult SchoolSelect(int id = 0)
+        {
+            IEnumerable<School> schoolList = _schoolService.GetAllAsync();
+            IEnumerable<int> selectedList = _studentService.GetSchoolsByIdAsync(id);
+            if (schoolList != null)
+            {
+                foreach (var school in schoolList)
+                {
+                    if (selectedList != null && selectedList.Contains(school.Id))
+                    {
+                        school.IsSelected = true;
+                    }
+                    else
+                    {
+                        school.IsSelected = false;
+                    }
+                }
+            }
+
+            var student = _studentService.GetByIdAsync(id);
+            if (student == null)
+            {
+                throw new Exception("学员不存在");
+            }
+
+            ViewBag.SchoolList = schoolList;
+            ViewBag.StudentId = id;
+            ViewBag.StudentName = student.Name;
+            return View();
+        }
+
+        [HttpPost]
+        [Operation("设置学员OFFER")]
+        public JsonResult SetSchools(int studentId, string schoolIds)
+        {
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = _studentService.SetSchools(studentId, schoolIds)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error("StudentController.SetSchools异常", ex);
                 return Error(ex.Message);
             }
         }

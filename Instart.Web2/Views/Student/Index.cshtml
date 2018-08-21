@@ -54,8 +54,17 @@
                                     <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
                                     <dl>
                                         <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
-                                        <dd class="pe1">录取专业：@item.MajorName</dd>
-                                        <dd class="pe2">offer：@item.SchoolName</dd>
+                                        <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
+                                        <dd class="pe2">
+                                            offer：
+                                            @if (item.SchoolList != null && item.SchoolList.Count > 0)
+                                            {
+                                                foreach (School school in item.SchoolList)
+                                                {
+                                                    <a href="/school/details/@school.Id">@school.Name </a>
+                                                }
+                                            }
+                                        </dd>
                                     </dl>
                                 </div>
                             </li>
@@ -110,7 +119,7 @@
 @section Bottom{
     <script type="text/javascript">
         $(".interlist").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: true, vis: 2, trigger: "click" });
-        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 2, vis: 4 });
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 4, vis: 4 });
         $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2 });
     </script>
 }

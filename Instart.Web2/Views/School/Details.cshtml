@@ -92,10 +92,10 @@
                 <div class="monys">
                     @foreach (SchoolMajor item in ViewBag.MajorBkList)
                     {
-                    <p id="@("here"+item.MajorId)">
-                        @item.MajorName<br />
-                        @item.Introduce
-                    </p>
+                        <p id="@("here"+item.MajorId)">
+                            @item.MajorName<br />
+                            @item.Introduce
+                        </p>
                     }
                 </div>
                 <div class="c-title">研究生</div>
@@ -175,28 +175,45 @@
     <div class="title">
         <h2>院校成功学员</h2>
     </div>
-    <div class="success-people com-cont">
-        <ul>
-            @foreach (Student item in ViewBag.SchoolStudents)
-            {
-                <li>
-                    <div class="peoplecont">
-                        <div class="top"><a href="/student/details/@item.Id"><i></i><span>@item.Motto</span><img src="@item.Avatar" alt="" /></a></div>
-                        <dl>
-                            <dt><a href="#">@item.Name</a></dt>
-                            <dd class="pe1">录取专业：@item.MajorName</dd>
-                            <dd class="pe2">offer：@item.SchoolNameEn @item.SchoolName </dd>
-                        </dl>
-                    </div>
-                </li>
-            }
-        </ul>
+    <div class="chenggong padding30">
+        <div class="success-people com-cont noborder bd">
+            <ul>
+                @foreach (Student item in ViewBag.SchoolStudents)
+                {
+                    <li>
+                        <div class="peoplecont">
+                            <div class="top"><a href="/student/details/@item.Id"><i></i><span>@item.Motto</span><img src="@item.Avatar" alt="" /></a></div>
+                            <dl>
+                                <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
+                                <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
+                                <dd class="pe2">
+                                    offer：
+                                    @if (item.SchoolList != null && item.SchoolList.Count > 0)
+                                    {
+                                        foreach (School school in item.SchoolList)
+                                        {
+                                            <a href="/school/details/@school.Id">@school.Name </a>
+                                        }
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="hd mar-top">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
     </div>
     <!--课程推荐-->
     @Html.Partial("PartialRecommendCourse")
 </div>
 @section Bottom{
     <script type="text/javascript">
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 2, vis: 4, trigger: "click" });
         $(function () {
             //学员座右铭
             $(".peoplecont").hover(function () {

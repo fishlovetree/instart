@@ -196,5 +196,10 @@ namespace Instart.Models
         /// 学历，逗号拼接
         /// </summary>
         public string Education { get; set; }
+
+        /// <summary>
+        /// 被学员模块选中
+        /// </summary>
+        public bool IsSelected { get; set; }
     }
 }

@@ -23,8 +23,16 @@
                         <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
                         <dl>
                             <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
-                            <dd class="pe1">录取专业：@item.MajorName</dd>
-                            <dd class="pe2">offer：@item.SchoolName </dd>
+                            <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
+                            <dd class="pe2">offer：
+                            @if (item.SchoolList != null && item.SchoolList.Count > 0)
+                            {
+                                foreach (School school in item.SchoolList)
+                                {
+                                    <a href="/school/details/@school.Id">@school.Name </a>
+                                }
+                            }
+                            </dd>
                         </dl>
                     </div>
                 </li>

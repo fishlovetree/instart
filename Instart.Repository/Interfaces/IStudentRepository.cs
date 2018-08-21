@@ -31,10 +31,16 @@ namespace Instart.Repository
 
         bool SetCourses(int studentId, string courseIds);
 
+        IEnumerable<int> GetSchoolsByIdAsync(int id);
+
+        bool SetSchools(int studentId, string schoolIds);
+
         List<Student> GetListByCourseAsync(int courseId = -1);
 
         List<Student> GetListByTeacherAsync(int teacherId = -1);
 
         List<Student> GetListByCampusAsync(int campusId = -1, int topCount = 4);
+
+        List<School> GetStudentSchools(int studentId = -1);
     }
 }
