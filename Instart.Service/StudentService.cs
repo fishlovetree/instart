@@ -21,7 +21,9 @@ namespace Instart.Service
                 throw new ArgumentException("id不能为空");
             }
 
-            return _studentRepository.GetByIdAsync(id);
+            Student student = _studentRepository.GetByIdAsync(id);
+            student.SchoolList = _studentRepository.GetStudentSchools(student.Id);
+            return student;
         }
 
         public  PageModel<Student> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {

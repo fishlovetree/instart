@@ -53,13 +53,13 @@
 .peoplecont dt{ padding-top:5px; font-weight:bold;}
 .peoplecont dt a:hover{ color:#2525fe;}
 .peoplecont dd.pe1{ padding:12px 0; color:#666;}
-.peoplecont dd.pe2{ font-size:17px;}
+.peoplecont dd.pe2{ font-size:16px;}
 .teacher li{ margin-bottom:35px;}
 .teacher-cont dl,.list-cont dl{ border:1px dotted #bfbfbf; border-top:0; text-align:center; border-radius:0 0px 5px 5px;}
 .teacher-cont dt{ font-size:18px; padding:13px 0; overflow:hidden; border-bottom:1px dotted #bfbfbf; font-weight:bold; height:18px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .teacher-cont dt a{ display:block;}
 .teacher-cont dt a:hover{ color:#0100fe; -webkit-transform:translateX(10px); transform:translateX(10px)}
-.teacher-cont dd.teac-m{ border-bottom:1px dotted #bfbfbf; height:120px; overflow:hidden; padding:10px 0; line-height:22px;}
+.teacher-cont dd.teac-m{ border-bottom:1px dotted #bfbfbf; height:100px; overflow:hidden; padding:10px 0; line-height:22px;}
 .teacher-cont dd.teac-m p{ margin-bottom:10px;}
 .teacher-cont dd.teac-m p span{ font-size:17px; display:block;}
 .teacher-cont dd.teac-m p small{ font-size:12px; display:block; color:#999;}
@@ -71,7 +71,7 @@
 .s-name{ padding:15px;height:162px; border-bottom:1px dotted #bfbfbf; overflow:hidden; border-left:1px dotted #bfbfbf; border-right:1px dotted #bfbfbf; display:-webkit-box;display:-webkit-flex;-webkit-box-align:center;-webkit-align-items:center;}
 .s-name:hover{ background:#f2f2f2}
 .yuanxiao{ border:1px dotted #bfbfbf; height:130px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:16px; position:relative;}
-.yuanxiao p{ margin-bottom:10px; /*overflow:hidden; text-overflow:ellipsis; white-space:nowrap;*/ height:16px;}
+.yuanxiao p{ margin-bottom:10px; /*overflow:hidden; text-overflow:ellipsis; white-space:nowrap; height:16px;*/}
 .yuanxiao p span{ margin-right:10px; display:inline-block;}
 .yuanxiao .morea{ text-align:right; position:absolute; bottom:10px; right:10px;}
 .yuanxiao .morea a{ color:#808080; display:inline-block; border:1px dotted #c2c2c2; padding:6px 16px; border-radius:6px;}
@@ -135,7 +135,7 @@
 .list-cont dt strong{ font-size:18px;}
 .list-cont dt small{ font-size:13px;}
 .list-cont dt a:hover strong{ color:#0000ff;}
-.list-cont dd.teac-m{ padding:15px; height:255px; overflow:hidden; text-align:left; text-align:justify; text-indent:2em; border-bottom:1px dotted #bebebe; overflow:hidden;}
+.list-cont dd.teac-m{ padding:15px; height:210px; overflow:hidden; text-align:left; text-align:justify; text-indent:2em; border-bottom:1px dotted #bebebe; overflow:hidden;}
 .list-cont dd.teac-b:before{ background:#39b54a;}
 .pagelist{ text-align:center;}
 .pagelist li{ display:inline-block; width:20px; height:20px; line-height:20px; text-indent:-999em; margin:0 6px}
@@ -172,7 +172,7 @@
 .mee-left{ width:43%;}
 .mee-left img{ width:100%; border-radius:5px;}
 .mee-right{ border:1px dotted #bebebe; border-radius:5px; width:54%;}
-.stel{ position:absolute; z-index:1; top:58px; right:16%; width:130px; height:130px; line-height:130px; border-radius:50%; background:#0100fe; text-align:center; font-size:18px; font-weight:bold; -webkit-transform:rotate(-15deg); transform:rotate(-15deg)}
+.stel{ position:absolute; z-index:1; top:28px; right:16%; width:130px; height:130px; line-height:130px; border-radius:50%; background:#0100fe; text-align:center; font-size:18px; font-weight:bold; -webkit-transform:rotate(-15deg); transform:rotate(-15deg)}
 .stel a{ color:#fff; width:100%; height:100%; display:block;}
 .stel a:hover{ -webkit-transform:rotate(360deg); transform:rotate(360deg);}
 .mee-info{}
@@ -321,7 +321,9 @@
 .topborder{ border-top:1px dotted #bebebe;}
 .consequent{ padding-bottom:20px;}
 .quent-img{ overflow:hidden;}
-.quent-img li{ float:left;}
+.quent-img ul{ margin-left:-20px!important; margin-right:-20px!important;}
+.quent-img li{ float:left; width:50%;}
+.quent-img li a{ padding:0 20px; display:block;}
 .quent-img li img{ width:100%;}
 /*特色*/
 .inslist{ margin-bottom:30px; position:relative; height:84px;}
@@ -395,8 +397,9 @@
 #contmain{ width:100%;}
 
 @media screen and (max-width: 1500px){
+	 .peoplecont dl{ height:200px;}
      .nav ul{ padding-right:23%}
-	 .teacher-cont dd.teac-m{ height:140px!important;}
+	 .teacher-cont dd.teac-m{ height:125px!important;}
 	 .list-cont dd.teac-m{ height:295px;}
 	 .c-guide+ .c-infos{ height:218px}
 }
