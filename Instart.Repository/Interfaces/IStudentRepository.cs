@@ -41,6 +41,8 @@ namespace Instart.Repository
 
         List<Student> GetListByCampusAsync(int campusId = -1, int topCount = 4);
 
+        List<Student> GetListByDivisionAsync(int divisionId = -1);
+
         List<School> GetStudentSchools(int studentId = -1);
     }
 }

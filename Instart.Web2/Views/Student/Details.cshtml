@@ -27,11 +27,17 @@
                     <dd><em>姓名: </em><span>@Model.Name</span></dd>
                     <dd><em>院校背景: </em><span><a href="#">@Model.Background</a></span></dd>
                     <dd><em>OFFER: </em><span>
-                    @if (Model.SchoolList != null && Model.SchoolList.Count > 0)
+                    @if (Model.SchoolIds != null)
                     {
-                        foreach (School school in Model.SchoolList)
+                        string[] ids = Model.SchoolIds.Split(',');
+                        string[] names = Model.SchoolNames.Split(',');
+                        for (int i = 0; i < ids.Length; i++)
                         {
-                            <a href="/school/details/@school.Id">@school.Name </a>
+                            if (!String.IsNullOrEmpty(ids[i]))
+                            {
+                                <a href="/school/details/@ids[i]">@names[i] </a>
+                            }
+
                         }
                     }</span></dd>
                 </dl>
@@ -63,12 +69,18 @@
                                         <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
                                         <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
                                         <dd class="pe2">
-                                            offer：
-                                            @if (item.SchoolList != null && item.SchoolList.Count > 0)
+                                            OFFER：
+                                            @if (item.SchoolIds != null)
                                             {
-                                                foreach (School school in item.SchoolList)
+                                                string[] ids = item.SchoolIds.Split(',');
+                                                string[] names = item.SchoolNames.Split(',');
+                                                for (int i = 0; i < ids.Length; i++)
                                                 {
-                                                    <a href="/school/details/@school.Id">@school.Name </a>
+                                                    if (!String.IsNullOrEmpty(ids[i]))
+                                                    {
+                                                        <a href="/school/details/@ids[i]">@names[i] </a>
+                                                    }
+
                                                 }
                                             }
                                         </dd>

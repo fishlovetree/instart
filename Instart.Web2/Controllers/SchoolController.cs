@@ -59,14 +59,12 @@ namespace Instart.Web2.Controllers
                 int count = 0;
                 foreach (Student student in studentList)
                 {
-                    if (student.SchoolList != null)
+                    if (student.SchoolIds != null)
                     {
-                        foreach (School studentSchool in student.SchoolList)
+                        string[] ids = student.SchoolIds.Split(',');
+                        if (ids.Contains(school.Id.ToString()))
                         {
-                            if (studentSchool.Id == school.Id)
-                            {
-                                count++;
-                            }
+                            count++;
                         }
                     }
                 }
@@ -108,15 +106,13 @@ namespace Instart.Web2.Controllers
             int count = 0;
             foreach (Student student in studentList)
             {
-                if (student.SchoolList != null)
+                if (student.SchoolIds != null)
                 {
-                    foreach (School studentSchool in student.SchoolList)
+                    string[] ids = student.SchoolIds.Split(',');
+                    if (ids.Contains(school.Id.ToString()))
                     {
-                        if (studentSchool.Id == school.Id)
-                        {
-                            schoolStudents.Add(student);
-                            count++;
-                        }
+                        schoolStudents.Add(student);
+                        count++;
                     }
                 }
             }

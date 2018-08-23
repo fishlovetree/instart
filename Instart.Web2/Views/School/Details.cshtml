@@ -33,7 +33,7 @@
     <div class="coll-background overflow">
         <div class="coll-back-left fl">
             <div class="coll-info detton">
-                <p><span><i class="glaxfont">国家:</i> @Model.Country.GetDescription()</span><span><i class="glaxfont">留学预算:</i> @Model.Fee</span><span><i class="glaxfont">平均奖学金:</i> @Model.Scholarship</span></p>
+                <p><span><i class="glaxfont">国家:</i> @Model.Country.GetDescription()</span><span><i class="glaxfont">留学预算:</i> @Model.Fee</span></p>
                 <p><span><i class="glaxfont">申请截止日期:</i> @Model.LimitDate</span></p>
                 <p><span><i class="glaxfont">语言要求:</i> @Model.Language</span></p>
                 <p><span><i class="glaxfont">优势专业:</i> @Model.RecommendMajor</span></p>
@@ -187,12 +187,18 @@
                                 <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
                                 <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
                                 <dd class="pe2">
-                                    offer：
-                                    @if (item.SchoolList != null && item.SchoolList.Count > 0)
+                                    OFFER：
+                                    @if (item.SchoolIds != null)
                                     {
-                                        foreach (School school in item.SchoolList)
+                                        string[] ids = item.SchoolIds.Split(',');
+                                        string[] names = item.SchoolNames.Split(',');
+                                        for (int i = 0; i < ids.Length; i++)
                                         {
-                                            <a href="/school/details/@school.Id">@school.Name </a>
+                                            if (!String.IsNullOrEmpty(ids[i]))
+                                            {
+                                                <a href="/school/details/@ids[i]">@names[i] </a>
+                                            }
+
                                         }
                                     }
                                 </dd>
@@ -213,7 +219,7 @@
 </div>
 @section Bottom{
     <script type="text/javascript">
-        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 2, vis: 4, trigger: "click" });
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
         $(function () {
             //学员座右铭
             $(".peoplecont").hover(function () {

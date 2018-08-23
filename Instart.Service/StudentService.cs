@@ -21,9 +21,7 @@ namespace Instart.Service
                 throw new ArgumentException("id不能为空");
             }
 
-            Student student = _studentRepository.GetByIdAsync(id);
-            student.SchoolList = _studentRepository.GetStudentSchools(student.Id);
-            return student;
+            return _studentRepository.GetByIdAsync(id);
         }
 
         public  PageModel<Student> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {
@@ -32,13 +30,7 @@ namespace Instart.Service
 
         public  IEnumerable<Student> GetAllAsync()
         {
-            IEnumerable<Student> list = _studentRepository.GetAllAsync();
-            //获取学员OFFER
-            foreach (Student item in list)
-            {
-                item.SchoolList = _studentRepository.GetStudentSchools(item.Id);
-            }
-            return list;
+            return _studentRepository.GetAllAsync();
         }
 
         public  IEnumerable<Student> GetStarStudentsAsync()
@@ -89,13 +81,7 @@ namespace Instart.Service
                 return null;
             }
 
-            List<Student> list = _studentRepository.GetRecommendListAsync(topCount);
-            //获取学员OFFER
-            foreach (Student item in list) 
-            {
-                item.SchoolList = _studentRepository.GetStudentSchools(item.Id);
-            }
-            return list;
+            return _studentRepository.GetRecommendListAsync(topCount);
         }
 
         public bool SetRecommend(int id, bool isRecommend)
@@ -125,35 +111,22 @@ namespace Instart.Service
 
         public List<Student> GetListByCourseAsync(int courseId = -1)
         {
-            List<Student> list = _studentRepository.GetListByCourseAsync(courseId);
-            //获取学员OFFER
-            foreach (Student item in list)
-            {
-                item.SchoolList = _studentRepository.GetStudentSchools(item.Id);
-            }
-            return list;
+            return _studentRepository.GetListByCourseAsync(courseId);
         }
 
         public List<Student> GetListByTeacherAsync(int teacherId = -1)
         {
-            List<Student> list = _studentRepository.GetListByTeacherAsync(teacherId);
-            //获取学员OFFER
-            foreach (Student item in list)
-            {
-                item.SchoolList = _studentRepository.GetStudentSchools(item.Id);
-            }
-            return list;
+            return _studentRepository.GetListByTeacherAsync(teacherId);
         }
 
         public List<Student> GetListByCampusAsync(int campusId = -1, int topCount = 4) 
         {
-            List<Student> list = _studentRepository.GetListByCampusAsync(campusId, topCount);
-            //获取学员OFFER
-            foreach (Student item in list)
-            {
-                item.SchoolList = _studentRepository.GetStudentSchools(item.Id);
-            }
-            return list;
+            return _studentRepository.GetListByCampusAsync(campusId, topCount);
+        }
+
+        public List<Student> GetListByDivisionAsync(int divisionId = -1)
+        {
+            return _studentRepository.GetListByDivisionAsync(divisionId);
         }
     }
 }

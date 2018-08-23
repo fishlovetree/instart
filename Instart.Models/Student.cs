@@ -157,8 +157,13 @@ namespace Instart.Models
         public string Motto { get; set; }
 
         /// <summary>
-        /// OFFER列表
+        /// OFFER ID列表，逗号拼接
         /// </summary>
-        public List<School> SchoolList { get; set; }
+        public string SchoolIds { get; set; }
+
+        /// <summary>
+        /// OFFER Name列表，逗号拼接
+        /// </summary>
+        public string SchoolNames { get; set; }
     }
 }

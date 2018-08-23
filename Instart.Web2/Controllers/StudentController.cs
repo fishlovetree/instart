@@ -34,22 +34,19 @@ namespace Instart.Web2.Controllers
                 int count = 0;
                 foreach (Student student in studentList)
                 {
-                    if (student.SchoolList != null)
+                    if (student.SchoolIds != null)
                     {
-                        foreach (School studentSchool in student.SchoolList)
+                        string[] ids = student.SchoolIds.Split(',');
+                        if (ids.Contains(school.Id.ToString()))
                         {
-                            if (studentSchool.Id == school.Id)
-                            {
-                                count++;
-                            }
+                            count++;
                         }
                     }
                 }
                 school.AcceptRate = "0";
-                if (schoolList.Count() > 0)
+                if (studentList.Count() > 0)
                 {
-                    decimal rate = (decimal)(count) / schoolList.Count();
-                    Console.Write(rate);
+                    decimal rate = (decimal)(count) / studentList.Count();
                     school.AcceptRate = (rate * 100).ToString("f2");
                 }
             }
@@ -105,7 +102,7 @@ namespace Instart.Web2.Controllers
                 throw new Exception("成功学员不存在。");
             }
             Student student =  _studentService.GetByIdAsync(id);
-            IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
+            IEnumerable<Student> studentList = ( _studentService.GetListByDivisionAsync(student.DivisionId)) ?? new List<Student>();
             ViewBag.StudentList = studentList;
             return View(student ?? new Student());
         }

@@ -97,7 +97,21 @@
                         <dl>
                             <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
                             <dd class="pe1">@item.MajorName</dd>
-                            <dd class="pe2">offer：@item.SchoolName </dd>
+                            <dd class="pe2">OFFER：
+                            @if (item.SchoolIds != null)
+                            {
+                                string[] ids = item.SchoolIds.Split(',');
+                                string[] names = item.SchoolNames.Split(',');
+                                for (int i = 0; i < ids.Length; i++)
+                                {
+                                    if (!String.IsNullOrEmpty(ids[i]))
+                                    {
+                                        <a href="/school/details/@ids[i]">@names[i] </a>
+                                    }
+
+                                }
+                            }
+                            </dd>
                         </dl>
                     </div>
                 </li>

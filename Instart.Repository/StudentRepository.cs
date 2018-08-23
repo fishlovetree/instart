@@ -15,11 +15,16 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = @"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
                      c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn,d.BgColor as DivisionColor, 
-                     f.Name as CampusName, f.NameEn as CampusNameEn from Student t 
+                     f.Name as CampusName, f.NameEn as CampusNameEn, s.SchoolIds, s.SchoolNames from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [Division] as d on d.Id = t.DivisionId 
                      left join [Campus] as f on f.Id = t.CampusId
+                     left join (SELECT StudentId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolIds,
+                     (SELECT r.Name +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
+                     ) s ON s.StudentId = t.Id
                      where t.Id = @Id and t.Status=1;";
                 return conn.QueryFirstOrDefault<Student>(sql, new { Id = id });
             }
@@ -73,11 +78,17 @@ namespace Instart.Repository
 
                 string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
                      c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
-                     f.Name as CampusName, f.NameEn as CampusNameEn from Student t 
+                     f.Name as CampusName, f.NameEn as CampusNameEn, s.SchoolIds, s.SchoolNames from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [Division] as d on d.Id = t.DivisionId
-                     left join [Campus] as f on f.Id = t.CampusId {0} order by t.Id;", where);
+                     left join [Campus] as f on f.Id = t.CampusId 
+                     left join (SELECT StudentId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolIds,
+                     (SELECT r.Name +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
+                     ) s ON s.StudentId = t.Id 
+                     {0} order by t.Id;", where);
                 return conn.Query<Student>(sql);
             }
         }
@@ -98,7 +109,7 @@ namespace Instart.Repository
         public bool InsertAsync(Student model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { "Id","MajorName", "MajorNameEn", "TeacherName", "TeacherNameEn",
-                    "DivisionName", "DivisionNameEn", "DivisionColor", "IsRecommend", "CampusName", "CampusNameEn", "SchoolList"});
+                    "DivisionName", "DivisionNameEn", "DivisionColor", "IsRecommend", "CampusName", "CampusNameEn", "SchoolIds", "SchoolNames"});
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -117,7 +128,8 @@ namespace Instart.Repository
                 var fields = model.ToFields(removeFields: new List<string>
                 {
                     "Id", "MajorName", "MajorNameEn", "TeacherName", "TeacherNameEn",
-                    "DivisionName", "DivisionNameEn", "DivisionColor", "IsRecommend", "Status", "CreateTime", "CampusName", "CampusNameEn", "SchoolList"
+                    "DivisionName", "DivisionNameEn", "DivisionColor", "IsRecommend", "Status", 
+                    "CreateTime", "CampusName", "CampusNameEn", "SchoolIds", "SchoolNames"
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -149,11 +161,16 @@ namespace Instart.Repository
             {
                 string sql = string.Format(@"select top {0} t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
                      c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
-                     f.Name as CampusName, f.NameEn as CampusNameEn from Student t 
+                     f.Name as CampusName, f.NameEn as CampusNameEn, s.SchoolIds, s.SchoolNames from Student t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [Division] as d on d.Id = t.DivisionId
-                     left join [Campus] as f on f.Id = t.CampusId
+                     left join [Campus] as f on f.Id = t.CampusId 
+                     left join (SELECT StudentId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolIds,
+                     (SELECT r.Name +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
+                     ) s ON s.StudentId = t.Id 
                      where t.Status=1 and t.IsRecommend=1
                      order by t.Id Desc;", topCount);
                 var list = conn.Query<Student>(sql, null);
@@ -276,12 +293,17 @@ namespace Instart.Repository
             {
                 string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
                      c.NameEn as TeacherNameEn, d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor,
-                     f.Name as CampusName, f.NameEn as CampusNameEn from StudentCourse s 
+                     f.Name as CampusName, f.NameEn as CampusNameEn, k.SchoolIds, k.SchoolNames from StudentCourse s 
                      left join [STUDENT] as t on s.StudentId = t.Id
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [Division] as d on d.Id = t.DivisionId
-                     left join [Campus] as f on f.Id = t.CampusId
+                     left join [Campus] as f on f.Id = t.CampusId 
+                     left join (SELECT StudentId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolIds,
+                     (SELECT r.Name +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
+                     ) k ON k.StudentId = t.Id 
                      where s.CourseId = {0} and t.Status=1
                      order by t.Id Desc;", courseId);
                 var list = conn.Query<Student>(sql, null);
@@ -294,12 +316,17 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, d.Name as DivisionName, 
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, k.SchoolIds, k.SchoolNames,
                      d.NameEn as DivisionNameEn, d.BgColor as DivisionColor, f.Name as CampusName, f.NameEn as CampusNameEn from [STUDENT] t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [Division] as d on d.Id = t.DivisionId
-                     left join [Campus] as f on f.Id = t.CampusId
+                     left join [Campus] as f on f.Id = t.CampusId 
+                     left join (SELECT StudentId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolIds,
+                     (SELECT r.Name +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
+                     ) k ON k.StudentId = t.Id 
                      where t.TeacherId = {0} and t.Status=1
                      order by t.Id Desc;", teacherId);
                 var list = conn.Query<Student>(sql, null);
@@ -312,14 +339,42 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = string.Format(@"select top {0} t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
-                     c.NameEn as TeacherNameEn, d.Name as DivisionName, 
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, k.SchoolIds, k.SchoolNames,
                      d.NameEn as DivisionNameEn, d.BgColor as DivisionColor, f.Name as CampusName, f.NameEn as CampusNameEn from [STUDENT] t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Teacher] as c on c.Id = t.TeacherId 
                      left join [Division] as d on d.Id = t.DivisionId
-                     left join [Campus] as f on f.Id = t.CampusId
+                     left join [Campus] as f on f.Id = t.CampusId 
+                     left join (SELECT StudentId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolIds,
+                     (SELECT r.Name +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
+                     ) k ON k.StudentId = t.Id 
                      where t.CampusId = {1} and t.Status=1
                      order by t.Id Desc;", topCount, campusId);
+                var list = conn.Query<Student>(sql, null);
+                return list != null ? list.ToList() : null;
+            }
+        }
+
+        public List<Student> GetListByDivisionAsync(int divisionId = -1)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, c.Name as TeacherName, 
+                     c.NameEn as TeacherNameEn, d.Name as DivisionName, k.SchoolIds, k.SchoolNames,
+                     d.NameEn as DivisionNameEn, d.BgColor as DivisionColor, f.Name as CampusName, f.NameEn as CampusNameEn from [STUDENT] t 
+                     left join [Major] as b on b.Id = t.MajorId 
+                     left join [Teacher] as c on c.Id = t.TeacherId 
+                     left join [Division] as d on d.Id = t.DivisionId
+                     left join [Campus] as f on f.Id = t.CampusId 
+                     left join (SELECT StudentId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolIds,
+                     (SELECT r.Name +',' FROM [StudentSchool] ss LEFT JOIN [School] r ON r.Id = ss.SchoolId
+                     WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
+                     ) k ON k.StudentId = t.Id 
+                     where t.DivisionId = {0} and t.Status=1
+                     order by t.Id Desc;", divisionId);
                 var list = conn.Query<Student>(sql, null);
                 return list != null ? list.ToList() : null;
             }
