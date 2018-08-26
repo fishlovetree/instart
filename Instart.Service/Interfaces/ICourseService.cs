@@ -15,6 +15,8 @@ namespace Instart.Service
 
         IEnumerable<Course> GetAllAsync();
 
+        IEnumerable<Course> GetListBySystemId(int systemId);
+
         IEnumerable<Course> GetAllByStudentAsync(int studentId);
 
         bool InsertAsync(Course model);

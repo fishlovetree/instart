@@ -48,11 +48,6 @@ namespace Instart.Models
         public string Apply { get; set; }
 
         /// <summary>
-        /// 专业类型
-        /// </summary>
-        public EnumMajorType Type { get; set; }
-
-        /// <summary>
         /// 所属学部
         /// </summary>
         public int DivisionId { get; set; }

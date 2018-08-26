@@ -7,12 +7,12 @@
 }
 
 <div class="maincont padding30 overflow">
-    <div class="course-info com-cont" id="main">
+    <div class="program-info com-cont" id="main">
         <ul>
             @foreach (Company item in Model)
             {
                 <li>
-                    <div class="course-item">
+                    <div class="program-item">
                         <a href="/about/companydetail/@item.Id" class="cimg"><img src="@item.ImgUrl" alt="" /></a>
                         <div class="c-guide">
                             <p> <b><a href="/about/companydetail/@item.Id">@item.Name</a></b> <span>@item.NameEn</span> </p>

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Copys.cs" />
     <Compile Include="CompanyApply.cs" />
+    <Compile Include="CourseSystem.cs" />
     <Compile Include="ProgramApply.cs" />
     <Compile Include="CourseOrder.cs" />
     <Compile Include="WorksComment.cs" />

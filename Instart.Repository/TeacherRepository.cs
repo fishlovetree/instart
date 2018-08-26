@@ -98,7 +98,8 @@ namespace Instart.Repository
                     "SchoolNameEn",
                     "MajorName",
                     "MajorNameEn",
-                    "IsSelected"
+                    "IsSelected",
+                    "IsRecommend"
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -134,7 +135,7 @@ namespace Instart.Repository
                                 left join Major m on t.MajorId = m.Id
                                 left join Division d on t.DivisionId = d.Id
                                 where t.Status = 1 and t.IsRecommend = 1
-                                order by t.Id desc;", topCount);
+                                order by t.Id;", topCount);
                 var list = conn.Query<Teacher>(sql, null);
                 return list != null ? list.ToList() : null;
             }
@@ -217,7 +218,7 @@ namespace Instart.Repository
                                 left join Major m on t.MajorId = m.Id
                                 left join Division d on t.DivisionId = d.Id
                                 where t.DivisionId = @DivisionId and t.Status = 1 
-                                order by t.Id desc) as b 
+                                order by t.Id) as b 
                                 where RowNumber between {0} and {1};", ((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
 
                 var list = conn.Query<Teacher>(sql, new { DivisionId = divisionId });
@@ -229,6 +230,20 @@ namespace Instart.Repository
                 };
 
                 return result;
+            }
+        }
+
+        public List<SchoolMajor> GetSchoolListByTeacher(int teacherId)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select distinct r.Id as SchoolId, r.Name as SchoolName, r.Logo as SchoolLogo, m.Id as MajorId, m.Name as MajorName 
+                    from [Student] s left join StudentSchool ss on s.Id = ss.StudentId
+                    left join School r on r.Id = ss.SchoolId
+                    left join Major m on m.Id = s.MajorId
+                    where s.TeacherId = {0} and r.Id is not null order by r.Id;", teacherId);
+                var list = conn.Query<SchoolMajor>(sql, null);
+                return list != null ? list.ToList() : null;
             }
         }
     }

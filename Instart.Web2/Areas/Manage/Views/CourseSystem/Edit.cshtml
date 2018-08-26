@@ -1,20 +1,20 @@
 ﻿@using Instart.Models
 @using Instart.Web2.Infrastructures
-@model Instart.Models.Course
+@model Instart.Models.CourseSystem
 
 @{
-    ViewBag.Title = "课程设置";
+    ViewBag.Title = "课程体系设置";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
     @Html.Partial("PartialSchool")
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
         <ol class="breadcrumb">
-            <li><a href="/manage/course">课程管理</a></li>
+            <li><a href="/manage/coursesystem">课程体系</a></li>
             <li class="active">@ViewBag.Action</li>
         </ol>
 
-        @using (Html.BeginForm("Set", "Course", new
+        @using (Html.BeginForm("Set", "CourseSystem", new
         {
             area = "Manage"
         }, FormMethod.Post, new
@@ -27,7 +27,7 @@
         {
             @Html.HiddenFor(m => m.Id)
             <div class="form-group">
-                <label class="col-sm-2 control-label">课程名称：</label>
+                <label class="col-sm-2 control-label">体系名称：</label>
                 <div class="col-sm-10">
                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                 </div>
@@ -41,43 +41,32 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">课程体系：</label>
-                <div class="col-sm-10">
-                    @Html.DropDownListFor(m => m.SystemId, @ViewBag.systemList as IEnumerable<SelectListItem>, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="col-sm-2 control-label">主题图片：</label>
                 <div class="col-sm-10">
-                    <img src="@Model.Picture" id="coursePreview" style="width:200px;height:200px;border:1px solid #eee;" />
+                    <img src="@Model.Picture" id="avatarPreview" style="width:80%;height:100px;border:1px solid #eee;" />
                     <input type="hidden" name="Picture" value="@Model.Picture" />
-                    <a href="javascript:void(0)" onclick="$('#fileCourse').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
-                    <input type='file' id='fileCourse' name='fileCourse' style='display:none;'>
+                    <a href="javascript:void(0)" onclick="$('#fileAvatar').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <input type='file' id='fileAvatar' name='fileAvatar' style='display:none;'>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">课程简介：</label>
+                <label class="col-sm-2 control-label">Banner图片：</label>
+                <div class="col-sm-10">
+                    <img src="@Model.BannerImg" id="bannerPreview" style="width:80%;height:100px;border:1px solid #eee;" />
+                    <input type="hidden" name="BannerImg" value="@Model.BannerImg" />
+                    <a href="javascript:void(0)" onclick="$('#fileBanner').click()" class="btn-link" style="position:relative;top:40px;">点击上传</a>
+                    <input type='file' id='fileBanner' name='fileBanner' style='display:none;'>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">体系简介：</label>
                 <div class="col-sm-10">
                     <textarea name="Introduce" id="Introduce" rows="15" class="form-control">@Model.Introduce</textarea>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">针对人群：</label>
-                <div class="col-sm-10">
-                    <textarea name="ForPeople" id="ForPeople" rows="15" class="form-control">@Model.ForPeople</textarea>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">课程过程：</label>
-                <div class="col-sm-10">
-                    <textarea name="Process" id="Process" style="height:400px;">@Html.Raw(Model.Process)</textarea>
-                </div>
-            </div>
-
+            
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="button" class="btn btn-success" value="提交" onclick="save()" />
@@ -91,22 +80,24 @@
 @section Bottom{
     <script>
         $(function () {
-            UE.getEditor('Process');
+            $('#fileAvatar').change(function () {
+                imagePreview(this.files[0], $("#avatarPreview"));
+            });
 
-            $('#fileCourse').change(function () {
-                imagePreview(this.files[0], $("#coursePreview"));
+            $('#fileBanner').change(function () {
+                imagePreview(this.files[0], $("#bannerPreview"));
             });
         })
         function save() {
             var name = $("input[name='Name']").val();
             if (name == '') {
-                layer.msg('课程名称不能为空。');
+                layer.msg('体系名称不能为空。');
                 return;
             }
             $("#mainForm").ajaxSubmit({
                 success: function (slt) {
                     if (slt && slt.success) {
-                        location.href = '@Url.Action("index", "course", new { area="manage"})';
+                        location.href = '@Url.Action("index", "coursesystem", new { area="manage"})';
                     }
                     else {
                         layer.msg(slt.message || '操作失败，请重试。');

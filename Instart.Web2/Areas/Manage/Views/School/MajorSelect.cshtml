@@ -80,7 +80,7 @@
                                 </label>
                             </div>
                         </p>
-                        <textarea id="@("taIntroduce" + item.Id)" rows="8" style="width: 150px;" placeholder="专业简介">@item.SchoolInfo</textarea>
+                        <textarea id="@("taIntroducebk" + item.Id)" rows="8" style="width: 150px;" placeholder="专业简介">@item.SchoolInfo</textarea>
                     </li>
                 }
             </ul>
@@ -110,7 +110,7 @@
                                 </label>
                             </div>
                         </p>
-                        <textarea id="@("taIntroduce" + item.Id)" rows="8" style="width: 150px;" placeholder="专业简介">@item.SchoolInfo</textarea>
+                        <textarea id="@("taIntroduceyjs" + item.Id)" rows="8" style="width: 150px;" placeholder="专业简介">@item.SchoolInfo</textarea>
                     </li>
                 }
             </ul>
@@ -151,28 +151,32 @@
         })
 
         function save() {
-            var majorIds = [];
-            var majorIntroduces = [];
+            var bkmajorIds = [];
+            var bkmajorIntroduces = [];
+            var yjsmajorIds = [];
+            var yjsmajorIntroduces = [];
             $("input[name='chkMajorBk']").each(function () {
                 if ($(this).is(":checked")) {
-                    majorIds.push($(this).attr("data-id"));
-                    majorIntroduces.push($("#taIntroduce" + $(this).attr("data-id")).val());
+                    bkmajorIds.push($(this).attr("data-id"));
+                    bkmajorIntroduces.push($("#taIntroducebk" + $(this).attr("data-id")).val());
                 }
             })
             $("input[name='chkMajorYjs']").each(function () {
                 if ($(this).is(":checked")) {
-                    majorIds.push($(this).attr("data-id"));
-                    majorIntroduces.push($("#taIntroduce" + $(this).attr("data-id")).val());
+                    yjsmajorIds.push($(this).attr("data-id"));
+                    yjsmajorIntroduces.push($("#taIntroduceyjs" + $(this).attr("data-id")).val());
                 }
             })
-            $.post('/manage/school/setmajors', { 'schoolId': $("#schoolId").val(), 'majorIds': majorIds.join(','), 'introduces': majorIntroduces.join('|') }, function (slt) {
-                if (slt && slt.success) {
-                    layer.msg('保存成功。');
-                }
-                else {
-                    layer.msg(slt.message || '操作失败，请重试。');
-                }
-            });
+            $.post('/manage/school/setmajors', {
+                'schoolId': $("#schoolId").val(), 'bkmajorIds': bkmajorIds.join(','), 'bkintroduces': bkmajorIntroduces.join('|'), 'yjsmajorIds': yjsmajorIds.join(','), 'yjsintroduces': yjsmajorIntroduces.join('|')
+                }, function (slt) {
+                    if (slt && slt.success) {
+                        layer.msg('保存成功');
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试。');
+                    }
+                });
         }
     </script>
 }

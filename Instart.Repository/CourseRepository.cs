@@ -20,7 +20,7 @@ namespace Instart.Repository
             }
         }
 
-        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, int type = -1, string name = null)
+        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, int systemId = -1, string name = null)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -30,9 +30,9 @@ namespace Instart.Repository
                 {
                     where += string.Format(" and a.Name like '%{0}%'",name);
                 }
-                if (type != -1)
+                if (systemId != -1)
                 {
-                    where += string.Format(" and a.Type = {0}",type);
+                    where += string.Format(" and a.SystemId = {0}", systemId);
                 }
                 #endregion
 
@@ -44,9 +44,9 @@ namespace Instart.Repository
                 }
 
                 string sql = string.Format(@"select * from (
-                     select a.*, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Course] as a {0}
-                     ) as c
-                     where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
+                     select a.*, s.Name as SystemName, s.NameEn as SystemNameEn, ROW_NUMBER() over (Order by a.Id desc) as RowNumber 
+                     from [Course] as a left join [CourseSystem] s on a.SystemId = s.Id {0} ) as c
+                     where RowNumber between {1} and {2};", where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Course>(sql);
 
                 return new PageModel<Course>
@@ -62,10 +62,19 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 #region generate condition
-                string where = "where Status=1";
+                string where = "where a.Status=1";
                 #endregion
 
-                string sql = string.Format(@"select * from [Course] {0};",where);
+                string sql = string.Format(@"select a.*, s.Name as SystemName, s.NameEn as SystemNameEn from [Course] as a left join [CourseSystem] s on a.SystemId = s.Id {0};", where);
+                return conn.Query<Course>(sql);
+            }
+        }
+
+        public IEnumerable<Course> GetListBySystemId(int systemId)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select a.*, s.Name as SystemName, s.NameEn as SystemNameEn from [Course] as a left join [CourseSystem] s on a.SystemId = s.Id where a.SystemId = {0};", systemId);
                 return conn.Query<Course>(sql);
             }
         }
@@ -83,7 +92,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { "Id", "IsSelected"});
+                var fields = model.ToFields(removeFields: new List<string> { "Id", "IsSelected", "SystemName", "SystemNameEn"});
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -108,7 +117,9 @@ namespace Instart.Repository
                     "CreateTime",
                     "Status",
                     "IsSelected",
-                    "IsRecommend"
+                    "IsRecommend", 
+                    "SystemName", 
+                    "SystemNameEn"
                 };
                 var fields = model.ToFields(removeFields: removeFields);
 
@@ -143,7 +154,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format(@"select top {0} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and Type = 1 and IsRecommend=1 order by Id desc;", topCount);
+                string sql = string.Format(@"select top {0} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and Type = 1 and IsRecommend=1 order by Id;", topCount);
                 var list = conn.Query<Course>(sql, null);
                 return list != null ? list.ToList() : null;
             }

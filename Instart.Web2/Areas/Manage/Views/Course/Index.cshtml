@@ -16,10 +16,12 @@
             <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
             <form method="post" action="" target="_self" class="form-inline">
                 <div class="form-group">
-                    <select id="selType" name="type" class="form-control" style="width:100px;">
+                    <select id="selSystem" name="SystemId" class="form-control" style="width:100px;">
                         <option value="-1">全部</option>
-                        <option value="1">常规课程</option>
-                        <option value="2">体系课程</option>
+                        @foreach (CourseSystem item in ViewBag.systemList)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
                     </select>
                 </div>
                 <div class="form-group">
@@ -36,7 +38,7 @@
                     <th>#</th>
                     <th>课程名称</th>
                     <th>主题图片</th>
-                    <th>课程类型</th>
+                    <th>课程体系</th>
                     <th>创建时间</th>
                     <th>推荐首页</th>
                     <th>操作</th>
@@ -53,7 +55,7 @@
                             <td>
                                 <img src="@item.Picture" style="width:100px;height:100px" alt="" />
                             </td>
-                            <td>@(item.Type == 1 ? "常规课程" : "体系课程")</td>
+                            <td>@item.SystemName</td>
                             <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                             <td>
                                 @if (item.IsRecommend)
@@ -96,7 +98,7 @@
 @section Bottom{
     <script>
         $(function () {
-            $("#selType").val("@ViewBag.Type");
+            $("#selSystem").val("@ViewBag.SystemId");
 
             $(".chkRecommend").click(function () {
                 var checked = $(this).is(":checked");

@@ -61,7 +61,9 @@
   <ItemGroup>
     <Compile Include="CopysRepository.cs" />
     <Compile Include="CompanyApplyRepository.cs" />
+    <Compile Include="CourseSystemRepository.cs" />
     <Compile Include="Interfaces\ICompanyApplyRepository.cs" />
+    <Compile Include="Interfaces\ICourseSystemRepository.cs" />
     <Compile Include="ProgramApplyRepository.cs" />
     <Compile Include="CourseOrderRepository.cs" />
     <Compile Include="Interfaces\IProgramApplyRepository.cs" />

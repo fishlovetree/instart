@@ -152,7 +152,7 @@ namespace Instart.Repository
 
                 string sql = string.Format(@"select * from (
                      select a.Id,a.Name,a.NameEn,a.Introduce,a.CreateTime,a.DivisionId,b.Name as DivisionName,b.NameEn as DivisionNameEn,
-                     b.BgColor as DivisionColor,a.ImgUrl, ROW_NUMBER() over (Order by a.Id desc) as RowNumber from [Major] as a
+                     b.BgColor as DivisionColor,a.ImgUrl, ROW_NUMBER() over (Order by a.Id) as RowNumber from [Major] as a
                      left join [Division] as b on b.Id = a.DivisionId where a.Status=1 and a.DivisionId={0}
                      ) as c
                      where RowNumber between {1} and {2};", divisionId,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);

@@ -52,11 +52,6 @@ namespace Instart.Web2.Areas.Manage.Controllers
             }
 
             ViewBag.Action = action;
-            List<SelectListItem> typeList = new List<SelectListItem>();
-            typeList.Add(new SelectListItem { Text = "本科", Value = "0" });
-            typeList.Add(new SelectListItem { Text = "研究生", Value = "1" });
-            ViewBag.typeList = typeList;
-
             List<SelectListItem> divisionList = new List<SelectListItem>();
             IEnumerable<Division> divisions = _divisionService.GetAllAsync();
             foreach (var item in divisions)

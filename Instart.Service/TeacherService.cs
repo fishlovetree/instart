@@ -121,5 +121,10 @@ namespace Instart.Service
 
             return _teacherRepository.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
         }
+
+        public List<SchoolMajor> GetSchoolListByTeacher(int teacherId) 
+        {
+            return _teacherRepository.GetSchoolListByTeacher(teacherId);
+        }
     }
 }

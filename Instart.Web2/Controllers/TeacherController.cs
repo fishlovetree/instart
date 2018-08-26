@@ -72,7 +72,7 @@ namespace Instart.Web2.Controllers
             }
 
             ViewBag.CourseList = _teacherService.GetCoursesByIdAsync(id) ?? new List<Instart.Models.Course>();
-            ViewBag.StudentList = _studentService.GetListByTeacherAsync(id) ?? new List<Instart.Models.Student>();
+            ViewBag.SchoolList = _teacherService.GetSchoolListByTeacher(id) ?? new List<SchoolMajor>();
             return View(teacher);
         }
 

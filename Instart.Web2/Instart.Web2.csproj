@@ -133,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Manage\Controllers\CopysController.cs" />
     <Compile Include="Areas\Manage\Controllers\CompanyApplyController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CourseSystemController.cs" />
     <Compile Include="Areas\Manage\Controllers\ProgramApplyController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseOrderController.cs" />
     <Compile Include="Areas\Manage\Controllers\WorksCommentController.cs" />
@@ -899,6 +900,8 @@
     <Content Include="Areas\Manage\Views\ProgramApply\Index.cshtml" />
     <Content Include="Areas\Manage\Views\CompanyApply\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Student\SchoolSelect.cshtml" />
+    <Content Include="Areas\Manage\Views\CourseSystem\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\CourseSystem\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Instart.pubxml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -964,6 +967,7 @@
     <Content Include="Views\About\Show.cshtml" />
     <Content Include="Views\About\Company.cshtml" />
     <Content Include="Views\About\CompanyDetail.cshtml" />
+    <Content Include="Views\Course\CourseSystem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />

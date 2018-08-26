@@ -50,7 +50,9 @@
   <ItemGroup>
     <Compile Include="CopysService.cs" />
     <Compile Include="CompanyApplyService.cs" />
+    <Compile Include="CourseSystemService.cs" />
     <Compile Include="Interfaces\ICompanyApplyService.cs" />
+    <Compile Include="Interfaces\ICourseSystemService.cs" />
     <Compile Include="ProgramApplyService.cs" />
     <Compile Include="CourseOrderService.cs" />
     <Compile Include="Interfaces\IProgramApplyService.cs" />

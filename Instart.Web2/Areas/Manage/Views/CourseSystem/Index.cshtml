@@ -2,45 +2,34 @@
 @using Instart.Web2.Infrastructures
 
 @{
-    ViewBag.Title = "专业管理";
+    ViewBag.Title = "课程体系";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
     @Html.Partial("PartialSchool")
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
         <ol class="breadcrumb">
-            <li><a href="#">专业管理</a></li>
+            <li><a href="#">课程体系</a></li>
         </ol>
 
         <div>
             <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
             <form method="post" action="" target="_self" class="form-inline">
                 <div class="form-group">
-                    <select id="selDivision" name="division" class="form-control" style="width:100px;">
-                        <option value="-1">全部</option>
-                        @if (ViewBag.divisionList != null)
-                        {
-                            foreach (Division item in ViewBag.divisionList)
-                            {
-                                <option value="@item.Id">@item.Name</option>
-                            }
-                        }
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="专业名称" style="width:300px;">
+                    <input name="keyword" type="text" value="@ViewBag.Keyword" class="form-control" placeholder="课程体系名称" style="width:300px;">
                 </div>
                 <button type="submit" class="btn btn-success">查询</button>
-                <a href="/manage/major" class="btn btn-default">全部</a>
-                <a href="/manage/major/edit" class="btn btn-default">添加</a>
+                <a href="/manage/coursesystem" class="btn btn-default">全部</a>
+                <a href="/manage/coursesystem/edit" class="btn btn-default">添加</a>
             </form>
         </div>
         <table class="table table-bordered table-hover" style="margin-top:15px;">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>专业名称</th>
-                    <th>所属学部</th>
+                    <th>体系名称</th>
+                    <th>英文名称</th>
+                    <th>主题图片</th>
                     <th>创建时间</th>
                     <th>操作</th>
                 </tr>
@@ -48,16 +37,19 @@
             <tbody>
                 @if (Model != null)
                 {
-                    foreach (Major item in Model)
+                    foreach (CourseSystem item in Model)
                     {
                         <tr>
                             <td style="width:5%;">@item.Id</td>
                             <td>@item.Name</td>
-                            <td>@item.DivisionName</td>
+                            <td>@item.NameEn</td>
+                            <td>
+                                <img src="@item.Picture" style="width:100px;height:100px" alt="" />
+                            </td>
                             <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
-                            <td style="width:10%;">
-                                <a href="/major/details/@item.Id" target="_blank">详情</a>
-                                <a data-id="@item.Id" href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
+                            <td style="width:15%;">
+                                <a href="/course/coursesystem/@item.Id" target="_blank">详情</a>
+                                <a href="javascript:void(0)" onclick="update(@item.Id)">修改</a>
                                 <a data-id="@item.Id" href="javascript:void(0)" onclick="remove(@item.Id)">删除</a>
                             </td>
                         </tr>
@@ -73,8 +65,7 @@
                         @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new
            {
                area = "manage",
-               keyword = ViewBag.Keyword,
-               division = ViewBag.division
+               keyword = ViewBag.Keyword
            })
                     </ul>
                 </div>
@@ -82,19 +73,16 @@
         </div>
     </div>
 </div>
+
 @section Bottom{
     <script>
-        $(function () {
-            $("#selDivision").val("@ViewBag.division");
-        })
-
         function update(id) {
-            location.href = '@Url.Action("edit", "major", new { area="manage" })' + "?id=" + id;
+            location.href = '@Url.Action("edit", "coursesystem", new { area="manage" })' + "?id=" + id;
         }
 
         function remove(id) {
-            layer.confirm('确定删除该专业?', function (index) {
-                $.post('/manage/major/delete', { id: id }, function (slt) {
+            layer.confirm('确定删除该课程体系?', function (index) {
+                $.post('/manage/coursesystem/delete', { id: id }, function (slt) {
                     if (slt && slt.success) {
                         location.reload();
                     }
@@ -106,6 +94,6 @@
                 layer.close(index);
             });
         }
-    </script>
+</script>
 }
 

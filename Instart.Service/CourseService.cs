@@ -27,14 +27,19 @@ namespace Instart.Service
             return _courseRepository.GetByIdAsync(id);
         }
 
-        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, int type = -1, string name = null)
+        public PageModel<Course> GetListAsync(int pageIndex, int pageSize, int systemId = -1, string name = null)
         {
-            return _courseRepository.GetListAsync(pageIndex, pageSize, type, name);
+            return _courseRepository.GetListAsync(pageIndex, pageSize, systemId, name);
         }
 
         public IEnumerable<Course> GetAllAsync()
         {
             return _courseRepository.GetAllAsync();
+        }
+
+        public IEnumerable<Course> GetListBySystemId(int systemId)
+        {
+            return _courseRepository.GetListBySystemId(systemId);
         }
 
         public IEnumerable<Course> GetAllByStudentAsync(int studentId) 

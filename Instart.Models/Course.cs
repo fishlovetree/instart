@@ -72,8 +72,18 @@ namespace Instart.Models
         public bool IsSelected { get; set; }
 
         /// <summary>
-        /// 课程类型: 1-课程介绍,2-课程体系
+        /// 所属课程体系Id
         /// </summary>
-        public int Type { get; set; }
+        public int SystemId { get; set; }
+
+        /// <summary>
+        /// 所属课程体系名称
+        /// </summary>
+        public string SystemName { get; set; }
+
+        /// <summary>
+        /// 所属课程体系英文名称
+        /// </summary>
+        public string SystemNameEn { get; set; }
     }
 }

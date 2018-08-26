@@ -25,6 +25,7 @@ namespace Instart.Web2.Controllers
         ICopysService _copysService = AutofacService.Resolve<ICopysService>();
         ICourseApplyService _courseApplyService = AutofacService.Resolve<ICourseApplyService>();
         ICourseOrderService _courseOrderService = AutofacService.Resolve<ICourseOrderService>();
+        ICourseSystemService _courseSystemService = AutofacService.Resolve<ICourseSystemService>();
 
         public CourseController()
         {
@@ -35,6 +36,7 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_copysService);
             this.AddDisposableObject(_courseApplyService);
             this.AddDisposableObject(_courseOrderService);
+            this.AddDisposableObject(_courseSystemService);
         }
 
         public ActionResult Index(int studentId = -1)
@@ -49,8 +51,28 @@ namespace Instart.Web2.Controllers
                 courseList = _courseService.GetAllByStudentAsync(studentId) ?? new List<Course>();
             }
 
-            ViewBag.CourseList = courseList;
-            ViewBag.StudentList = _studentService.GetAllAsync() ?? new List<Instart.Models.Student>();
+            //一行3个课程
+            List<List<Course>> courseMap = new List<List<Course>>();
+            int courseIndex = 1;
+            List<Course> slist = new List<Course>();
+            foreach (Course course in courseList)
+            {
+                slist.Add(course);
+                if (courseIndex % 2 == 0)
+                {
+                    courseMap.Add(new List<Course>(slist.ToArray()));
+                    slist.Clear();
+                }
+                courseIndex++;
+            }
+            if (slist.Count > 0)
+            {
+                courseMap.Add(slist);
+            }
+
+            ViewBag.CourseList = courseMap;
+            ViewBag.StudentList = _studentService.GetAllAsync() ?? new List<Instart.Models.Student>(); //成功学员
+            ViewBag.SystemList = _courseSystemService.GetAllAsync() ?? new List<Instart.Models.CourseSystem>(); //课程体系
             return View();
         }
 
@@ -156,6 +178,38 @@ namespace Instart.Web2.Controllers
             var result = new ResultBase();
             result.success = _courseOrderService.InsertAsync(model);
             return Json(result);
+        }
+
+        public ActionResult CourseSystem(int id = 0)
+        {
+            if (id == 0)
+            {
+                throw new Exception("课程体系不存在");
+            }
+            CourseSystem model = _courseSystemService.GetByIdAsync(id) ?? new CourseSystem();
+            IEnumerable<Course> courseList = _courseService.GetListBySystemId(id) ?? new List<Course>();
+            //一行3个课程
+            List<List<Course>> courseMap = new List<List<Course>>();
+            int courseIndex = 1;
+            List<Course> slist = new List<Course>();
+            foreach (Course course in courseList)
+            {
+                slist.Add(course);
+                if (courseIndex % 2 == 0)
+                {
+                    courseMap.Add(new List<Course>(slist.ToArray()));
+                    slist.Clear();
+                }
+                courseIndex++;
+            }
+            if (slist.Count > 0)
+            {
+                courseMap.Add(slist);
+            }
+
+            ViewBag.CourseList = courseMap;
+            ViewBag.StudentList = _studentService.GetAllAsync() ?? new List<Instart.Models.Student>(); //成功学员
+            return View(model);
         }
     }
 }

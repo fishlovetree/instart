@@ -33,7 +33,7 @@ namespace Instart.Repository
                     return new PageModel<School>();
                 }
 
-                string sql = string.Format(@"select * from ( select *, ROW_NUMBER() over (Order by Id desc) as RowNumber from [School] {0} ) as b  
+                string sql = string.Format(@"select * from ( select *, ROW_NUMBER() over (Order by Id) as RowNumber from [School] {0} ) as b  
                                 where RowNumber between {1} and {2};", where, ((pageIndex - 1) * pageSize) + 1, pageIndex * pageSize);
                 var list = conn.Query<School>(sql);
 
@@ -113,7 +113,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select top {0} * from [School] where Status=1 and IsRecommend = 1 order by Id desc;",topCount);
+                string sql = string.Format("select top {0} * from [School] where Status=1 and IsRecommend = 1;",topCount);
                 var result = conn.Query<School>(sql, null);
                 return result != null ? result.ToList() : null;
             }
@@ -132,7 +132,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select top {0} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship,LimitDate,Language from [School] where Status=1 and IsHot = 1 order by Id desc;",topCount);
+                string sql = string.Format("select top {0} Id,Name,NameEn,Difficult,Avatar,Country,Fee,Scholarship,LimitDate,Language from [School] where Status=1 and IsHot = 1;",topCount);
                 var result = conn.Query<School>(sql, null);
                 return result != null ? result.ToList() : null;
             }
@@ -182,7 +182,7 @@ namespace Instart.Repository
                     };
                 }
 
-                string sql = string.Format(@"select * from ( select k.*, ROW_NUMBER() over (Order by k.Id desc) as RowNumber from [School] as k {0} ) as b  
+                string sql = string.Format(@"select * from ( select k.*, ROW_NUMBER() over (Order by k.Id) as RowNumber from [School] as k {0} ) as b  
                                 where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1, pageIndex * pageSize);
                 var list = conn.Query<School>(sql);
 
@@ -198,12 +198,12 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select s.SchoolId, s.MajorId, s.Introduce, m.Name as MajorName, m.Type from [SchoolMajor] as s left join [Major] as m on m.Id = s.MajorId where s.SchoolId={0};",id);
+                string sql = string.Format("select s.SchoolId, s.MajorId, s.Introduce, s.Type, m.Name as MajorName from [SchoolMajor] as s left join [Major] as m on m.Id = s.MajorId where s.SchoolId={0};",id);
                 return conn.Query<SchoolMajor>(sql); ;
             }
         }
 
-        public bool SetMajors(int schoolId, string majorIds, string introduces)
+        public bool SetMajors(int schoolId, string bkmajors, string yjsmajors, string bkintroduces, string yjsintroduces)
         {
             var result = 0;
             using (var conn = DapperFactory.GetConnection())
@@ -213,18 +213,27 @@ namespace Instart.Repository
 
                 string sql = "delete from [SchoolMajor] where SchoolId = @SchoolId; ";
 
-                var insertImg = @" INSERT INTO [SchoolMajor] ([MajorId],[SchoolId],[Introduce]) VALUES(@MajorId,@SchoolId,@Introduce)";
+                var insertImg = @" INSERT INTO [SchoolMajor] ([MajorId],[SchoolId],[Introduce],[Type]) VALUES(@MajorId,@SchoolId,@Introduce,@Type)";
                 try
                 {
 
                     result = conn.Execute(sql, new { SchoolId = schoolId }, tran);
-                    if (!String.IsNullOrEmpty(majorIds))
+                    if (!String.IsNullOrEmpty(bkmajors))
                     {
-                        string[] ids = majorIds.Split(',');
-                        string[] introducearr = introduces.Split('|');
+                        string[] ids = bkmajors.Split(',');
+                        string[] introducearr = bkintroduces.Split('|');
                         for (int i = 0; i < ids.Length; i++)
                         {
-                            result = conn.Execute(insertImg, new { SchoolId = schoolId, MajorId = ids[i], Introduce = introducearr[i] }, tran);
+                            result = conn.Execute(insertImg, new { SchoolId = schoolId, MajorId = ids[i], Introduce = introducearr[i], Type = 0 }, tran);
+                        }
+                    }
+                    if (!String.IsNullOrEmpty(yjsmajors))
+                    {
+                        string[] ids = yjsmajors.Split(',');
+                        string[] introducearr = yjsintroduces.Split('|');
+                        for (int i = 0; i < ids.Length; i++)
+                        {
+                            result = conn.Execute(insertImg, new { SchoolId = schoolId, MajorId = ids[i], Introduce = introducearr[i], Type = 1 }, tran);
                         }
                     }
                     tran.Commit();
@@ -249,7 +258,8 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format("select top {0} s.* from [SchoolMajor] sm left join [School] s on s.Id = sm.SchoolId where sm.MajorId = {1} and s.Status=1 order by s.Id desc;", topCount, majorId);
+                string sql = string.Format(@"select top {0} t.* from (select distinct s.Id, s.Name, s.NameEn, s.Logo, s.Fee, s.Avatar, s.Difficult, s.Country, s.LimitDate, s.Language, s.RecommendMajor 
+                    from [SchoolMajor] sm left join [School] s on s.Id = sm.SchoolId where sm.MajorId = {1} and s.Status=1) as t;", topCount, majorId);
                 var result = conn.Query<School>(sql, null);
                 return result != null ? result.ToList() : null;
             }

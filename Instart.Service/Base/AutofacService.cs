@@ -59,6 +59,7 @@ namespace Instart.Service.Base
             builder.RegisterType<CourseOrderService>().As<ICourseOrderService>().InstancePerLifetimeScope();
             builder.RegisterType<ProgramApplyService>().As<IProgramApplyService>().InstancePerLifetimeScope();
             builder.RegisterType<CompanyApplyService>().As<ICompanyApplyService>().InstancePerLifetimeScope();
+            builder.RegisterType<CourseSystemService>().As<ICourseSystemService>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

@@ -11,9 +11,11 @@ namespace Instart.Repository
     {
         Course GetByIdAsync(int id);
 
-        PageModel<Course> GetListAsync(int pageIndex, int pageSize, int type = -1, string name = null);
+        PageModel<Course> GetListAsync(int pageIndex, int pageSize, int systemId = -1, string name = null);
 
         IEnumerable<Course> GetAllAsync();
+
+        IEnumerable<Course> GetListBySystemId(int systemId);
 
         IEnumerable<Course> GetAllByStudentAsync(int studentId);
 

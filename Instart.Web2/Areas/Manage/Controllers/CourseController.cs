@@ -18,23 +18,27 @@ namespace Instart.Web2.Areas.Manage.Controllers
     public class CourseController : ManageControllerBase
     {
         ICourseService _courseService = AutofacService.Resolve<ICourseService>();
+        ICourseSystemService _courseSystemService = AutofacService.Resolve<ICourseSystemService>();
         ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
 
         public CourseController()
         {
             base.AddDisposableObject(_courseService);
+            base.AddDisposableObject(_courseSystemService);
             base.AddDisposableObject(_teacherService);
         }
 
-        public ActionResult Index(int page = 1, int type = -1, string keyword = null)
+        public ActionResult Index(int page = 1, int systemId = -1, string keyword = null)
         {
             int pageSize = 10;
-            var list = _courseService.GetListAsync(page, pageSize, type, keyword);
+            var list = _courseService.GetListAsync(page, pageSize, systemId, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
-            ViewBag.Type = type;
+            ViewBag.systemId = systemId;
+
+            ViewBag.systemList = _courseSystemService.GetAllAsync() ?? new List<CourseSystem>();
             return View(list.Data);
         }
 
@@ -51,10 +55,13 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
             ViewBag.Action = action;
 
-            List<SelectListItem> typeList = new List<SelectListItem>();
-            typeList.Add(new SelectListItem { Text = "常规课程", Value = "1" });
-            typeList.Add(new SelectListItem { Text = "体系课程", Value = "2" });
-            ViewBag.typeList = typeList;
+            List<SelectListItem> systemList = new List<SelectListItem>();
+            IEnumerable<CourseSystem> courseSystems = _courseSystemService.GetAllAsync() ?? new List<CourseSystem>();
+            foreach (CourseSystem item in courseSystems)
+            {
+                systemList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            }
+            ViewBag.systemList = systemList;
             return View(model);
         }
 

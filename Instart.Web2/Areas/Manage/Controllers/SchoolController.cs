@@ -188,39 +188,44 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         public ActionResult MajorSelect(int id = 0)
         {
-            IEnumerable<Major> majorList = (_majorService.GetAllAsync()) ?? new List<Major>();
+            IEnumerable<Major> majorBkList = (_majorService.GetAllAsync()) ?? new List<Major>();
+            IEnumerable<Major> majorYjsList = (_majorService.GetAllAsync()) ?? new List<Major>();
             IEnumerable<SchoolMajor> selectedList = (_schoolService.GetMajorsByIdAsync(id)) ?? new List<SchoolMajor>();
-            List<Major> majorBkList = new List<Major>();
-            List<Major> majorYjsList = new List<Major>();
-            foreach (var major in majorList)
+            foreach (var major in majorBkList)
             {
-                major.IsSelected = false;
+                Major temp = major;
+                temp.IsSelected = false;
                 foreach (var item in selectedList)
                 {
-                    if (item.MajorId == major.Id)
+                    if (item.MajorId == major.Id && item.Type == 0)
                     {
-                        major.IsSelected = true;
-                        major.SchoolInfo = item.Introduce;
+                        temp.IsSelected = true;
+                        temp.SchoolInfo = item.Introduce;
                         break;
                     }
                 }
-
-                if (major.Type == Instart.Models.Enums.EnumMajorType.BengKe)
+            }
+            foreach (var major in majorYjsList)
+            {
+                Major temp = major;
+                temp.IsSelected = false;
+                foreach (var item in selectedList)
                 {
-                    majorBkList.Add(major);
-                }
-                else if (major.Type == Instart.Models.Enums.EnumMajorType.YanJiuSheng)
-                {
-                    majorYjsList.Add(major);
+                    if (item.MajorId == major.Id && item.Type == 1)
+                    {
+                        temp.IsSelected = true;
+                        temp.SchoolInfo = item.Introduce;
+                        break;
+                    }
                 }
             }
+            ViewBag.MajorBkList = majorBkList;
+            ViewBag.MajorYjsList = majorYjsList;
             var school = _schoolService.GetByIdAsync(id);
             if (school == null)
             {
                 throw new Exception("艺术院校不存在");
             }
-            ViewBag.MajorBkList = majorBkList;
-            ViewBag.MajorYjsList = majorYjsList;
             ViewBag.SchoolId = id;
             ViewBag.SchoolName = school.Name;
             return View();
@@ -228,13 +233,13 @@ namespace Instart.Web2.Areas.Manage.Controllers
 
         [HttpPost]
         [Operation("设置学校专业")]
-        public JsonResult SetMajors(int schoolId, string majorIds, string introduces)
+        public JsonResult SetMajors(int schoolId, string bkmajorIds, string yjsmajorIds, string bkintroduces, string yjsintroduces)
         {
             try
             {
                 return Json(new ResultBase
                 {
-                    success = _schoolService.SetMajors(schoolId, majorIds, introduces)
+                    success = _schoolService.SetMajors(schoolId, bkmajorIds, yjsmajorIds, bkintroduces, yjsintroduces)
                 });
             }
             catch (Exception ex)

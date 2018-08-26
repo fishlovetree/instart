@@ -56,14 +56,14 @@
                         for (var index in slt.data.list) {
                             var item = slt.data.list[index];
                             html += '<li><div class="teacher-cont">';
-                            html += '<div class="top"><a href="/teacher/details/' + item.Id + '"><i></i><img src="' + item.Avatar + '" alt="' + item.Name + '" /></a></div>';
+                            html += '<div class="top"><a href="/teacher/details/' + item.Id + '"><i></i><img src="' + item.Avatar + '" alt="' + (item.NameEn || '') + '" /></a></div>';
                             html += '<dl>';
-                            html += '<dt><a href="/teacher/details/' + item.Id + '">' + item.Name + " " + (item.NameEn || '') + '</a></dt>';
+                            html += '<dt><a href="/teacher/details/' + item.Id + '">' + (item.NameEn || '') + '</a></dt>';
                             html += '<dd class="teac-m">';
-                            html += '<p><span>' + item.SchoolName + '</span><small>' + (item.SchoolNameEn || '') + '</small></p>';
-                            html += '<p><span>' + item.MajorName + '</span><small>' + (item.MajorNameEn || '') + '</small></p>';
+                            html += '<p><a href="/school/details/' + item.SchoolId + '"><span>' + (item.SchoolName || '') + '</span><small>' + (item.SchoolNameEn || '') + '</small></a></p>';
+                            html += '<p><a href="/major/details/' + item.MajorId + '"><span>' + (item.MajorName || '') + '</span><small>' + (item.MajorNameEn || '') + '</small></a></p>';
                             html += '</dd>';
-                            html += '<dd class="teac-b"><i style="display:inline-block; width:8px; height:8px; border-radius:50%; background:' + item.DivisionColor + '; margin-right:6px;"></i>' + item.DivisionName + " " + (item.DivisionNameEn || '') + '</dd>';
+                            html += '<dd class="teac-b"><i style="display:inline-block; width:8px; height:8px; border-radius:50%; background:' + item.DivisionColor + '; margin-right:6px;"></i>' + (item.DivisionName || '') + " " + (item.DivisionNameEn || '') + '</dd>';
                             html += '</dl>';
                             html += '</div></li>';
                         }

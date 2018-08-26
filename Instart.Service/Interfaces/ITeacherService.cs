@@ -30,5 +30,7 @@ namespace Instart.Service
          bool SetCourses(int teacherId, string courseIds);
 
          PageModel<Teacher> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize);
+
+         List<SchoolMajor> GetSchoolListByTeacher(int teacherId);
     }
 }

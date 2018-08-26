@@ -172,7 +172,7 @@ namespace Instart.Repository
                      WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
                      ) s ON s.StudentId = t.Id 
                      where t.Status=1 and t.IsRecommend=1
-                     order by t.Id Desc;", topCount);
+                     order by t.Id;", topCount);
                 var list = conn.Query<Student>(sql, null);
                 return list != null ? list.ToList() : null;
             }
@@ -305,7 +305,7 @@ namespace Instart.Repository
                      WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
                      ) k ON k.StudentId = t.Id 
                      where s.CourseId = {0} and t.Status=1
-                     order by t.Id Desc;", courseId);
+                     order by t.Id;", courseId);
                 var list = conn.Query<Student>(sql, null);
                 return list != null ? list.ToList() : null;
             }
@@ -328,7 +328,7 @@ namespace Instart.Repository
                      WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
                      ) k ON k.StudentId = t.Id 
                      where t.TeacherId = {0} and t.Status=1
-                     order by t.Id Desc;", teacherId);
+                     order by t.Id;", teacherId);
                 var list = conn.Query<Student>(sql, null);
                 return list != null ? list.ToList() : null;
             }
@@ -351,7 +351,7 @@ namespace Instart.Repository
                      WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
                      ) k ON k.StudentId = t.Id 
                      where t.CampusId = {1} and t.Status=1
-                     order by t.Id Desc;", topCount, campusId);
+                     order by t.Id;", topCount, campusId);
                 var list = conn.Query<Student>(sql, null);
                 return list != null ? list.ToList() : null;
             }
@@ -374,7 +374,7 @@ namespace Instart.Repository
                      WHERE StudentId=A.StudentId FOR XML PATH('')) AS SchoolNames FROM [StudentSchool] A GROUP BY StudentId
                      ) k ON k.StudentId = t.Id 
                      where t.DivisionId = {0} and t.Status=1
-                     order by t.Id Desc;", divisionId);
+                     order by t.Id ;", divisionId);
                 var list = conn.Query<Student>(sql, null);
                 return list != null ? list.ToList() : null;
             }
@@ -387,7 +387,7 @@ namespace Instart.Repository
                 string sql = string.Format(@"select s.* from [StudentSchool] as t
                      left join [School] as s on s.Id = t.SchoolId
                      where t.StudentId = {0} and s.Status=1
-                     order by s.Id Desc;", studentId);
+                     order by s.Id;", studentId);
                 var list = conn.Query<School>(sql, null);
                 return list != null ? list.ToList() : null;
             }
