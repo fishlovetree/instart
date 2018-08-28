@@ -92,7 +92,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                var fields = model.ToFields(removeFields: new List<string> { "Id", "IsSelected", "SystemName", "SystemNameEn"});
+                var fields = model.ToFields(removeFields: new List<string> { "Id", "IsSelected", "SystemName", "SystemNameEn", "MajorName", "MajorNameEn"});
                 if (fields == null || fields.Count == 0)
                 {
                     return false;
@@ -119,7 +119,9 @@ namespace Instart.Repository
                     "IsSelected",
                     "IsRecommend", 
                     "SystemName", 
-                    "SystemNameEn"
+                    "SystemNameEn", 
+                    "MajorName", 
+                    "MajorNameEn"
                 };
                 var fields = model.ToFields(removeFields: removeFields);
 
@@ -154,7 +156,17 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format(@"select top {0} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and Type = 1 and IsRecommend=1 order by Id;", topCount);
+                string sql = string.Format(@"select top {0} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and IsRecommend=1 order by Id;", topCount);
+                var list = conn.Query<Course>(sql, null);
+                return list != null ? list.ToList() : null;
+            }
+        }
+
+        public List<Course> GetListByMajor(int topCount, int majorId)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format(@"select top {0} Id,Name,NameEn,Picture,Introduce from Course where Status=1 and MajorId={1} order by Id;", topCount, majorId);
                 var list = conn.Query<Course>(sql, null);
                 return list != null ? list.ToList() : null;
             }

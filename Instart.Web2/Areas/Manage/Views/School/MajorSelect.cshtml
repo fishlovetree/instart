@@ -22,10 +22,10 @@
 
         .w_ico li {
             float: left;
-            width: 250px;
             list-style: none;
             text-align: center;
             margin-bottom: 20px;
+            margin-right: 20px;
         }
 
             .w_ico li img {
@@ -53,13 +53,13 @@
 
         <input type="hidden" id="schoolId" name="schoolId" value="@ViewBag.SchoolId" />
         <div>
-            <a class="btn btn-success" style="margin-left:10px;" onclick="save()">保存</a>
+            <a class="btn btn-success" onclick="save()">保存</a>
         </div>
         <div class="checkbox">
-            <label style="float:right;">
+            <a style="float:left;" class="btn btn-primary">本科专业</a>
+            <label style="float:left;margin-left:20px;margin-top:7px;">
                 <input type="checkbox" name="chkAllBk" id="chkAllBk" />全选
             </label>
-            <span class="label label-info" style="margin-left:10px;float:left;font-size:14px;">本科专业</span>
         </div>
         <div class="w_con_left">
             <ul class="w_ico">
@@ -86,10 +86,10 @@
             </ul>
         </div>
         <div class="checkbox">
-            <label style="float:right;">
+            <a style="float:left;" class="btn btn-primary">研究生专业</a>
+            <label style="float:left;margin-left:20px;margin-top:7px;">
                 <input type="checkbox" name="chkAllYjs" id="chkAllYjs" />全选
             </label>
-            <span class="label label-info" style="margin-left:10px;float:left;font-size:14px;">研究生专业</span>
         </div>
         <div class="w_con_left">
             <ul class="w_ico">
@@ -114,6 +114,9 @@
                     </li>
                 }
             </ul>
+        </div>
+        <div class="checkbox">
+            <a class="btn btn-success" style="float:left;" onclick="save()">保存</a>
         </div>
     </div>
 </div>

@@ -110,5 +110,15 @@ namespace Instart.Models
         /// 是否被选中
         /// </summary>
         public bool IsSelected { get; set; }
+
+        /// <summary>
+        /// 擅长专业 ID列表，逗号拼接
+        /// </summary>
+        public string MajorIds { get; set; }
+
+        /// <summary>
+        /// 擅长专业 Name列表，逗号拼接
+        /// </summary>
+        public string MajorNames { get; set; }
     }
 }

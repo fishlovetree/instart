@@ -20,12 +20,14 @@ namespace Instart.Web2.Areas.Manage.Controllers
         ICourseService _courseService = AutofacService.Resolve<ICourseService>();
         ICourseSystemService _courseSystemService = AutofacService.Resolve<ICourseSystemService>();
         ITeacherService _teacherService = AutofacService.Resolve<ITeacherService>();
+        IMajorService _majorService = AutofacService.Resolve<IMajorService>();
 
         public CourseController()
         {
             base.AddDisposableObject(_courseService);
             base.AddDisposableObject(_courseSystemService);
             base.AddDisposableObject(_teacherService);
+            base.AddDisposableObject(_majorService);
         }
 
         public ActionResult Index(int page = 1, int systemId = -1, string keyword = null)
@@ -62,6 +64,14 @@ namespace Instart.Web2.Areas.Manage.Controllers
                 systemList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
             }
             ViewBag.systemList = systemList;
+
+            List<SelectListItem> majorList = new List<SelectListItem>();
+            IEnumerable<Major> majors = _majorService.GetAllAsync() ?? new List<Major>();
+            foreach (Major item in majors)
+            {
+                majorList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            }
+            ViewBag.majorList = majorList;
             return View(model);
         }
 

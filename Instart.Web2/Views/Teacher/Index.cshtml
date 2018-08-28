@@ -12,6 +12,14 @@
 <div class="maincont">
     <!--文章列表-->
     <div class="pagemeun">
+        @if (-1 == ViewBag.DivisionId)
+        {
+            <p class="active" style="border-bottom:4px solid #0000ff;"><a href="/teacher/index/-1">所有导师</a></p>
+        }
+        else
+        {
+            <p style="border-bottom:4px solid #0000ff;"><a href="/teacher/index/-1">所有导师</a></p>
+        }
         @foreach (Division item in ViewBag.DivisionList)
         {
             if (item.Id == ViewBag.DivisionId)
@@ -77,7 +85,7 @@
                 }
             });
         }
-    </script>
+</script>
 
 }
 

@@ -27,6 +27,8 @@ namespace Instart.Repository
 
         List<Course> GetRecommendListAsync(int topCount);
 
+        List<Course> GetListByMajor(int topCount, int majorId);
+
         bool SetRecommend(int id, bool isRecommend);
 
         int GetInfoCountAsync();

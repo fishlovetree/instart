@@ -142,6 +142,7 @@
                             html += '<p><span><i class="glaxfont">申请截止日期:</i> ' + (item.LimitDate || '')+ '</p>';
                             html += '<p><span><i class="glaxfont">语言要求:</i> ' + (item.Language || '') + '</p>';
                             html += '<p><span><i class="glaxfont">优势专业:</i> ' + (item.RecommendMajor || '') + '</span></p>';
+                            html += '<div class="morea-left"><a href="javascript:void(0)" onclick="schoolApply(' + item.Id + ')">院校成功率测试</a></div>';
                             html += '<div class="morea"><a href="/school/details/' + item.Id + '">院校详情</a></div>';
                             html += '</div>';
                             html += '</div></li>';
@@ -170,6 +171,17 @@
                 error: function () {
 
                 }
+            });
+        }
+
+        function schoolApply(id) {
+            layer.open({
+                type: 2,
+                title: '申请咨询',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/school/schoolapply?id=' + id //iframe的url
             });
         }
     </script>

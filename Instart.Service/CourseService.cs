@@ -102,6 +102,16 @@ namespace Instart.Service
             return _courseRepository.GetRecommendListAsync(topCount);
         }
 
+        public List<Course> GetListByMajor(int topCount, int majorId)
+        {
+            if (topCount == 0)
+            {
+                return null;
+            }
+
+            return _courseRepository.GetListByMajor(topCount, majorId);
+        }
+
         public bool SetRecommendAsync(int id, bool isRecommend)
         {
             if (id <= 0)

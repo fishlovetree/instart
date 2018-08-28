@@ -197,7 +197,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        [Operation("导师选择课程")]
+        [Operation("设置导师擅长课程")]
         public JsonResult SetCourses(int teacherId, string courseIds)
         {
             try
@@ -210,6 +210,56 @@ namespace Instart.Web2.Areas.Manage.Controllers
             catch (Exception ex)
             {
                 LogHelper.Error("TeacherController.SetCourses异常", ex);
+                return Error(ex.Message);
+            }
+        }
+
+        public ActionResult MajorSelect(int id = 0)
+        {
+            IEnumerable<Major> majorList = _majorService.GetAllAsync() ?? new List<Major>();
+            IEnumerable<Major> selectedList = _teacherService.GetMajorsByIdAsync(id) ?? new List<Major>();
+            if (majorList != null)
+            {
+                foreach (var major in majorList)
+                {
+                    major.IsSelected = false;
+                    foreach (var item in selectedList)
+                    {
+                        if (major.Id == item.Id)
+                        {
+                            major.IsSelected = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            var teacher = _teacherService.GetByIdAsync(id);
+            if (teacher == null)
+            {
+                throw new Exception("导师不存在");
+            }
+
+            ViewBag.MajorList = majorList;
+            ViewBag.TeacherId = id;
+            ViewBag.TeacherName = teacher.Name;
+            return View();
+        }
+
+        [HttpPost]
+        [Operation("设置导师擅长专业")]
+        public JsonResult SetMajors(int teacherId, string majorIds)
+        {
+            try
+            {
+                return Json(new ResultBase
+                {
+                    success = _teacherService.SetMajors(teacherId, majorIds)
+                });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error("TeacherController.SetMajors异常", ex);
                 return Error(ex.Message);
             }
         }

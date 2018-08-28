@@ -60,7 +60,9 @@
 <script src="/content/js/pubu.js" type="text/javascript"></script>
 <script>
     window.onload = function () {
-        water("main");
+        if ($('#main li').length > 0){
+            water("main");
+        }
         $(".workbo").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, vis: 1, trigger: "click" });
     }
 

@@ -85,5 +85,20 @@ namespace Instart.Models
         /// 所属课程体系英文名称
         /// </summary>
         public string SystemNameEn { get; set; }
+
+        /// <summary>
+        /// 所属专业Id
+        /// </summary>
+        public int MajorId { get; set; }
+
+        /// <summary>
+        /// 所属专业名称
+        /// </summary>
+        public string MajorName { get; set; }
+
+        /// <summary>
+        /// 所属专业英文名称
+        /// </summary>
+        public string MajorNameEn { get; set; }
     }
 }

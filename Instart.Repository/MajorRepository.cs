@@ -143,7 +143,15 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string countSql = string.Format("select count(1) from [Major] as a where a.Status=1 and a.DivisionId={0};",divisionId);
+                #region generate condition
+                string where = "where a.Status=1";
+                if (divisionId != -1)
+                {
+                    where += string.Format(" and a.DivisionId = {0}", divisionId);
+                }
+                #endregion
+
+                string countSql = string.Format("select count(1) from [Major] as a {0};", where);
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
                 {
@@ -153,9 +161,9 @@ namespace Instart.Repository
                 string sql = string.Format(@"select * from (
                      select a.Id,a.Name,a.NameEn,a.Introduce,a.CreateTime,a.DivisionId,b.Name as DivisionName,b.NameEn as DivisionNameEn,
                      b.BgColor as DivisionColor,a.ImgUrl, ROW_NUMBER() over (Order by a.Id) as RowNumber from [Major] as a
-                     left join [Division] as b on b.Id = a.DivisionId where a.Status=1 and a.DivisionId={0}
+                     left join [Division] as b on b.Id = a.DivisionId {0}
                      ) as c
-                     where RowNumber between {1} and {2};", divisionId,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
+                     where RowNumber between {1} and {2};", where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
                 var list = conn.Query<Major>(sql);
 
                 return new PageModel<Major>

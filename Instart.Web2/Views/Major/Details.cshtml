@@ -62,39 +62,22 @@
         </div>
     </div>
 </div>
-
-<div class="maincont" style="border-top:1px dotted #bebebe">
-    <!--名校推荐-->
-    <div class="title">
-        <h2>名校推荐</h2>
-        <a href="/school" class="more">查看全部&gt;&gt;</a>
+<div class="maincont">
+    <div class="title topborder">
+        <h2>课程推荐</h2>
+        <a href="/course" class="more">查看全部&gt;&gt;</a>
     </div>
-    <div class="school com-cont noborder">
+    <div class="recommend com-cont">
         <ul>
-            @foreach (School item in ViewBag.SchoolList)
+            @foreach (Course item in ViewBag.CourseList)
             {
                 <li>
-                    <div class="school-cont">
-                        <div class="top"><a href="/school/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
-                        <div class="s-name">
-                            <div class="s-name-left">
-                                <dl>
-                                    <dt>@item.Name</dt>
-                                    <dd>@item.NameEn</dd>
-                                    <p><span class="glaxfont">申请难度：</span>@item.Difficult</p>
-                                    <p><div class="stars" style="width:100%" flag="@item.Difficult"></div></p>
-                                    <p><span class="glaxfont">录取比例：</span>@(item.AcceptRate + "%")</p>
-                                </dl>
-                            </div>
-                            <div class="s-name-right"><a href="/school/details/@item.Id"><img src="@item.Logo" alt="" /></a></div>
-                        </div>
-                        <div class="yuanxiao">
-                            <p><span><i class="glaxfont">国家:</i> @item.Country.GetDescription()</span><span><i class="glaxfont">留学预算:</i> @item.Fee</span></p>
-                            <p><span><i class="glaxfont">申请截止日期:</i> @item.LimitDate</span></p>
-                            <p><span><i class="glaxfont">语言要求:</i> @item.Language</span></p>
-                            <p><span><i class="glaxfont">优势专业:</i> @item.RecommendMajor</span></p>
-                            <div class="morea"><a href="/school/details/@item.Id">院校详情</a></div>
-                        </div>
+                    <div class="recimg">
+                        <a href="/course/details/@item.Id">
+                            <i></i>
+                            <p>@item.Name</p>
+                            <img src="@item.Picture" alt="@item.Name" />
+                        </a>
                     </div>
                 </li>
             }
@@ -122,7 +105,7 @@
             });
         })
 
-        function apply(id,name) {
+        function apply(id, name) {
             layer.open({
                 type: 2,
                 title: '申请咨询',
@@ -141,6 +124,17 @@
                 shade: 0.8,
                 area: ['480px', '540px'],
                 content: '/major/workscomment' //iframe的url
+            });
+        }
+
+        function schoolApply(id) {
+            layer.open({
+                type: 2,
+                title: '申请咨询',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['800px', '430px'],
+                content: '/school/schoolapply?id=' + id //iframe的url
             });
         }
     </script>

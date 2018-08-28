@@ -27,6 +27,8 @@ namespace Instart.Service
 
         List<Course> GetRecommendListAsync(int topCount);
 
+        List<Course> GetListByMajor(int topCount, int majorId);
+
         bool SetRecommendAsync(int id, bool isRecommend);
 
         int GetInfoCountAsync();

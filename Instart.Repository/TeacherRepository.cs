@@ -14,10 +14,17 @@ namespace Instart.Repository
         public Teacher GetByIdAsync(int id) {
             using (var conn = DapperFactory.GetConnection()) {
                 string sql = @"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, 
-                     d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor, e.Name as SchoolName, e.NameEn as SchoolNameEn from [Teacher] t 
+                     d.Name as DivisionName, d.NameEn as DivisionNameEn, d.BgColor as DivisionColor, e.Name as SchoolName, 
+                     e.NameEn as SchoolNameEn, s.MajorIds, s.MajorNames from [Teacher] t 
                      left join [Major] as b on b.Id = t.MajorId 
                      left join [Division] as d on d.Id = t.DivisionId 
-                     left join [School] as e on e.Id = t.SchoolId where t.Id = @Id and t.Status=1;";
+                     left join [School] as e on e.Id = t.SchoolId
+                     left join (SELECT TeacherId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [TeacherMajor] ss LEFT JOIN [Major] r ON r.Id = ss.MajorId
+                     WHERE TeacherId=A.TeacherId FOR XML PATH('')) AS MajorIds,
+                     (SELECT r.Name +',' FROM [TeacherMajor] ss LEFT JOIN [Major] r ON r.Id = ss.MajorId
+                     WHERE TeacherId=A.TeacherId FOR XML PATH('')) AS MajorNames FROM [TeacherMajor] A GROUP BY TeacherId
+                     ) s ON s.TeacherId = t.Id
+                     where t.Id = @Id and t.Status=1;";
                 return conn.QueryFirstOrDefault<Teacher>(sql, new { Id = id });
             }
         }
@@ -59,10 +66,16 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 #region generate condition
-                string where = "where Status=1";
+                string where = "where t.Status=1";
                 #endregion
 
-                string sql = string.Format(@"select * from [Teacher] {0};",where);
+                string sql = string.Format(@"select t.*, s.MajorIds, s.MajorNames from [Teacher] as t 
+                    left join (SELECT TeacherId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [TeacherMajor] ss LEFT JOIN [Major] r ON r.Id = ss.MajorId
+                    WHERE TeacherId=A.TeacherId FOR XML PATH('')) AS MajorIds,
+                    (SELECT r.Name +',' FROM [TeacherMajor] ss LEFT JOIN [Major] r ON r.Id = ss.MajorId
+                    WHERE TeacherId=A.TeacherId FOR XML PATH('')) AS MajorNames FROM [TeacherMajor] A GROUP BY TeacherId
+                    ) s ON s.TeacherId = t.Id 
+                    {0};", where);
                 return conn.Query<Teacher>(sql);
             }
         }
@@ -70,7 +83,7 @@ namespace Instart.Repository
         public bool InsertAsync(Teacher model) {
             using (var conn = DapperFactory.GetConnection()) {
                 var fields = model.ToFields(removeFields: new List<string> { "Id", "DivisionName", "DivisionNameEn",
-                    "DivisionColor", "SchoolName", "SchoolNameEn", "MajorName", "MajorNameEn", "IsSelected"});
+                    "DivisionColor", "SchoolName", "SchoolNameEn", "MajorName", "MajorNameEn", "IsSelected", "MajorIds", "MajorNames"});
                 if (fields == null || fields.Count == 0) {
                     return false;
                 }
@@ -99,7 +112,9 @@ namespace Instart.Repository
                     "MajorName",
                     "MajorNameEn",
                     "IsSelected",
-                    "IsRecommend"
+                    "IsRecommend", 
+                    "MajorIds", 
+                    "MajorNames"
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -200,11 +215,69 @@ namespace Instart.Repository
             return result > 0;
         }
 
+        public IEnumerable<Major> GetMajorsByIdAsync(int id)
+        {
+            using (var conn = DapperFactory.GetConnection())
+            {
+                string sql = string.Format("select c.* from [TeacherMajor] as t left join [Major] as c on c.Id = t.MajorId where t.TeacherId={0};", id);
+                return conn.Query<Major>(sql); ;
+            }
+        }
+
+        public bool SetMajors(int teacherId, string majorIds)
+        {
+            var result = 0;
+            using (var conn = DapperFactory.GetConnection())
+            {
+                conn.Open();
+                var tran = conn.BeginTransaction();
+
+                string sql = "delete from [TeacherMajor] where TeacherId = @TeacherId; ";
+
+                var insertImg = @" INSERT INTO [TeacherMajor] ([TeacherId],[MajorId]) VALUES(@TeacherId,@MajorId)";
+                try
+                {
+
+                    result = conn.Execute(sql, new { TeacherId = teacherId }, tran);
+                    if (!String.IsNullOrEmpty(majorIds))
+                    {
+                        string[] ids = majorIds.Split(',');
+                        foreach (var item in ids)
+                        {
+                            result = conn.Execute(insertImg, new { TeacherId = teacherId, MajorId = item }, tran);
+                        }
+                    }
+                    tran.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    result = 0;
+                    tran.Rollback();
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    result = 0;
+                    tran.Rollback();
+                    return false;
+                }
+            }//end using
+            return result > 0;
+        }
+
         public PageModel<Teacher> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string countSql = string.Format("select count(1) from [Teacher] where DivisionId={0} and Status=1;",divisionId);
+                #region generate condition
+                string where = "where t.Status=1";
+                if (divisionId != -1)
+                {
+                    where += string.Format(" and t.DivisionId = {0}", divisionId);
+                }
+                #endregion
+
+                string countSql = string.Format("select count(1) from [Teacher] as t {0};",where);
 
                 int total = conn.ExecuteScalar<int>(countSql);
                 if (total == 0)
@@ -213,15 +286,14 @@ namespace Instart.Repository
                 }
 
                 string sql = string.Format(@"select * from (select TOP (100) PERCENT t.Id,t.Name,t.NameEn,t.Avatar,s.Name as SchoolName,s.NameEn as SchoolNameEn,
-                                m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn,d.BgColor as DivisionColor, ROW_NUMBER() over (Order by t.Id desc) as RowNumber from Teacher t
+                                m.Name as MajorName,m.NameEn as MajorNameEn,d.Name as DivisionName,d.NameEn as DivisionNameEn,d.BgColor as DivisionColor, ROW_NUMBER() over (Order by t.Id) as RowNumber from Teacher t
                                 left join School s on t.SchoolId = s.Id
                                 left join Major m on t.MajorId = m.Id
-                                left join Division d on t.DivisionId = d.Id
-                                where t.DivisionId = @DivisionId and t.Status = 1 
-                                order by t.Id) as b 
-                                where RowNumber between {0} and {1};", ((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
+                                left join Division d on t.DivisionId = d.Id 
+                                {0}) as b 
+                                where RowNumber between {1} and {2};", where, ((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);
 
-                var list = conn.Query<Teacher>(sql, new { DivisionId = divisionId });
+                var list = conn.Query<Teacher>(sql);
 
                 PageModel<Teacher> result = new PageModel<Teacher>
                 {

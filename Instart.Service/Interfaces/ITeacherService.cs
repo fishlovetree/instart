@@ -29,6 +29,10 @@ namespace Instart.Service
 
          bool SetCourses(int teacherId, string courseIds);
 
+         IEnumerable<Major> GetMajorsByIdAsync(int id);
+
+         bool SetMajors(int teacherId, string majorIds);
+
          PageModel<Teacher> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize);
 
          List<SchoolMajor> GetSchoolListByTeacher(int teacherId);

@@ -112,13 +112,18 @@ namespace Instart.Service
             return _teacherRepository.SetCourses(teacherId, courseIds);
         }
 
+        public IEnumerable<Major> GetMajorsByIdAsync(int id)
+        {
+            return _teacherRepository.GetMajorsByIdAsync(id);
+        }
+
+        public bool SetMajors(int teacherId, string majorIds)
+        {
+            return _teacherRepository.SetMajors(teacherId, majorIds);
+        }
+
         public PageModel<Teacher> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
         {
-            if (divisionId <= 0)
-            {
-                throw new ArgumentException("divisionId错误");
-            }
-
             return _teacherRepository.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
         }
 

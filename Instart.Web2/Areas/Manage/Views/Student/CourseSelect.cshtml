@@ -22,10 +22,10 @@
 
         .w_ico li {
             float: left;
-            width: 250px;
             list-style: none;
             text-align: center;
             margin-bottom: 20px;
+            margin-right: 20px;
         }
 
             .w_ico li img {
@@ -53,10 +53,10 @@
         </ol>
 
         <div class="checkbox">
-            <label style="float:right;">
+            <a class="btn btn-success" style="float:left;" onclick="save()">保存</a>
+            <label style="float:left; margin-left:20px;margin-top:7px;">
                 <input type="checkbox" name="chkAll" id="chkAll" />全选
             </label>
-            <a class="btn btn-success" style="float:left;" onclick="save()">保存</a>
         </div>
 
         <input type="hidden" id="studentId" name="studentId" value="@ViewBag.StudentId" />
@@ -69,7 +69,7 @@
                         <li class="icoli">
                             <img src="@item.Picture" style="width:200px;height:200px;border:1px solid #eee;" /><p>
                                 <div class="checkbox">
-                                    <label>
+                                    <label style="width:220px; height:40px;">
                                         @if (item.IsSelected)
                                         {
                                             <input type="checkbox" name="chkCourse" checked="checked" data-id="@item.Id" />@item.Name
@@ -85,6 +85,10 @@
                     }
                 }
             </ul>
+        </div>
+
+        <div class="checkbox">
+            <a class="btn btn-success" style="float:left;" onclick="save()">保存</a>
         </div>
 
     </div>

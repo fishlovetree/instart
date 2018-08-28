@@ -24,10 +24,19 @@
                     <dd><em>院校背景</em><span><a href="/school/details/@Model.SchoolId">@Model.SchoolName</a></span></dd>
                     <dd><em>专业</em><span><a href="/major/details/@Model.MajorId">@(Model.MajorName) @(Model.MajorNameEn)</a></span></dd>
                     <dd>
-                        <em>擅长课程</em><span>
-                            @foreach (Course item in ViewBag.CourseList)
+                        <em>擅长专业</em><span>
+                            @if (Model.MajorIds != null)
                             {
-                                <a href="/course/details/@item.Id">@item.Name</a>
+                                string[] ids = Model.MajorIds.Split(',');
+                                string[] names = Model.MajorNames.Split(',');
+                                for (int i = 0; i < ids.Length; i++)
+                                {
+                                    if (!String.IsNullOrEmpty(ids[i]))
+                                    {
+                                        <a href="/major/details/@ids[i]">@names[i] </a>
+                                    }
+
+                                }
                             }
                         </span>
                     </dd>
@@ -46,15 +55,15 @@
     </div>
     <div class="caselist com-cont">
         <ul>
-            @foreach (SchoolMajor item in ViewBag.SchoolList)
+            @foreach (School item in ViewBag.SchoolList)
             {
                 <li>
                     <div class="case-cont">
-                        <div class="top"><a href="/school/details/@item.SchoolId"><i></i><img src="@item.SchoolLogo" alt=""></a></div>
+                        <div class="top"><a href="/school/details/@item.Id"><i></i><img src="@item.Logo" alt=""></a></div>
                         <dl>
-                            <a href="/major/details/@item.MajorId">
-                                <dt>@item.SchoolName</dt>
-                                <dd>@item.MajorName</dd>
+                            <a href="/school/details/@item.Id">
+                                <dt>@item.Name</dt>
+                                <dd><span class="glaxfont">录取比例：</span> @(item.AcceptRate + "%")</dd>
                             </a>
                         </dl>
                     </div>

@@ -1,6 +1,6 @@
 ﻿@using Instart.Models
 @{
-    ViewBag.Title = "授课导师";
+    ViewBag.Title = "擅长专业";
     Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
 }
 @section Head{
@@ -22,11 +22,10 @@
 
             .w_ico li {
                 float: left;
-                margin-right: 50px;
                 list-style: none;
                 text-align: center;
-                margin-bottom: 10px;
-                max-width: 100px;
+                margin-bottom: 20px;
+                margin-right: 20px;
             }
 
                 .w_ico li img {
@@ -47,8 +46,8 @@
     @Html.Partial("PartialSchool")
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
         <ol class="breadcrumb">
-            <li><a href="/manage/course">课程管理</a></li>
-            <li class="active">@ViewBag.CourseName - 选择导师</li>
+            <li><a href="/manage/teacher">艺术导师</a></li>
+            <li class="active">@ViewBag.TeacherName - 擅长专业</li>
         </ol>
 
         <div class="checkbox">
@@ -58,24 +57,24 @@
             </label>
         </div>
 
-        <input type="hidden" id="courseId" name="courseId" value="@ViewBag.CourseId" />
+        <input type="hidden" id="teacherId" name="teacherId" value="@ViewBag.TeacherId" />
         <div class="w_con_left">
             <ul class="w_ico">
-                @if (ViewBag.TeacherList != null)
+                @if (ViewBag.MajorList != null)
                 {
-                    foreach (Teacher item in ViewBag.TeacherList)
+                    foreach (Major item in ViewBag.MajorList)
                     {
                         <li class="icoli">
-                            <img src="@item.Avatar" style="width:100px;height:100px;border:1px solid #eee;" /><p>
+                            <img src="@item.ImgUrl" style="width:150px;height:150px;border:1px solid #eee;" /><p>
                                 <div class="checkbox">
                                     <label>
                                         @if (item.IsSelected)
                                         {
-                                            <input type="checkbox" name="chkTeacher" checked="checked" data-id="@item.Id" />@item.Name
+                                            <input type="checkbox" name="chkMajor" checked="checked" data-id="@item.Id" />@item.Name
                                         }
                                         else
                                         {
-                                            <input type="checkbox" name="chkTeacher" data-id="@item.Id" />@item.Name
+                                            <input type="checkbox" name="chkMajor" data-id="@item.Id" />@item.Name
                                         }
                                     </label>
                                 </div>
@@ -97,12 +96,12 @@
             $("#chkAll").click(function () {
                 var checked = $(this).is(":checked");
                 if (checked) {
-                    $("input[name='chkTeacher']").each(function () {
+                    $("input[name='chkMajor']").each(function () {
                         $(this).prop("checked", "checked");
                     })
                 }
                 else {
-                    $("input[name='chkTeacher']").each(function () {
+                    $("input[name='chkMajor']").each(function () {
                         $(this).prop("checked", "");
                     })
                 }
@@ -110,18 +109,18 @@
         })
 
         function save() {
-            var teacherIds = [];
-            $("input[name='chkTeacher']").each(function () {
+            var majorIds = [];
+            $("input[name='chkMajor']").each(function () {
                 if ($(this).is(":checked")) {
-                    teacherIds.push($(this).attr("data-id"));
+                    majorIds.push($(this).attr("data-id"));
                 }
             })
-            $.post('/manage/course/setteachers', { 'courseId': $("#courseId").val(), 'teacherIds': teacherIds.join(',') }, function (slt) {
+            $.post('/manage/teacher/setmajors', { 'teacherId': $("#teacherId").val(), 'majorIds': majorIds.join(',') }, function (slt) {
                 if (slt && slt.success) {
                     layer.msg('保存成功');
                 }
                 else {
-                    layer.msg(slt.message || '操作失败，请重试。');
+                    layer.msg(slt.message || '操作失败，请重试');
                 }
             });
         }

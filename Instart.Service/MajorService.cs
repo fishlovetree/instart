@@ -84,11 +84,6 @@ namespace Instart.Service
 
         public PageModel<Major> GetListByDivsionAsync(int divisionId, int pageIndex, int pageSize)
         {
-            if (divisionId <= 0)
-            {
-                throw new ArgumentException("divisionId错误");
-            }
-
             return _majorRepository.GetListByDivsionAsync(divisionId, pageIndex, pageSize);
         }
     }

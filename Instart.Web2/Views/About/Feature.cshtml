@@ -24,9 +24,6 @@
                     <p><a class="feature-menu" href="javascript:void(0)" data-flag="Division" data-href="/about/division">学部制度</a></p>
                 </li>
                 <li>
-                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Teach" data-href="/about/teach">跨学科教学</a></p>
-                </li>
-                <li>
                     <p><a class="feature-menu" href="javascript:void(0)" data-flag="Workshop" data-href="/about/program/?type=2">Workshop</a></p>
                 </li>
                 <li>
@@ -34,9 +31,6 @@
                 </li>
                 <li>
                     <p><a class="feature-menu" href="javascript:void(0)" data-flag="Company" data-href="/about/company">实习推荐</a></p>
-                </li>
-                <li>
-                    <p><a class="feature-menu" href="javascript:void(0)" data-flag="Actor" data-href="/about/program/?type=3">艺术家孵化平台</a></p>
                 </li>
                 <li>
                     <p><a class="feature-menu" href="javascript:void(0)" data-flag="Area" data-href="/about/program/?type=4">驻地项目</a></p>
@@ -48,79 +42,80 @@
 <div class="padding30">
     <iframe src="" scrolling="no" frameborder="0" id="contmain" name="cont"></iframe>
 </div>
+<div class="maincont">
+    <!--课程推荐-->
+    @Html.Partial("PartialRecommendCourse")
+</div>
 
-<!--课程推荐-->
-@Html.Partial("PartialRecommendCourse")
+    @section Bottom{
+        <script>
+            $(function () {
+                $("a.feature-menu").click(function () {
+                    var href = $(this).attr("data-href")
+                    $("#contmain").attr("src", href);
+                    $("a.feature-menu").css({ "background": "#fff", "color": "#1a1a1a" });
+                    $(this).css({ "background": "#0000ff", "color": "#fff" });
 
-@section Bottom{
-    <script>
-        $(function () {
-            $("a.feature-menu").click(function () {
-                var href = $(this).attr("data-href")
-                $("#contmain").attr("src", href);
-                $("a.feature-menu").css({ "background": "#fff", "color": "#1a1a1a" });
-                $(this).css({ "background": "#0000ff", "color": "#fff" });
-
-                setIframeHeight("contmain");
-            });
-
-            initMenu();
-        });
-
-        function initMenu() {
-            var pos = parseInt("@ViewBag.Type");
-            var cur = $(".insliu li").find("a").eq(pos - 1);
-            cur.click();
-            var dang;
-            $(".insliu li").each(function () {
-                var alen = $(this).find("a.active").length;
-                if (alen > 0) {
-                    dang = $(this).index();
-                }
-            });
-            if (dang >= 5) {
-                $(".insliu ul").css("left", -(dang - 4) * $(".insliu li").width());
-            }
-        }
-
-        //计算子页面的高度
-        function setIframeHeight(id) {
-            var iframe = document.getElementById(id);
-            if (iframe.attachEvent) {
-                iframe.attachEvent("onload", function () {
-                    iframe.height = iframe.contentWindow.document.documentElement.clientHeight;
+                    setIframeHeight("contmain");
                 });
-                return;
-            } else {
-                iframe.onload = function () {
-                    iframe.height = iframe.contentDocument.body.clientHeight;
-                };
-                return;
+
+                initMenu();
+            });
+
+            function initMenu() {
+                var pos = parseInt("@ViewBag.Type");
+                var cur = $(".insliu li").find("a").eq(pos - 1);
+                cur.click();
+                var dang;
+                $(".insliu li").each(function () {
+                    var alen = $(this).find("a.active").length;
+                    if (alen > 0) {
+                        dang = $(this).index();
+                    }
+                });
+                if (dang >= 5) {
+                    $(".insliu ul").css("left", -(dang - 4) * $(".insliu li").width());
+                }
             }
-        }
 
-        function programApply(id) {
-            layer.open({
-                type: 2,
-                title: '项目咨询',
-                shadeClose: true,
-                shade: 0.8,
-                area: ['800px', '430px'],
-                content: '/about/programapply?id=' + id //iframe的url
-            });
-        }
+            //计算子页面的高度
+            function setIframeHeight(id) {
+                var iframe = document.getElementById(id);
+                if (iframe.attachEvent) {
+                    iframe.attachEvent("onload", function () {
+                        iframe.height = iframe.contentWindow.document.documentElement.clientHeight;
+                    });
+                    return;
+                } else {
+                    iframe.onload = function () {
+                        iframe.height = iframe.contentDocument.body.clientHeight;
+                    };
+                    return;
+                }
+            }
 
-        function companyOrder(id) {
-            layer.open({
-                type: 2,
-                title: '实习预约',
-                shadeClose: true,
-                shade: 0.8,
-                area: ['800px', '480px'],
-                content: '/about/companyapply?id=' + id //iframe的url
-            });
-        }
-    </script>
-}
+            function programApply(id) {
+                layer.open({
+                    type: 2,
+                    title: '项目咨询',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['800px', '430px'],
+                    content: '/about/programapply?id=' + id //iframe的url
+                });
+            }
+
+            function companyOrder(id) {
+                layer.open({
+                    type: 2,
+                    title: '实习预约',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['800px', '480px'],
+                    content: '/about/companyapply?id=' + id //iframe的url
+                });
+            }
+        </script>
+    }
 
 

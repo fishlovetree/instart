@@ -96,7 +96,7 @@ namespace Instart.Web2.Controllers
         public ActionResult Studio()
         {
             ViewBag.Type = "Studio";
-            var model = _studioService.GetInfoAsync();
+            var model = _studioService.GetInfoAsync() ?? new Studio();
             ViewBag.ImageList = _studioService.GetImgsAsync();
             return View(model);
         }

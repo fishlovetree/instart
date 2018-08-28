@@ -23,26 +23,23 @@ namespace Instart.Web2.Controllers
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
         ITeacherQuestionService _teacherQuestionService = AutofacService.Resolve<ITeacherQuestionService>();
+        ISchoolService _schoolService = AutofacService.Resolve<ISchoolService>();
 
         public TeacherController()
         {
             this.AddDisposableObject(_teacherService);
             this.AddDisposableObject(_divisionService);
             this.AddDisposableObject(_studentService);
+            this.AddDisposableObject(_schoolService);
         }
 
-        public  ActionResult Index(int id = 0)
+        public  ActionResult Index(int id = -1)
         {
             var divisionList =  _divisionService.GetAllAsync();
 
             if (divisionList == null || divisionList.Count() == 0)
             {
                 throw new Exception("请先创建学部");
-            }
-
-            if(id == 0)
-            {
-                id = divisionList.First().Id;
             }
 
             ViewBag.DivisionList = divisionList;
@@ -72,7 +69,32 @@ namespace Instart.Web2.Controllers
             }
 
             ViewBag.CourseList = _teacherService.GetCoursesByIdAsync(id) ?? new List<Instart.Models.Course>();
-            ViewBag.SchoolList = _teacherService.GetSchoolListByTeacher(id) ?? new List<SchoolMajor>();
+
+            List<School> schoolList = (_schoolService.GetRecommendListAsync(12)) ?? new List<Instart.Models.School>();
+            //计算录取比例
+            IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
+            foreach (School school in schoolList)
+            {
+                int count = 0;
+                foreach (Student student in studentList)
+                {
+                    if (student.SchoolIds != null)
+                    {
+                        string[] ids = student.SchoolIds.Split(',');
+                        if (ids.Contains(school.Id.ToString()))
+                        {
+                            count++;
+                        }
+                    }
+                }
+                school.AcceptRate = "0";
+                if (studentList.Count() > 0)
+                {
+                    decimal rate = (decimal)count / studentList.Count();
+                    school.AcceptRate = (rate * 100).ToString("f2");
+                }
+            }
+            ViewBag.SchoolList = schoolList;
             return View(teacher);
         }
 

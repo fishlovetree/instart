@@ -73,12 +73,17 @@
 .yuanxiao{ border:1px dotted #bfbfbf; height:130px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:16px; position:relative;}
 .yuanxiao p{ margin-bottom:10px; /*overflow:hidden; text-overflow:ellipsis; white-space:nowrap; height:16px;*/}
 .yuanxiao p span{ margin-right:10px; display:inline-block;}
+.yuanxiao .morea-left{ text-align:left; position:absolute; bottom:10px; left:10px;}
+.yuanxiao .morea-left a{ color:#0000ff}
+.yuanxiao .morea-left :before{ content:""; width:8px; height:8px; display:inline-block; background:#0000ff; margin-right:10px; border-radius:50%;}
 .yuanxiao .morea{ text-align:right; position:absolute; bottom:10px; right:10px;}
 .yuanxiao .morea a{ color:#808080; display:inline-block; border:1px dotted #c2c2c2; padding:6px 16px; border-radius:6px;}
 .yuanxiao .morea a:hover{ color:#0100fe; border-color:#0100fe;}
-.s-name div{ width:50%; float:left; text-align:center;}
+.s-name div{ float:left; text-align:center;}
+.s-name-left{ width:70%;}
+.s-name-right{ width:30%;}
 .s-name div.s-name-right img{ width:100%; max-height:1.37rem; border-radius:8px;}
-.s-name-left dt{ font-size:18px; font-weight:bold; padding-top:10px;}
+.s-name-left dt{ font-size:20px; font-weight:bold; padding-top:10px;}
 .s-name-left dd{ margin-bottom:10px;}
 .s-name-left p{ margin-bottom:3px;}
 .s-name-left p img{ padding:0 1px;}
@@ -92,16 +97,16 @@
 .recimg a p,.recimg a i{ position:absolute; left:0; right:0; top:0; bottom:0;text-align:center;}
 .recimg a i{ background:#000; opacity:0; filter:alpha(opacity='0');}
 .recimg a p{ z-index:2; padding:32% 20px; color:#fff; font-size:26px; line-height:1.1em; display:none;}
-.recimg a{ display:block; position:relative; height:300px;}
-.recommend li img{ width:100%; height:300px;}
+.recimg a{ display:block; position:relative;}
+.recommend li img{ width:100%;}
 .bottom{ padding:80px 0; border-top:1px dotted #c2c2c2;}
 .footer{ overflow:hidden;}
 .footer>div{ float:left;}
 .footer-left{ width:30%;}
 .footer-left dt{ margin-bottom:60px;}
 .footer-left dt img{ width:100%;}
-.footer-left dd{ text-align:right;}
-.footer-left dd a{ width:44%; padding:23px 0; display:inline-block; text-align:center; border:1px dotted #c3c3c3; margin-left:4%; font-size:20px;}
+.footer-left dd{ text-align:center;}
+.footer-left dd a{ width:48%; padding:23px 0; display:inline-block; text-align:center; border:1px dotted #c3c3c3; font-size:20px;}
 .footer-left dd a:hover{ border-color:#0100fe; color:#0100fe;}
 .footer-qcord,.footer-right{ width:35%;}
 .footer-qcord{ text-align:center;}

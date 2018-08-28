@@ -902,6 +902,7 @@
     <Content Include="Areas\Manage\Views\Student\SchoolSelect.cshtml" />
     <Content Include="Areas\Manage\Views\CourseSystem\Edit.cshtml" />
     <Content Include="Areas\Manage\Views\CourseSystem\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\Teacher\MajorSelect.cshtml" />
     <None Include="Properties\PublishProfiles\Instart.pubxml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />

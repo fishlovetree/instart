@@ -93,7 +93,7 @@
                     @foreach (SchoolMajor item in ViewBag.MajorBkList)
                     {
                         <p id="@("here"+item.MajorId)" style="margin-bottom:10px;">
-                            @item.MajorName<br />
+                            <b>@item.MajorName</b><br />
                             @item.Introduce
                         </p>
                     }
@@ -103,7 +103,7 @@
                     @foreach (SchoolMajor item in ViewBag.MajorYjsList)
                     {
                         <p id="@("here"+item.MajorId)" style="margin-bottom:10px;">
-                            @item.MajorName<br />
+                            <b>@item.MajorName</b><br />
                             @item.Introduce
                         </p>
                     }
@@ -219,7 +219,6 @@
 </div>
 @section Bottom{
     <script type="text/javascript">
-        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
         $(function () {
             //学员座右铭
             $(".peoplecont").hover(function () {
@@ -247,6 +246,8 @@
                 precision: true, //是否包含小数
                 readOnly: true
             });
+
+            $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
         })
 
         function apply(id) {
