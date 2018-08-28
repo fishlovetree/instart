@@ -51,30 +51,7 @@ namespace Instart.Web2.Controllers
         public JsonResult GetSchoolList(int pageIndex, int pageSize = 6, string keyword = null, int country = -1, int major = -1, int level = -1)
         {
             PageModel<School> schoolList = _schoolService.GetListAsync(pageIndex, pageSize, keyword, country, major, level);
-            IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
-
-            //计算录取比例
-            foreach (School school in schoolList.Data)
-            {
-                int count = 0;
-                foreach (Student student in studentList)
-                {
-                    if (student.SchoolIds != null)
-                    {
-                        string[] ids = student.SchoolIds.Split(',');
-                        if (ids.Contains(school.Id.ToString()))
-                        {
-                            count++;
-                        }
-                    }
-                }
-                school.AcceptRate = "0";
-                if (studentList.Count() > 0)
-                {
-                    decimal rate = (decimal)count / studentList.Count();
-                    school.AcceptRate = (rate * 100).ToString("f2");
-                }
-            }
+            ViewBag.SchoolList = schoolList;
 
             return Success(data: new
             {
@@ -99,11 +76,8 @@ namespace Instart.Web2.Controllers
                 throw new Exception("艺术院校不存在");
             }
 
-            //计算录取比例
-            IEnumerable<School> schoolList = (_schoolService.GetAllAsync()) ?? new List<School>();
             IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
             List<Student> schoolStudents = new List<Student>();
-            int count = 0;
             foreach (Student student in studentList)
             {
                 if (student.SchoolIds != null)
@@ -112,15 +86,8 @@ namespace Instart.Web2.Controllers
                     if (ids.Contains(school.Id.ToString()))
                     {
                         schoolStudents.Add(student);
-                        count++;
                     }
                 }
-            }
-            school.AcceptRate = "0";
-            if (studentList.Count() > 0)
-            {
-                decimal rate = (decimal)count / studentList.Count();
-                school.AcceptRate = (rate * 100).ToString("f2");
             }
             ViewBag.SchoolStudents = schoolStudents;
             //院校专业

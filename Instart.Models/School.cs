@@ -160,7 +160,7 @@ namespace Instart.Models
         /// <summary>
         /// 录取比例
         /// </summary>
-        public String AcceptRate { get; set; }
+        public string AcceptRate { get; set; }
 
         /// <summary>
         /// 是否热搜

@@ -71,29 +71,6 @@ namespace Instart.Web2.Controllers
             ViewBag.CourseList = _teacherService.GetCoursesByIdAsync(id) ?? new List<Instart.Models.Course>();
 
             List<School> schoolList = (_schoolService.GetRecommendListAsync(12)) ?? new List<Instart.Models.School>();
-            //计算录取比例
-            IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
-            foreach (School school in schoolList)
-            {
-                int count = 0;
-                foreach (Student student in studentList)
-                {
-                    if (student.SchoolIds != null)
-                    {
-                        string[] ids = student.SchoolIds.Split(',');
-                        if (ids.Contains(school.Id.ToString()))
-                        {
-                            count++;
-                        }
-                    }
-                }
-                school.AcceptRate = "0";
-                if (studentList.Count() > 0)
-                {
-                    decimal rate = (decimal)count / studentList.Count();
-                    school.AcceptRate = (rate * 100).ToString("f2");
-                }
-            }
             ViewBag.SchoolList = schoolList;
             return View(teacher);
         }

@@ -28,29 +28,6 @@ namespace Instart.Web2.Controllers
             IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
             IEnumerable<School> schoolList = ( _schoolService.GetAllAsync()) ?? new List<School>();
 
-            //计算录取比例
-            foreach (School school in schoolList)
-            {
-                int count = 0;
-                foreach (Student student in studentList)
-                {
-                    if (student.SchoolIds != null)
-                    {
-                        string[] ids = student.SchoolIds.Split(',');
-                        if (ids.Contains(school.Id.ToString()))
-                        {
-                            count++;
-                        }
-                    }
-                }
-                school.AcceptRate = "0";
-                if (studentList.Count() > 0)
-                {
-                    decimal rate = (decimal)(count) / studentList.Count();
-                    school.AcceptRate = (rate * 100).ToString("f2");
-                }
-            }
-
             //一行4个学员
             List<List<Student>> studentMap = new List<List<Student>>();
             int studentIndex = 1;
