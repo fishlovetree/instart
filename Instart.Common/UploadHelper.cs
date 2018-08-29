@@ -14,7 +14,7 @@ namespace Instart.Common
         static string s_physicImageDirectory = System.Web.HttpContext.Current.Server.MapPath(s_imageDirectory);
         static string s_physicVideoDirectory = System.Web.HttpContext.Current.Server.MapPath(s_videoDirectory);
         static string[] s_imageExtensions = new string[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
-        static string[] s_videoExtesions = new string[] { ".avi", ".rmvb", ".rm", ".asf", ".divx", ".mpg", ".mpeg", ".mpe", ".wmv", ".mp4", ".mkv", ".vob", ".ogg" };
+        static string[] s_videoExtesions = new string[] { ".avi", ".rmvb", ".rm", ".asf", ".divx", ".mpg", ".mpeg", ".mpe", ".wmv", ".mp4", ".mkv", ".vob", ".ogg", ".qlv" };
 
         static UploadHelper()
         {
