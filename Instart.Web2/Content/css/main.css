@@ -4,7 +4,7 @@
 .toprel{ background:#fff;}
 .topfix{ position:fixed; top:0; left:0; right:0; z-index:100; box-shadow:1px 3px 4px rgba(0,0,0,.2)}
 .toper{ height:94px; border-bottom:1px dotted #c5c5c5; position:relative;}
-.toper a.logo{ width:94px; height:94px; position:absolute; top:5px; left:50%; margin-left:-47px;}
+.toper a.logo{ width:80px; height:80px; position:absolute; top:5px; left:50%; margin-left:-40px;}
 .toper a.logo img{ width:100%; height:100%;}
 .D-info{ position:absolute; right:4%; color:#4d4d4d;}
 .D-info dl{ padding:18px 0 18px 28px; background:url(/content/images/top-icon.png) left center no-repeat; line-height:30px;}
@@ -221,14 +221,13 @@
 .hd ul{ display:inline;}
 .hd ul li{ border-radius:50%; background:#e6e6e6; text-indent:-999em;}
 .hd ul li.on{ background:#4d4d4d;}
-.chenggong .bd ul{ float:left; width:25%; padding:0 20px;}
-.chenggong .bd ul li{ width:100%;}
+.chenggong .bd ul{ float:left; padding:0 20px;}
+.chenggong .bd ul li{ width:25%;}
 .chenggong .peoplecont dt{ text-align:center; border-bottom:1px dashed #2e2e2e; padding-bottom:5px;}
-.whatthis .bd ul{ float:left; width:33.33%; padding:0 20px;}
-.whatthis .bd ul li{ width:100%;}
+.whatthis .bd ul{ float:left; padding:0 20px;}
 .mar-top{ margin-top:-50px;}
-.toegeven .caselist ul{ width:50%; padding:0 20px;}
-.toegeven .caselist ul li{ width:33.33%}
+.toegeven .caselist ul{ float:left; padding:0 20px;}
+.toegeven .caselist ul li{ width:16.66%}
 .neibanner{ position:relative; margin-bottom:30px;}
 .neibanner img{ width:100%;}
 .neibanner p{ position:absolute; bottom:0; right:0; border-radius:6px 6px 0 0; background:rgba(255,255,255,.8); line-height:1.2em; font-size:38px; width:50%; padding:20px 4%;}
@@ -418,6 +417,6 @@
      .nav ul{ padding-right:23%}
 	 .teacher-cont dd.teac-m{ height:125px!important;}
 	 .list-cont dd.teac-m{ height:295px;}
-	 .c-guide+ .c-infos{ height:218px}
+	 .c-guide+ .c-infos{ height:171px}
 }
 

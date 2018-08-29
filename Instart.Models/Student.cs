@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Instart.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -165,5 +166,20 @@ namespace Instart.Models
         /// OFFER Name列表，逗号拼接
         /// </summary>
         public string SchoolNames { get; set; }
+
+        /// <summary>
+        /// 基础
+        /// </summary>
+        public string Basis { get; set; }
+
+        /// <summary>
+        /// 申请学历：1-本科，2-研究生
+        /// </summary>
+        public int ApplyType { get; set; }
+
+        /// <summary>
+        /// 培训时长
+        /// </summary>
+        public string LearnTime { get; set; }
     }
 }

@@ -43,7 +43,7 @@
     </div>
     <div class="chenggong">
         <div class="success-people com-cont noborder bd">
-            <div class="ulWrap">
+            <div class="chenggongWrap">
                 @foreach (List<Student> list in ViewBag.StudentMap)
                 {
                     <ul>
@@ -91,7 +91,7 @@
     </div>
     <div class="toegeven">
         <div class="caselist com-cont bd">
-            <div class="ulWrap">
+            <div class="toegevenWrap">
                 @foreach (List<School> list in ViewBag.SchoolMap)
                 {
                     <ul>
@@ -125,7 +125,7 @@
 @section Bottom{
     <script type="text/javascript">
         $(".interlist").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: true, vis: 2, trigger: "click" });
-        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 4, vis: 4 });
-        $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2 });
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .chenggongWrap", autoPage: true, effect: "leftLoop", autoPlay: false });
+        $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .toegevenWrap", autoPage: true, effect: "leftLoop", autoPlay: false });
     </script>
 }

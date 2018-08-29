@@ -24,9 +24,9 @@
                 <div class="stel"><a href="/course/index?studentId=@Model.Id">TA的课程</a></div>
                 <dl class="mee-info-top">
                     <dt>学员档案</dt>
-                    <dd><em>姓名: </em><span>@Model.Name</span></dd>
-                    <dd><em>院校背景: </em><span><a href="#">@Model.Background</a></span></dd>
-                    <dd><em>OFFER: </em><span>
+                    <dd><em><b>姓名: </b></em><span>@Model.Name</span></dd>
+                    <dd><em><b>院校背景: </b></em><span>@Model.Background</span></dd>
+                    <dd><em><b>OFFER: </b></em><span>
                     @if (Model.SchoolIds != null)
                     {
                         string[] ids = Model.SchoolIds.Split(',');
@@ -40,6 +40,10 @@
 
                         }
                     }</span></dd>
+                    <dd><em><b>基础: </b></em><span>@Model.Basis</span></dd>
+                    <dd><em><b>申请学历: </b></em><span>@(Model.ApplyType == 1 ? "本科" : "研究生")</span></dd>
+                    <dd><em><b>培训时长: </b></em><span>@Model.LearnTime</span></dd>
+                    <dd><em><b>申请专业: </b></em><span>@Model.MajorName</span></dd>
                 </dl>
                 <dl class="mee-info-bottom">
                     <dt>学员介绍</dt>
@@ -57,11 +61,11 @@
     <div class="chenggong padding30">
         <div class="success-people com-cont noborder bd">
             <div class="ulWrap">
-                @if (ViewBag.StudentList != null)
+                @foreach (List<Student> list in ViewBag.StudentMap)
                 {
-                    foreach (Student item in ViewBag.StudentList)
-                    {
-                        <ul>
+                    <ul>
+                        @foreach (Student item in list)
+                        {
                             <li>
                                 <div class="peoplecont">
                                     <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
@@ -87,8 +91,8 @@
                                     </dl>
                                 </div>
                             </li>
-                        </ul>
-                    }
+                        }
+                    </ul>
                 }
             </div>
         </div>
@@ -106,10 +110,7 @@
     <script src="/content/js/banner.js" type="text/javascript"></script>
     <script src="/content/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(".banner").lubo({});
-        $(".interlist").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: true, vis: 2, trigger: "click" });
-        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 4, vis: 4 });
-        $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2 });
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false });
     </script>
 }
 

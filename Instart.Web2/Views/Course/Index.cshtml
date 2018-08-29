@@ -13,7 +13,7 @@
     </div>
     <div class="whatthis">
         <div class="course-info com-cont bd">
-            <div class="ulWrap">
+            <div class="whatthisWrap">
                 @foreach (List<Course> list in ViewBag.CourseList)
                 {
                     <ul>
@@ -64,36 +64,41 @@
     </div>
     <div class="chenggong padding30">
         <div class="success-people com-cont noborder bd">
-            <ul>
-                @foreach (Student item in ViewBag.StudentList)
+            <div class="chenggongWrap">
+                @foreach (List<Student> list in ViewBag.StudentMap)
                 {
-                    <li>
-                        <div class="peoplecont">
-                            <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
-                            <dl>
-                                <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
-                                <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
-                                <dd class="pe2">
-                                    OFFER：
-                                    @if (item.SchoolIds != null)
-                                    {
-                                        string[] ids = item.SchoolIds.Split(',');
-                                        string[] names = item.SchoolNames.Split(',');
-                                        for (int i = 0; i < ids.Length; i++)
-                                        {
-                                            if (!String.IsNullOrEmpty(ids[i]))
+                    <ul>
+                        @foreach (Student item in list)
+                        {
+                            <li>
+                                <div class="peoplecont">
+                                    <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
+                                    <dl>
+                                        <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
+                                        <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
+                                        <dd class="pe2">
+                                            OFFER：
+                                            @if (item.SchoolIds != null)
                                             {
-                                                <a href="/school/details/@ids[i]">@names[i] </a>
-                                            }
+                                                string[] ids = item.SchoolIds.Split(',');
+                                                string[] names = item.SchoolNames.Split(',');
+                                                for (int i = 0; i < ids.Length; i++)
+                                                {
+                                                    if (!String.IsNullOrEmpty(ids[i]))
+                                                    {
+                                                        <a href="/school/details/@ids[i]">@names[i] </a>
+                                                    }
 
-                                        }
-                                    }
-                                </dd>
-                            </dl>
-                        </div>
-                    </li>
+                                                }
+                                            }
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                        }
+                    </ul>
                 }
-            </ul>
+            </div>
         </div>
         <div class="hd mar-top">
             <a class="prev"></a>
@@ -106,8 +111,8 @@
 @section Bottom{
     <script type="text/javascript">
         //SuperSlide.js
-        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
-        $(".whatthis").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 3, vis: 3 });
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .chenggongWrap", autoPage: true, effect: "leftLoop", autoPlay: false });
+        $(".whatthis").slide({ titCell: ".hd ul", mainCell: ".bd .whatthisWrap", autoPage: true, effect: "leftLoop", autoPlay: false});
         function order(id) {
             layer.open({
                 type: 2,

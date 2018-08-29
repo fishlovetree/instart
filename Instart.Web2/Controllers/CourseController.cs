@@ -51,27 +51,46 @@ namespace Instart.Web2.Controllers
                 courseList = _courseService.GetAllByStudentAsync(studentId) ?? new List<Course>();
             }
 
-            //一行3个课程
+            //一行3个课程，两行
             List<List<Course>> courseMap = new List<List<Course>>();
             int courseIndex = 1;
-            List<Course> slist = new List<Course>();
+            List<Course> clist = new List<Course>();
             foreach (Course course in courseList)
             {
-                slist.Add(course);
-                if (courseIndex % 2 == 0)
+                clist.Add(course);
+                if (courseIndex % 6 == 0)
                 {
-                    courseMap.Add(new List<Course>(slist.ToArray()));
-                    slist.Clear();
+                    courseMap.Add(new List<Course>(clist.ToArray()));
+                    clist.Clear();
                 }
                 courseIndex++;
             }
-            if (slist.Count > 0)
+            if (clist.Count > 0)
             {
-                courseMap.Add(slist);
+                courseMap.Add(clist);
             }
 
             ViewBag.CourseList = courseMap;
-            ViewBag.StudentList = _studentService.GetAllAsync() ?? new List<Instart.Models.Student>(); //成功学员
+            IEnumerable<Student> studentList = _studentService.GetAllAsync() ?? new List<Instart.Models.Student>(); //成功学员
+            //一行4个学员
+            List<List<Student>> studentMap = new List<List<Student>>();
+            int studentIndex = 1;
+            List<Student> slist = new List<Student>();
+            foreach (Student item in studentList)
+            {
+                slist.Add(item);
+                if (studentIndex % 8 == 0)
+                {
+                    studentMap.Add(new List<Student>(slist.ToArray()));
+                    slist.Clear();
+                }
+                studentIndex++;
+            }
+            if (slist.Count > 0)
+            {
+                studentMap.Add(slist);
+            }
+            ViewBag.StudentMap = studentMap;
             ViewBag.SystemList = _courseSystemService.GetAllAsync() ?? new List<Instart.Models.CourseSystem>(); //课程体系
             return View();
         }
@@ -84,7 +103,26 @@ namespace Instart.Web2.Controllers
             }
             Course course = _courseService.GetByIdAsync(id);
             ViewBag.WorkList = _worksService.GetListByCourseIdAsync(id, 3) ?? new List<Instart.Models.Works>();
-            ViewBag.StudentList = _studentService.GetListByCourseAsync(id) ?? new List<Instart.Models.Student>();
+            List<Student> studentList = _studentService.GetListByCourseAsync(id) ?? new List<Instart.Models.Student>();
+            //一行4个学员
+            List<List<Student>> studentMap = new List<List<Student>>();
+            int studentIndex = 1;
+            List<Student> slist = new List<Student>();
+            foreach (Student item in studentList)
+            {
+                slist.Add(item);
+                if (studentIndex % 8 == 0)
+                {
+                    studentMap.Add(new List<Student>(slist.ToArray()));
+                    slist.Clear();
+                }
+                studentIndex++;
+            }
+            if (slist.Count > 0)
+            {
+                studentMap.Add(slist);
+            }
+            ViewBag.StudentMap = studentMap;
             return View(course ?? new Course());
         }
 
@@ -188,27 +226,46 @@ namespace Instart.Web2.Controllers
             }
             CourseSystem model = _courseSystemService.GetByIdAsync(id) ?? new CourseSystem();
             IEnumerable<Course> courseList = _courseService.GetListBySystemId(id) ?? new List<Course>();
-            //一行3个课程
+            //一行3个课程，两行
             List<List<Course>> courseMap = new List<List<Course>>();
             int courseIndex = 1;
-            List<Course> slist = new List<Course>();
+            List<Course> clist = new List<Course>();
             foreach (Course course in courseList)
             {
-                slist.Add(course);
-                if (courseIndex % 2 == 0)
+                clist.Add(course);
+                if (courseIndex % 6 == 0)
                 {
-                    courseMap.Add(new List<Course>(slist.ToArray()));
-                    slist.Clear();
+                    courseMap.Add(new List<Course>(clist.ToArray()));
+                    clist.Clear();
                 }
                 courseIndex++;
             }
-            if (slist.Count > 0)
+            if (clist.Count > 0)
             {
-                courseMap.Add(slist);
+                courseMap.Add(clist);
             }
 
             ViewBag.CourseList = courseMap;
-            ViewBag.StudentList = _studentService.GetAllAsync() ?? new List<Instart.Models.Student>(); //成功学员
+            IEnumerable<Student> studentList = _studentService.GetAllAsync() ?? new List<Instart.Models.Student>(); //成功学员
+            //一行4个学员
+            List<List<Student>> studentMap = new List<List<Student>>();
+            int studentIndex = 1;
+            List<Student> slist = new List<Student>();
+            foreach (Student item in studentList)
+            {
+                slist.Add(item);
+                if (studentIndex % 8 == 0)
+                {
+                    studentMap.Add(new List<Student>(slist.ToArray()));
+                    slist.Clear();
+                }
+                studentIndex++;
+            }
+            if (slist.Count > 0)
+            {
+                studentMap.Add(slist);
+            }
+            ViewBag.StudentMap = studentMap;
             return View(model);
         }
     }

@@ -35,7 +35,7 @@ namespace Instart.Web2.Controllers
             foreach (Student student in studentList)
             {
                 slist.Add(student);
-                if (studentIndex % 2 == 0)
+                if (studentIndex % 8 == 0)
                 {
                     studentMap.Add(new List<Student>(slist.ToArray()));
                     slist.Clear();
@@ -54,7 +54,7 @@ namespace Instart.Web2.Controllers
             foreach (School school in schoolList)
             {
                 tlist.Add(school);
-                if (schoolIndex % 6 == 0)
+                if (schoolIndex % 12 == 0)
                 {
                     schoolMap.Add(new List<School>(tlist.ToArray()));
                     tlist.Clear();
@@ -80,7 +80,25 @@ namespace Instart.Web2.Controllers
             }
             Student student =  _studentService.GetByIdAsync(id);
             IEnumerable<Student> studentList = ( _studentService.GetListByDivisionAsync(student.DivisionId)) ?? new List<Student>();
-            ViewBag.StudentList = studentList;
+            //一行4个学员
+            List<List<Student>> studentMap = new List<List<Student>>();
+            int studentIndex = 1;
+            List<Student> slist = new List<Student>();
+            foreach (Student item in studentList)
+            {
+                slist.Add(item);
+                if (studentIndex % 8 == 0)
+                {
+                    studentMap.Add(new List<Student>(slist.ToArray()));
+                    slist.Clear();
+                }
+                studentIndex++;
+            }
+            if (slist.Count > 0)
+            {
+                studentMap.Add(slist);
+            }
+            ViewBag.StudentMap = studentMap;
             return View(student ?? new Student());
         }
     }
