@@ -12,7 +12,7 @@ namespace Instart.Models.Enums
         /// <summary>
         /// ProToPro
         /// </summary>
-        [Description("ProToPro")]
+        [Description("你好！面试官")]
         ProToPro = 1,
         /// <summary>
         /// Workshop

@@ -23,8 +23,8 @@
         }))
         {
             <div class="form-group">
-                <label class="col-sm-2 control-label">视频封面：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">视频封面：</label>
+                <div class="col-sm-9">
                     <img src="@Model.ImgUrl" id="imgPreview" style="width:80%;height:250px;border:1px solid #eee;" />
                     <input type="hidden" name="ImgUrl" value="@Model.ImgUrl" />
                     <a href="javascript:void(0)" onclick="$('#fileImg').click()" class="btn-link" style="position:relative;top:115px;">点击上传</a>
@@ -33,8 +33,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">团队视频：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">团队视频：</label>
+                <div class="col-sm-9">
                     @if (!String.IsNullOrEmpty(Model.VideoUrl))
                     {
                         <a class="video-play" style="float:right; margin-right: 25px;" href="javascript:void(0)" data-video="@Model.VideoUrl">播放</a>
@@ -45,29 +45,29 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">一沙品牌：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">一沙品牌：</label>
+                <div class="col-sm-9">
                     <textarea name="Introduce" id="Introduce" style="height:400px;">@Html.Raw(Model.Introduce)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">一沙教学：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">一沙教学：</label>
+                <div class="col-sm-9">
                     <textarea name="Team" id="Team" style="height:400px;">@Html.Raw(Model.Team)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">一沙愿景：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">一沙愿景：</label>
+                <div class="col-sm-9">
                     <textarea name="Develop" id="Develop" style="height:400px;">@Html.Raw(Model.Develop)</textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">PreToPro封面：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">你好！面试官配图：</label>
+                <div class="col-sm-9">
                     <img src="@Model.PreToProImg" id="preToProPreview" style="width:80%;height:200px;border:1px solid #eee;" />
                     <input type="hidden" name="PreToProImg" value="@Model.PreToProImg" />
                     <a href="javascript:void(0)" onclick="$('#filePreToPro').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
@@ -76,8 +76,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">学部制度封面：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">学部制度配图：</label>
+                <div class="col-sm-9">
                     <img src="@Model.DivisionImg" id="divisionPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="DivisionImg" value="@Model.DivisionImg" />
                     <a href="javascript:void(0)" onclick="$('#fileDivision').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
@@ -86,18 +86,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">跨学科教学封面：</label>
-                <div class="col-sm-10">
-                    <img src="@Model.PassLearningImg" id="passLearningPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
-                    <input type="hidden" name="PassLearningImg" value="@Model.PassLearningImg" />
-                    <a href="javascript:void(0)" onclick="$('#filePassLearning').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
-                    <input type='file' id='filePassLearning' name='filePassLearning' style='display:none;'>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">WorkShop封面：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">WorkShop配图：</label>
+                <div class="col-sm-9">
                     <img src="@Model.WorkShopImg" id="workShopPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="WorkShopImg" value="@Model.WorkShopImg" />
                     <a href="javascript:void(0)" onclick="$('#fileWorkShop').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
@@ -106,8 +96,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">24小时工作室封面：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">24小时工作室配图：</label>
+                <div class="col-sm-9">
                     <img src="@Model.StudioImg" id="studioPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="StudioImg" value="@Model.StudioImg" />
                     <a href="javascript:void(0)" onclick="$('#fileStudio').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
@@ -116,8 +106,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">实习推荐封面：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">实习推荐配图：</label>
+                <div class="col-sm-9">
                     <img src="@Model.CompanyImg" id="companyPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="CompanyImg" value="@Model.CompanyImg" />
                     <a href="javascript:void(0)" onclick="$('#fileCompany').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
@@ -126,18 +116,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">艺术家孵化平台封面：</label>
-                <div class="col-sm-10">
-                    <img src="@Model.ActorImg" id="actorPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
-                    <input type="hidden" name="ActorImg" value="@Model.ActorImg" />
-                    <a href="javascript:void(0)" onclick="$('#fileActor').click()" class="btn-link" style="position: relative; top: 90px;">点击上传</a>
-                    <input type='file' id='fileActor' name='fileActor' style='display:none;'>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">驻地项目封面：</label>
-                <div class="col-sm-10">
+                <label class="col-sm-3 control-label">驻地项目配图：</label>
+                <div class="col-sm-9">
                     <img src="@Model.ProgramsImg" id="programsPreview" style="width: 80%; height: 200px; border: 1px solid #eee;" />
                     <input type="hidden" name="ProgramsImg" value="@Model.ProgramsImg" />
                     <a href="javascript:void(0)" onclick="$('#filePrograms').click()" class="btn-link" style="position:relative;top:90px;">点击上传</a>
@@ -146,8 +126,8 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2"></label>
-                <div class="col-sm-10">
+                <label class="col-sm-3"></label>
+                <div class="col-sm-9">
                     <input type="button" class="btn btn-success" value="保存" onclick="save()" />
                 </div>
             </div>
@@ -160,7 +140,7 @@
                         <h4 class="modal-title">视频预览</h4>
                     </div>
                     <div class="modal-body">
-                        <video class="video-container" src="/i/movie.ogg" style="width:100%;height:400px;" controls="controls"></video>
+                        <video class="video-container" src="" style="width:100%;height:400px;" controls="controls"></video>
                     </div>
                 </div>
             </div>
@@ -199,10 +179,6 @@
                 imagePreview(this.files[0], $("#divisionPreview"));
             });
 
-            $('#filePassLearning').change(function () {
-                imagePreview(this.files[0], $("#passLearningPreview"));
-            });
-
             $('#fileWorkShop').change(function () {
                 imagePreview(this.files[0], $("#workShopPreview"));
             });
@@ -213,10 +189,6 @@
 
             $('#fileCompany').change(function () {
                 imagePreview(this.files[0], $("#companyPreview"));
-            });
-
-            $('#fileActor').change(function () {
-                imagePreview(this.files[0], $("#actorPreview"));
             });
 
             $('#filePrograms').change(function () {
