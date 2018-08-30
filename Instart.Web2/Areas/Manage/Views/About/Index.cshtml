@@ -35,12 +35,16 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">团队视频：</label>
                 <div class="col-sm-9">
-                    @if (!String.IsNullOrEmpty(Model.VideoUrl))
-                    {
-                        <a class="video-play" style="float:right; margin-right: 25px;" href="javascript:void(0)" data-video="@Model.VideoUrl">播放</a>
-                    }
-                    <input type="hidden" name="VideoUrl" value="@Model.VideoUrl" />
-                    <input type='file' id='fileVideo' name='fileVideo'>
+                    <div id="uploader" class="wu-example">
+                        <!--用来存放文件信息-->
+                        <ul id="thelist" class="list-group"></ul>
+                        <div class="uploader-list"></div>
+                        <div class="btns">
+                            <div id="picker" style="float:left;">选择文件</div>
+                            <input id="ctlBtn" type="button" value="开始上传" class="btn btn-default" style="width:78px;height:37px;margin-left:10px;" />
+                        </div>
+                    </div>
+                    <input type="hidden" id="VideoUrl" name="VideoUrl" value="@Model.VideoUrl" />
                 </div>
             </div>
 
@@ -132,22 +136,11 @@
                 </div>
             </div>
         }
-        <div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">视频预览</h4>
-                    </div>
-                    <div class="modal-body">
-                        <video class="video-container" src="" style="width:100%;height:400px;" controls="controls"></video>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @section Bottom{
+<link rel="stylesheet" type="text/css" href="~/Content/webuploader/webuploader.css">
+<script type="text/javascript" src="~/Content/webuploader/webuploader.js"></script>
     <script>
         $(function () {
             UE.getEditor('Introduce');
@@ -158,17 +151,6 @@
 
             $('#fileImg').change(function () {
                 imagePreview(this.files[0], $("#imgPreview"));
-            });
-
-            $(".video-play").click(function () {
-                var src = $(this).attr("data-video");
-                if (src == "") {
-                    layer.msg("视频地址为空");
-                    return;
-                }
-
-                $(".video-container").attr("src", src);
-                $("#videoModal").modal("show");
             });
 
             $('#filePreToPro').change(function () {
@@ -194,6 +176,8 @@
             $('#filePrograms').change(function () {
                 imagePreview(this.files[0], $("#programsPreview"));
             });
+
+            initUpload();
         })
 
         function save() {
@@ -209,5 +193,90 @@
             });
         }
 
+        var GUID = WebUploader.Base.guid();//一个GUID
+        //初始化上传控件
+        function initUpload() {
+            var $ = jQuery;
+            var $list = $('#thelist');
+            var uploader = WebUploader.create({
+
+                // 选完文件后，是否自动上传。
+                auto: false,
+                // swf文件路径
+                swf: '~/Content/webuploader/Uploader.swf',
+
+                // 文件接收服务端。
+                server: '/Manage/About/Upload',
+
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#picker',
+
+                chunked: true,//开始分片上传
+                chunkSize: 2048000,//每一片的大小
+                formData: {
+                    guid: GUID //自定义参数，待会儿解释
+                },
+
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false
+            });
+            // 当有文件被添加进队列的时候
+            uploader.on('fileQueued', function (file) {
+                $list.append('<div id="' + file.id + '" class="item">' +
+                    '<h4 class="info">' + file.name + '</h4>' +
+                    '<p class="state">等待上传...</p>' +
+                '</div>');
+            });
+            // 文件上传过程中创建进度条实时显示。
+            uploader.on('uploadProgress', function (file, percentage) {
+                var $li = $('#' + file.id),
+                $percent = $li.find('.progress .progress-bar');
+
+                // 避免重复创建
+                if (!$percent.length) {
+                    $percent = $('<div class="progress progress-striped active">' +
+                      '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                      '</div>' +
+                    '</div>').appendTo($li).find('.progress-bar');
+                }
+
+                $li.find('p.state').text('上传中');
+
+                $percent.css('width', percentage * 100 + '%');
+
+            });
+
+            // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+            uploader.on('uploadSuccess', function (file, response) {
+                var $li = $('#' + file.id);
+                //$('#' + file.id).find('p.state').text('已上传');
+                $.post('/Manage/About/Merge', { guid: GUID, fileName: file.name }, function (data) {
+                    $li.find('p.state').text('上传成功');
+                    $("#VideoUrl").val(data.filePath);
+                });
+            });
+
+            // 文件上传失败，显示上传出错。
+            uploader.on('uploadError', function (file, reason) {
+                $('#' + file.id).find('p.state').text(reason);
+            });
+
+            // 完成上传完了，成功或者失败，先删除进度条。
+            uploader.on('uploadComplete', function (file) {
+                $('#' + file.id).find('.progress').fadeOut();
+            });
+
+            //所有文件上传完毕
+            uploader.on("uploadFinished", function () {
+                //提交表单
+
+            });
+            //开始上传
+            $("#ctlBtn").click(function () {
+                uploader.upload();
+
+            });
+        }
     </script>
 }

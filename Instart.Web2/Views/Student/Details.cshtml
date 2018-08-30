@@ -24,26 +24,16 @@
                 <div class="stel"><a href="/course/index?studentId=@Model.Id">TA的课程</a></div>
                 <dl class="mee-info-top">
                     <dt>学员档案</dt>
-                    <dd><em><b>姓名: </b></em><span>@Model.Name</span></dd>
-                    <dd><em><b>院校背景: </b></em><span>@Model.Background</span></dd>
-                    <dd><em><b>OFFER: </b></em><span>
-                    @if (Model.SchoolIds != null)
+                    <dd><em>姓名: </em><span>@Model.Name</span></dd>
+                    <dd><em>院校背景: </em><span><a href="#">@Model.Background</a></span></dd>
+                    <dd><em>OFFER: </em><span>
+                    @if (Model.SchoolList != null && Model.SchoolList.Count > 0)
                     {
-                        string[] ids = Model.SchoolIds.Split(',');
-                        string[] names = Model.SchoolNames.Split(',');
-                        for (int i = 0; i < ids.Length; i++)
+                        foreach (School school in Model.SchoolList)
                         {
-                            if (!String.IsNullOrEmpty(ids[i]))
-                            {
-                                <a href="/school/details/@ids[i]">@names[i] </a>
-                            }
-
+                            <a href="/school/details/@school.Id">@school.Name </a>
                         }
                     }</span></dd>
-                    <dd><em><b>基础: </b></em><span>@Model.Basis</span></dd>
-                    <dd><em><b>申请学历: </b></em><span>@(Model.ApplyType == 1 ? "本科" : "研究生")</span></dd>
-                    <dd><em><b>培训时长: </b></em><span>@Model.LearnTime</span></dd>
-                    <dd><em><b>申请专业: </b></em><span>@Model.MajorName</span></dd>
                 </dl>
                 <dl class="mee-info-bottom">
                     <dt>学员介绍</dt>
@@ -61,11 +51,11 @@
     <div class="chenggong padding30">
         <div class="success-people com-cont noborder bd">
             <div class="ulWrap">
-                @foreach (List<Student> list in ViewBag.StudentMap)
+                @if (ViewBag.StudentList != null)
                 {
-                    <ul>
-                        @foreach (Student item in list)
-                        {
+                    foreach (Student item in ViewBag.StudentList)
+                    {
+                        <ul>
                             <li>
                                 <div class="peoplecont">
                                     <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
@@ -73,26 +63,20 @@
                                         <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
                                         <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
                                         <dd class="pe2">
-                                            OFFER：
-                                            @if (item.SchoolIds != null)
+                                            offer：
+                                            @if (item.SchoolList != null && item.SchoolList.Count > 0)
                                             {
-                                                string[] ids = item.SchoolIds.Split(',');
-                                                string[] names = item.SchoolNames.Split(',');
-                                                for (int i = 0; i < ids.Length; i++)
+                                                foreach (School school in item.SchoolList)
                                                 {
-                                                    if (!String.IsNullOrEmpty(ids[i]))
-                                                    {
-                                                        <a href="/school/details/@ids[i]">@names[i] </a>
-                                                    }
-
+                                                    <a href="/school/details/@school.Id">@school.Name </a>
                                                 }
                                             }
                                         </dd>
                                     </dl>
                                 </div>
                             </li>
-                        }
-                    </ul>
+                        </ul>
+                    }
                 }
             </div>
         </div>
@@ -110,7 +94,10 @@
     <script src="/content/js/banner.js" type="text/javascript"></script>
     <script src="/content/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false });
+        $(".banner").lubo({});
+        $(".interlist").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: true, vis: 2, trigger: "click" });
+        $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, scroll: 4, vis: 4 });
+        $(".toegeven").slide({ titCell: ".hd ul", mainCell: ".bd .ulWrap", autoPage: true, effect: "leftLoop", autoPlay: false, vis: 2 });
     </script>
 }
 

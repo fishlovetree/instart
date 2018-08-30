@@ -345,6 +345,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
             //}
             return Json(new { erron = 0 });//Demo，随便返回了个值，请勿参考
         }
+
         public ActionResult Merge()
         {
             var guid = Request["guid"];//GUID
@@ -354,7 +355,7 @@ namespace Instart.Web2.Areas.Manage.Controllers
             var dir = Path.Combine(uploadDir, fileRelName);//临时文件夹          
             var files = System.IO.Directory.GetFiles(dir);//获得下面的所有文件
             var finalPath = Path.Combine(uploadDir, fileName);//最终的文件名（demo中保存的是它上传时候的文件名，实际操作肯定不能这样）
-            var fs = new MemoryStream();
+            var fs = new FileStream(finalPath, FileMode.Create);
             foreach (var part in files.OrderBy(x => x.Length).ThenBy(x => x))//排一下序，保证从0-N Write
             {
                 var bytes = System.IO.File.ReadAllBytes(part);
@@ -363,10 +364,9 @@ namespace Instart.Web2.Areas.Manage.Controllers
                 System.IO.File.Delete(part);//删除分块
             }
             fs.Flush();
-            string uploadResult = UploadHelper.Process(fileName, fs);
             fs.Close();
             System.IO.Directory.Delete(dir);//删除文件夹
-            return Json(new { error = 0 });//随便返回个值，实际中根据需要返回
+            return Json(new { filePath = Path.Combine("/content/upload/videos/", fileName) });//随便返回个值，实际中根据需要返回
         }
         #endregion
     }
