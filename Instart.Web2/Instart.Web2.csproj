@@ -131,6 +131,7 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Manage\Controllers\MailInfoController.cs" />
     <Compile Include="Areas\Manage\Controllers\CopysController.cs" />
     <Compile Include="Areas\Manage\Controllers\CompanyApplyController.cs" />
     <Compile Include="Areas\Manage\Controllers\CourseSystemController.cs" />
@@ -920,6 +921,7 @@
     <Content Include="Areas\Manage\Views\CourseSystem\Index.cshtml" />
     <Content Include="Areas\Manage\Views\Teacher\MajorSelect.cshtml" />
     <Content Include="Content\webuploader\README.md" />
+    <Content Include="Areas\Manage\Views\MailInfo\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Instart.pubxml" />
     <None Include="Properties\PublishProfiles\instartedu.pubxml" />
     <None Include="Properties\PublishProfiles\InstartWebConfig.pubxml" />

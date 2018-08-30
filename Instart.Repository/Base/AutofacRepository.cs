@@ -58,6 +58,7 @@ namespace Instart.Repository
             builder.RegisterType<ProgramApplyRepository>().As<IProgramApplyRepository>().InstancePerLifetimeScope();
             builder.RegisterType<CompanyApplyRepository>().As<ICompanyApplyRepository>().InstancePerLifetimeScope();
             builder.RegisterType<CourseSystemRepository>().As<ICourseSystemRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<MailInfoRepository>().As<IMailInfoRepository>().InstancePerLifetimeScope();
             container = builder.Build();
         }
     }

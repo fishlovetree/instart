@@ -10,6 +10,7 @@ using Instart.Service.Base;
 using Instart.Models.Enums;
 using Instart.Common;
 using Instart.Web2.Models;
+using Instart.Web2.Infrastructures;
 
 namespace Instart.Web2.Controllers
 {
@@ -27,6 +28,7 @@ namespace Instart.Web2.Controllers
         IProgramApplyService _programApplyService = AutofacService.Resolve<IProgramApplyService>();
         ICopysService _copysService = AutofacService.Resolve<ICopysService>();
         ICompanyApplyService _companyApplyService = AutofacService.Resolve<ICompanyApplyService>();
+        IMailInfoService _mailInfoService = AutofacService.Resolve<IMailInfoService>();
 
         public AboutController()
         {
@@ -39,6 +41,7 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_programApplyService);
             this.AddDisposableObject(_copysService);
             this.AddDisposableObject(_companyApplyService);
+            this.AddDisposableObject(_mailInfoService);
         }
 
         public ActionResult Index()
@@ -148,6 +151,11 @@ namespace Instart.Web2.Controllers
             }
             var result = new ResultBase();
             result.success = _programApplyService.InsertAsync(model);
+            if (result.success)
+            {
+                result.success = _mailInfoService.SendMail("项目咨询", model.Country.GetDescription(), model.MajorId, model.Name, model.Phone, model.Email, model.Question, 
+                    new List<string>(), System.Web.HttpContext.Current.Server.MapPath("/"));
+            }
             return Json(result);
         }
 
@@ -190,6 +198,7 @@ namespace Instart.Web2.Controllers
             {
                 return Error("请输入您的微信号");
             }
+            List<string> fileList = new List<string>();
             HttpFileCollectionBase files = Request.Files;
             if (files != null)
             {
@@ -203,6 +212,7 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlA = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                     if (i == 1)
@@ -211,6 +221,7 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlB = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                     if (i == 2)
@@ -219,12 +230,18 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlC = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                 }
             }
             var result = new ResultBase();
             result.success = _companyApplyService.InsertAsync(model);
+            if (result.success)
+            {
+                result.success = _mailInfoService.SendMail("实习预约", model.Country.GetDescription(), model.MajorId, model.Name, model.Phone, model.Email, "", 
+                    fileList, System.Web.HttpContext.Current.Server.MapPath("/"));
+            }
             return Json(result);
         }
         public ActionResult Feature(int type = 1)

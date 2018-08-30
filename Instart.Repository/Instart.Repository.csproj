@@ -59,6 +59,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IMailInfoRepository.cs" />
+    <Compile Include="MailInfoRepository.cs" />
     <Compile Include="CopysRepository.cs" />
     <Compile Include="CompanyApplyRepository.cs" />
     <Compile Include="CourseSystemRepository.cs" />

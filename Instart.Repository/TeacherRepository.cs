@@ -34,7 +34,7 @@ namespace Instart.Repository
                 #region generate condition
                 string where = "where t.Status=1";
                 if (!string.IsNullOrEmpty(name)) {
-                    where += string.Format(" and t.Name like '%{0}%'",name);
+                    where += string.Format(" and (t.Name like '%{0}%' or t.NameEn like '%{1}%')", name, name);
                 }
                 if (division != -1)
                 {
