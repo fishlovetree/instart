@@ -1,0 +1,96 @@
+﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
+@model Instart.Models.MailInfo
+@{
+    ViewBag.Title = "邮箱管理";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    @Html.Partial("PartialApply")
+    <div class="col-sm-10 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="padding-top:75px;">
+        <ol class="breadcrumb">
+            <li><a href="/manage/mailinfo">邮箱管理</a></li>
+        </ol>
+        @using (Html.BeginForm("Set", "MailInfo", new
+        {
+            area = "Manage"
+        }, FormMethod.Post, new
+        {
+            enctype = "multipart/form-data",
+            id = "mainForm",
+            @class = "form-horizontal edit-container-width",
+            style = "width:800px !important;"
+        }))
+        {
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发件人邮箱：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="FromAddress" name="FromAddress" value="@Model.FromAddress">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发件人密码：</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="pwd1" name="FromPwd" value="@Model.FromPwd">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">确认密码：</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="pwd2" name="FromPwd" value="@Model.FromPwd">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮件服务器：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="Host" value="@Model.Host">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">服务器端口：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="Port" value="@Model.Port">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">收件人邮箱：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="ToAddress" value="@Model.ToAddress">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2"></label>
+                <div class="col-sm-10">
+                    <input type="button" class="btn btn-success" value="保存" onclick="save()" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Bottom{
+    <script>
+        function save() {
+            if ($("#pwd1").val() != $("#pwd2").val()) {
+                layer.msg('服务器密码与确认密码不一致');
+                return;
+            }
+            $("#mainForm").ajaxSubmit({
+                success: function (slt) {
+                    if (slt && slt.success) {
+                        layer.msg('保存成功');
+                    }
+                    else {
+                        layer.msg(slt.message || '操作失败，请重试');
+                    }
+                }
+            });
+        }
+
+    </script>
+}

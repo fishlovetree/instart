@@ -10,6 +10,8 @@ using Instart.Service.Base;
 using Instart.Common;
 using Instart.Models.Enums;
 using Instart.Web2.Models;
+using Instart.Web2.Infrastructures;
+
 
 namespace Instart.Web2.Controllers
 {
@@ -26,6 +28,7 @@ namespace Instart.Web2.Controllers
         ICourseApplyService _courseApplyService = AutofacService.Resolve<ICourseApplyService>();
         ICourseOrderService _courseOrderService = AutofacService.Resolve<ICourseOrderService>();
         ICourseSystemService _courseSystemService = AutofacService.Resolve<ICourseSystemService>();
+        IMailInfoService _mailInfoService = AutofacService.Resolve<IMailInfoService>();
 
         public CourseController()
         {
@@ -37,6 +40,7 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_courseApplyService);
             this.AddDisposableObject(_courseOrderService);
             this.AddDisposableObject(_courseSystemService);
+            this.AddDisposableObject(_mailInfoService);
         }
 
         public ActionResult Index(int studentId = -1)
@@ -165,6 +169,11 @@ namespace Instart.Web2.Controllers
             }
             var result = new ResultBase();
             result.success = _courseApplyService.InsertAsync(model);
+            if (result.success)
+            {
+                result.success = _mailInfoService.SendMail("课程咨询", model.Country.GetDescription(), model.MajorId, model.Name, model.Phone, model.Email, model.Question, 
+                    new List<string>(), System.Web.HttpContext.Current.Server.MapPath("/"));
+            }
             return Json(result);
         }
 
@@ -196,12 +205,7 @@ namespace Instart.Web2.Controllers
             {
                 return Error("参数错误");
             }
-            if (string.IsNullOrEmpty(model.Name))
-            {
-                return Error("请选择您计划去的国家");
-            }
-
-            if (string.IsNullOrEmpty(model.Name))
+            if (model.MajorId == 0)
             {
                 return Error("请选择您计划学的专业");
             }
@@ -209,12 +213,17 @@ namespace Instart.Web2.Controllers
             {
                 return Error("请输入您的姓名");
             }
-            if (string.IsNullOrEmpty(model.Name))
+            if (string.IsNullOrEmpty(model.Phone))
             {
-                return Error("请输入您的手机号");
+                return Error("请输入您的微信号");
             }
             var result = new ResultBase();
             result.success = _courseOrderService.InsertAsync(model);
+            if (result.success)
+            {
+                result.success = _mailInfoService.SendMail("课程预约", model.Country.GetDescription(), model.MajorId, model.Name, model.Phone, model.Email, "", 
+                    new List<string>(), System.Web.HttpContext.Current.Server.MapPath("/"));
+            }
             return Json(result);
         }
 

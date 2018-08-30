@@ -48,9 +48,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MailInfoService.cs" />
     <Compile Include="CopysService.cs" />
     <Compile Include="CompanyApplyService.cs" />
     <Compile Include="CourseSystemService.cs" />
+    <Compile Include="Interfaces\IMailInfoService.cs" />
     <Compile Include="Interfaces\ICompanyApplyService.cs" />
     <Compile Include="Interfaces\ICourseSystemService.cs" />
     <Compile Include="ProgramApplyService.cs" />

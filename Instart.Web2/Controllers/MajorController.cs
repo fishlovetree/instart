@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Instart.Web2.Infrastructures;
 
 namespace Instart.Web2.Controllers
 {
@@ -26,6 +27,7 @@ namespace Instart.Web2.Controllers
         IMajorApplyService _majorApplyService = AutofacService.Resolve<IMajorApplyService>();
         IWorksCommentService _worksCommentService = AutofacService.Resolve<IWorksCommentService>();
         ICourseService _courseService = AutofacService.Resolve<ICourseService>();
+        IMailInfoService _mailInfoService = AutofacService.Resolve<IMailInfoService>();
 
         public MajorController()
         {
@@ -37,6 +39,7 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_majorApplyService);
             this.AddDisposableObject(_worksCommentService);
             this.AddDisposableObject(_courseService);
+            this.AddDisposableObject(_mailInfoService);
         }
 
         public  ActionResult Index(int id = -1)
@@ -120,6 +123,11 @@ namespace Instart.Web2.Controllers
             }
             var result = new ResultBase();
             result.success = _majorApplyService.InsertAsync(model);
+            if (result.success)
+            {
+                result.success = _mailInfoService.SendMail("专业咨询", model.Country.GetDescription(), model.MajorId, model.Name, model.Phone, model.Email, model.Question, 
+                    new List<string>(), System.Web.HttpContext.Current.Server.MapPath("/"));
+            }
             return Json(result);
         }
 
@@ -160,6 +168,7 @@ namespace Instart.Web2.Controllers
             {
                 return Error("请输入您的邮箱地址");
             }
+            List<string> fileList = new List<string>();
             HttpFileCollectionBase files = Request.Files;
             if (files != null)
             {
@@ -173,6 +182,7 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlA = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                     if (i == 1)
@@ -181,6 +191,7 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlB = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                     if (i == 2)
@@ -189,12 +200,18 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlC = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                 }
             }
             var result = new ResultBase();
             result.success = _worksCommentService.InsertAsync(model);
+            if (result.success)
+            {
+                result.success = _mailInfoService.SendMail("作品评析", model.Country.GetDescription(), model.MajorId, model.Name, model.Phone, model.Email, "", 
+                    fileList, System.Web.HttpContext.Current.Server.MapPath("/"));
+            }
             return Json(result);
         }
     }

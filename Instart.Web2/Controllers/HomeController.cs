@@ -7,9 +7,9 @@ using Instart.Web2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Instart.Web2.Infrastructures;
 
 namespace Instart.Web2.Controllers
 {
@@ -25,6 +25,7 @@ namespace Instart.Web2.Controllers
         ICopysService _copysService = AutofacService.Resolve<ICopysService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
         IHereMoreService _hereMoreService = AutofacService.Resolve<IHereMoreService>();
+        IMailInfoService _mailInfoService = AutofacService.Resolve<IMailInfoService>();
 
         public HomeController() {
             this.AddDisposableObject(_partnerService);
@@ -37,6 +38,7 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_copysService);
             this.AddDisposableObject(_majorService);
             this.AddDisposableObject(_hereMoreService);
+            this.AddDisposableObject(_mailInfoService);
         }
 
         public  ActionResult Index() {
@@ -113,6 +115,7 @@ namespace Instart.Web2.Controllers
             {
                 return Error("请输入您的微信号");
             }
+            List<string> fileList = new List<string>();
             HttpFileCollectionBase files = Request.Files;
             if (files != null)
             {
@@ -126,6 +129,7 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlA = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                     if (i == 1)
@@ -134,6 +138,7 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlB = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                     if (i == 2)
@@ -142,12 +147,17 @@ namespace Instart.Web2.Controllers
                         if (!string.IsNullOrEmpty(uploadResult))
                         {
                             model.ImgUrlC = uploadResult;
+                            fileList.Add(uploadResult);
                         }
                     }
                 }
             }
             var result = new ResultBase();
             result.success = _hereMoreService.InsertAsync(model);
+            if (result.success) {
+                result.success = _mailInfoService.SendMail("here&more", model.Country.GetDescription(), model.MajorId, model.Name, model.Phone, model.Email, "",
+                    fileList, System.Web.HttpContext.Current.Server.MapPath("/"));
+            }
             return Json(result);
         }
     }

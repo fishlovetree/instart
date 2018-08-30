@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Instart.Web2.Infrastructures;
 
 namespace Instart.Web2.Controllers
 {
@@ -22,6 +23,7 @@ namespace Instart.Web2.Controllers
         IStudentService _studentService = AutofacService.Resolve<IStudentService>();
         IMajorService _majorService = AutofacService.Resolve<IMajorService>();
         ISchoolApplyService _schoolApplyService = AutofacService.Resolve<ISchoolApplyService>();
+        IMailInfoService _mailInfoService = AutofacService.Resolve<IMailInfoService>();
 
         public SchoolController()
         {
@@ -29,6 +31,7 @@ namespace Instart.Web2.Controllers
             this.AddDisposableObject(_studentService);
             this.AddDisposableObject(_majorService);
             this.AddDisposableObject(_schoolApplyService);
+            this.AddDisposableObject(_mailInfoService);
         }
 
         public ActionResult Index()
@@ -149,6 +152,11 @@ namespace Instart.Web2.Controllers
             }
             var result = new ResultBase();
             result.success = _schoolApplyService.InsertAsync(model);
+            if (result.success)
+            {
+                result.success = _mailInfoService.SendMail("院校咨询", model.Country.GetDescription(), model.MajorId, model.Name, model.Phone, model.Email, model.Question, 
+                    new List<string>(), System.Web.HttpContext.Current.Server.MapPath("/"));
+            }
             return Json(result);
         }
     }
