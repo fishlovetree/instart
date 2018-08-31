@@ -181,7 +181,7 @@ namespace Instart.Repository
                     };
                 }
 
-                string sql = string.Format(@"select * from ( select k.*, ROW_NUMBER() over (order by k.name collate Chinese_PRC_CI_AS) as RowNumber from [School] as k {0} ) as b  
+                string sql = string.Format(@"select * from ( select k.*, ROW_NUMBER() over (order by k.Id) as RowNumber from [School] as k {0} ) as b  
                                 where RowNumber between {1} and {2};",where,((pageIndex - 1) * pageSize) + 1, pageIndex * pageSize);
                 var list = conn.Query<School>(sql);
 
@@ -258,7 +258,7 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 string sql = string.Format(@"select top {0} t.* from (select distinct s.Id, s.Name, s.NameEn, s.Logo, s.Fee, s.Avatar, s.Difficult, s.Country, s.LimitDate, s.Language, s.RecommendMajor 
-                    from [SchoolMajor] sm left join [School] s on s.Id = sm.SchoolId where sm.MajorId = {1} and s.Status=1) as t order by t.name collate Chinese_PRC_CI_AS;", topCount, majorId);
+                    from [SchoolMajor] sm left join [School] s on s.Id = sm.SchoolId where sm.MajorId = {1} and s.Status=1) as t;", topCount, majorId);
                 var result = conn.Query<School>(sql, null);
                 return result != null ? result.ToList() : null;
             }
