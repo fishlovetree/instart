@@ -117,6 +117,9 @@
                         else {
                             layer.msg(slt.message || '操作失败，请重试');
                         }
+                    },
+                    error: function (slt){
+                        layer.msg(slt.message || '操作失败，请重试');
                     }
                 });
             });
