@@ -166,8 +166,8 @@
 .comtitle dd{ font-size:13px;}
 .comtitle a.di{ display:inline-block; height:48px; line-height:48px; font-size:15px; padding:0 20px; border-radius:5px; color:#fff; background:#0000ff; position:absolute; top:50%; margin-top:-24px; right:50px;}
 .comtitle a.di:hover{ background:#d2d2ff; color:#0000ff;}
-.claimlist{ padding:50px 50px 0 50px; line-height:2em;}
-.claimlist p{ margin-bottom:30px;}
+.claimlist{ padding:50px 50px 30px 50px; line-height:2em;}
+.claimlist p{ margin-bottom:10px;}
 .claimlist p span{ color:#808080;}
 .workcont{ padding:50px 40px 10px;}
 .workcont dl{ margin-bottom:20px;}
