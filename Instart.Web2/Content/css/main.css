@@ -19,11 +19,11 @@
 .here a{ width:100%; height:100%; display:block;}
 /*banner*/
 #loads{ position:absolute; top:0; left:0; right:0; bottom:0; z-index:99; background:#fff url(/content/images/loading-2.gif) center center no-repeat}
-.banner{ width: 100%; clear: both; position: relative; height:500px; overflow:hidden;}
-.lubo_box{ position: relative; width: 100%; height:500px; }
-.lubo_box li{ float: left;position: absolute; top: 0; left: 0; width: 100%; height:600px; opacity: 0;filter:alpha(opacity=0);}
+.banner{ width: 100%; clear: both; position: relative; height:500px; height:4.12rem; overflow:hidden;}
+.lubo_box{ position: relative; width: 100%; height:500px; height:4.12rem }
+.lubo_box li{ float: left;position: absolute; top: 0; left: 0; width: 100%; height:500px; height:4.12rem; opacity: 0;filter:alpha(opacity=0);}
 .lubo_box li a{ display: block;width: 100%;  height: 100%;}
-.lubo_box li img{ width: 100%; height: 500px;}
+.lubo_box li img{ width: 100%; height: 500px; height:4.12rem;}
 .cir_box{ overflow: hidden; position: absolute; z-index: 99;}
 .cir_box li{ float: left; width: 30px; height: 5px; margin:0 5px; cursor: pointer; background: #fff; opacity: 0.8;filter:alpha(opacity=80);}
 .cir_on{ background: #000 !important;}
