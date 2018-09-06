@@ -13,7 +13,7 @@ namespace Instart.Service
 
          PageModel<School> GetListAsync(int pageIndex, int pageSize, string name = null);
 
-         IEnumerable<School> GetAllAsync();
+         IEnumerable<School> GetAllAsync(bool sortByName = true);
 
          bool InsertAsync(School model);
 

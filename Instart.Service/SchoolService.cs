@@ -32,9 +32,9 @@ namespace Instart.Service
             return _schoolRepository.GetListAsync(pageIndex, pageSize, name);
         }
 
-        public IEnumerable<School> GetAllAsync()
+        public IEnumerable<School> GetAllAsync(bool sortByName = true)
         {
-            return _schoolRepository.GetAllAsync();
+            return _schoolRepository.GetAllAsync(sortByName);
         }
 
         public bool InsertAsync(School model)

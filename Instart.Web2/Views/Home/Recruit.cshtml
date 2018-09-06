@@ -4,11 +4,7 @@
 }
 
 <!--banner展示图-->
-<div class="banner">
-    <ul class="lubo_box">
-        <li style="opacity: 1;filter:alpha(opacity=100);"><a style="background:url(@ViewBag.BannerUrl) center top no-repeat"></a></li>
-    </ul>
-</div>
+@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.Recruit)
 <div class="maincont">
     <!--招贤纳士-->
     <div class="title">

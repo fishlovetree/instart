@@ -63,25 +63,48 @@
     </div>
 </div>
 <div class="maincont">
-    <div class="title topborder">
-        <h2>课程推荐</h2>
-        <a href="/course" class="more">查看全部&gt;&gt;</a>
+    <!--成功案例-->
+    <div class="title">
+        <h2>成功案例</h2>
     </div>
-    <div class="recommend com-cont">
-        <ul>
-            @foreach (Course item in ViewBag.CourseList)
-            {
-                <li>
-                    <div class="recimg">
-                        <a href="/course/details/@item.Id">
-                            <i></i>
-                            <p>@item.Name</p>
-                            <img src="@item.Picture" alt="@item.Name" />
-                        </a>
-                    </div>
-                </li>
-            }
-        </ul>
+    <div class="chenggong padding30">
+        <div class="success-people com-cont noborder bd">
+            <ul>
+                @foreach (Student item in ViewBag.MajorStudents)
+                {
+                    <li>
+                        <div class="peoplecont">
+                            <div class="top"><a href="/student/details/@item.Id"><i></i><span>@item.Motto</span><img src="@item.Avatar" alt="" /></a></div>
+                            <dl>
+                                <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
+                                <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
+                                <dd class="pe2">
+                                    OFFER：
+                                    @if (item.SchoolIds != null)
+                                    {
+                                        string[] ids = item.SchoolIds.Split(',');
+                                        string[] names = item.SchoolNames.Split(',');
+                                        for (int i = 0; i < ids.Length; i++)
+                                        {
+                                            if (!String.IsNullOrEmpty(ids[i]))
+                                            {
+                                                <a href="/school/details/@ids[i]">@names[i] </a>
+                                            }
+
+                                        }
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="hd mar-top">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
     </div>
 </div>
 
@@ -103,6 +126,8 @@
                     readOnly: true
                 });
             });
+
+            $(".chenggong").slide({ titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
         })
 
         function apply(id, name) {

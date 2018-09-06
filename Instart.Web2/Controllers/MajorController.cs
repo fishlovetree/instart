@@ -78,7 +78,18 @@ namespace Instart.Web2.Controllers
             }
 
             ViewBag.WorkList = ( _workService.GetListByMajorIdAsync(id, 3)) ?? new List<Instart.Models.Works>();
-            ViewBag.CourseList = _courseService.GetListByMajor(3, id) ?? new List<Course>();
+            //ViewBag.CourseList = _courseService.GetListByMajor(3, id) ?? new List<Course>();
+
+            IEnumerable<Student> studentList = (_studentService.GetAllAsync()) ?? new List<Student>();
+            List<Student> majorStudents = new List<Student>();
+            foreach (Student student in studentList)
+            {
+                if (student.MajorId == id) 
+                {
+                    majorStudents.Add(student);
+                }
+            }
+            ViewBag.MajorStudents = majorStudents;
             return View(major);
         }
 

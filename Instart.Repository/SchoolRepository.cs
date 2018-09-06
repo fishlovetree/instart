@@ -44,7 +44,7 @@ namespace Instart.Repository
             }
         }
 
-        public IEnumerable<School> GetAllAsync()
+        public IEnumerable<School> GetAllAsync(bool sortByName = true)
         {
             using (var conn = DapperFactory.GetConnection())
             {
@@ -52,7 +52,15 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 #endregion
 
-                string sql = string.Format(@"select * from [School] {0} order by name collate Chinese_PRC_CI_AS;", where);
+                string sql;
+                if (sortByName)
+                {
+                    sql = string.Format(@"select * from [School] {0} order by name collate Chinese_PRC_CI_AS;", where);
+                }
+                else 
+                {
+                    sql = string.Format(@"select * from [School] {0};", where);
+                }
                 return conn.Query<School>(sql);
             }
         }

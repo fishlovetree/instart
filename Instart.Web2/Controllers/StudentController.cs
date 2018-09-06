@@ -26,7 +26,7 @@ namespace Instart.Web2.Controllers
 
         public  ActionResult Index() {
             IEnumerable<Student> studentList = ( _studentService.GetAllAsync()) ?? new List<Student>();
-            IEnumerable<School> schoolList = ( _schoolService.GetAllAsync()) ?? new List<School>();
+            IEnumerable<School> schoolList = ( _schoolService.GetAllAsync(false)) ?? new List<School>();
 
             //一行4个学员
             List<List<Student>> studentMap = new List<List<Student>>();
