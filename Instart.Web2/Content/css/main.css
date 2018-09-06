@@ -52,7 +52,10 @@
 .peoplecont dl{ padding:10px 30px; height:170px; overflow:hidden; background:#f6f6f6; font-size:18px; line-height:26px; border-radius:0 0px 5px 5px;}
 .peoplecont dt{ padding-top:5px; font-weight:bold;}
 .peoplecont dt a:hover{ color:#2525fe;}
-.peoplecont dd.pe1{ padding:12px 0; color:#666;}
+.peoplecont dd{ color:#000;}
+.peoplecont dd a{ color:#666; margin-right:5px;}
+.peoplecont dd a:first-child{ color:#000;}
+.peoplecont dd.pe1{ padding:12px 0;}
 .peoplecont dd.pe2{ font-size:16px;}
 .teacher li{ margin-bottom:35px;}
 .teacher-cont dl,.list-cont dl{ border:1px dotted #bfbfbf; border-top:0; text-align:center; border-radius:0 0px 5px 5px;}
@@ -70,7 +73,7 @@
 .school li{ width:33.333%; margin-bottom:40px;}
 .s-name{ padding:15px;height:162px; border-bottom:1px dotted #bfbfbf; overflow:hidden; border-left:1px dotted #bfbfbf; border-right:1px dotted #bfbfbf; display:-webkit-box;display:-webkit-flex;-webkit-box-align:center;-webkit-align-items:center;}
 .s-name:hover{ background:#f2f2f2}
-.yuanxiao{ border:1px dotted #bfbfbf; height:130px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:16px; position:relative;}
+.yuanxiao{ border:1px dotted #bfbfbf; height:130px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:18px; position:relative;}
 .yuanxiao p{ margin-bottom:10px; /*overflow:hidden; text-overflow:ellipsis; white-space:nowrap; height:16px;*/}
 .yuanxiao p span{ margin-right:10px; display:inline-block;}
 .yuanxiao .morea-left{ text-align:left; position:absolute; bottom:10px; left:10px;}
@@ -413,7 +416,9 @@
 #contmain{ width:100%;}
 
 @media screen and (max-width: 1500px){
+	 .yuanxiao{ height:180px;}
 	 .peoplecont dl{ height:200px;}
+	 .here{ right:18%;}
      .nav ul{ padding-right:23%}
 	 .teacher-cont dd.teac-m{ height:125px!important;}
 	 .list-cont dd.teac-m{ height:295px;}
