@@ -7,6 +7,20 @@
 @Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.Course)
 
 <div class="maincont">
+    <!--课程体系-->
+    <div class="title">
+        <h2>课程体系</h2>
+    </div>
+    <div class="tese com-cont">
+        <ul>
+            @foreach (CourseSystem item in ViewBag.SystemList)
+            {
+                <li>
+                    <div class="teseimg"><a href="/course/coursesystem/@item.Id"><img src="@item.Picture" alt="" /><b>@item.Name</b></a></div>
+                </li>
+            }
+        </ul>
+    </div>
     <!--课程介绍-->
     <div class="title">
         <h2>课程介绍</h2>
@@ -43,20 +57,6 @@
             <ul></ul>
             <a class="next"></a>
         </div>
-    </div>
-    <!--课程体系-->
-    <div class="title">
-        <h2>课程体系</h2>
-    </div>
-    <div class="tese com-cont">
-        <ul>
-            @foreach (CourseSystem item in ViewBag.SystemList)
-            {
-                <li>
-                    <div class="teseimg"><a href="/course/coursesystem/@item.Id"><img src="@item.Picture" alt="" /><b>@item.Name</b></a></div>
-                </li>
-            }
-        </ul>
     </div>
     <!--成功学员-->
     <div class="title">
