@@ -67,7 +67,7 @@
                             html += '<div class="top"><a href="/major/details/' + item.Id + '"><i></i><img src="' + item.ImgUrl + '" alt="' + item.Name + '" /></a></div>';
                             html += '<dl>';
                             html += '<dt><a href="/major/details/'+item.Id+'"><strong>'+item.Name+'</strong><small>'+(item.NameEn || '')+'</small></a></dt>';
-                            html += '<dd class="teac-m">'+ item.Introduce +'</dd>';
+                            html += '<dd class="teac-m">'+ (item.Introduce || '') +'</dd>';
                             html += '<dd class="teac-b"><i style="display:inline-block; width:8px; height:8px; border-radius:50%; background:' + item.DivisionColor +'; margin-right:6px;"></i>' + item.DivisionName + " " + (item.DivisionNameEn || '') + '</dd>';
                             html += '</dl>';
                             html += '</div></li>';

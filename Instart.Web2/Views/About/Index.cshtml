@@ -21,7 +21,7 @@
     <div class="title">
         <h2>关于iNSTART</h2>
     </div>
-    <div class="borderkuan">
+    <div class="borderkuan" style="margin-bottom:20px;">
         <!--Instart 简介-->
         <div class="inlist">
             <h2>一沙品牌</h2>
@@ -43,32 +43,6 @@
         <div class="inconts">
             @Html.Raw(Model.Develop)
         </div>
-    </div>
-    <!--Instart 特色-->
-    <div class="title">
-        <h2>一沙特色</h2>
-    </div>
-    <div class="tese com-cont">
-        <ul>
-            <li>
-                <div class="teseimg"><a href="/about/feature?type=1"><img src="@Model.PreToProImg" alt="" /></a></div>
-            </li>
-            <li>
-                <div class="teseimg"><a href="/about/feature?type=2"><img src="@Model.DivisionImg" alt="" /></a></div>
-            </li>
-            <li>
-                <div class="teseimg"><a href="/about/feature?type=4"><img src="@Model.WorkShopImg" alt="" /></a></div>
-            </li>
-            <li>
-                <div class="teseimg"><a href="/about/feature?type=5"><img src="@Model.StudioImg" alt="" /></a></div>
-            </li>
-            <li>
-                <div class="teseimg"><a href="/about/feature?type=6"><img src="@Model.CompanyImg" alt="" /></a></div>
-            </li>
-            <li>
-                <div class="teseimg"><a href="/about/feature?type=8"><img src="@Model.ProgramsImg" alt="" /></a></div>
-            </li>
-        </ul>
     </div>
     <!--课程推荐-->
     @Html.Partial("PartialRecommendCourse")

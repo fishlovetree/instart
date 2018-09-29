@@ -66,7 +66,7 @@ namespace Instart.Repository
                 string where = "where Status=1";
                 #endregion
 
-                string sql = string.Format(@"select * from [Major] {0};",where);
+                string sql = string.Format(@"select * from [Major] {0} order by GroupIndex;", where);
                 return conn.Query<Major>(sql);
             }
         }
@@ -160,7 +160,7 @@ namespace Instart.Repository
 
                 string sql = string.Format(@"select * from (
                      select a.Id,a.Name,a.NameEn,a.Introduce,a.CreateTime,a.DivisionId,b.Name as DivisionName,b.NameEn as DivisionNameEn,
-                     b.BgColor as DivisionColor,a.ImgUrl, ROW_NUMBER() over (Order by a.Id) as RowNumber from [Major] as a
+                     b.BgColor as DivisionColor,a.ImgUrl, ROW_NUMBER() over (order by a.GroupIndex) as RowNumber from [Major] as a
                      left join [Division] as b on b.Id = a.DivisionId {0}
                      ) as c
                      where RowNumber between {1} and {2};", where,((pageIndex - 1) * pageSize) + 1,pageIndex * pageSize);

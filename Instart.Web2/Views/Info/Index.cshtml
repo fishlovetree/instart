@@ -1,0 +1,130 @@
+﻿@using Instart.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--banner展示图-->
+@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.Info)
+
+<div class="maincont">
+    <div class="title">
+        <h2>iN实习内推</h2>
+    </div>
+    <div class="chenggong padding30" id="practicediv">
+        <div class="success-people com-cont noborder bd">
+            <ul class="practiceul" style="width:100%">
+                @foreach (Program item in ViewBag.programList)
+                {
+                    if (item.Type == Instart.Models.Enums.EnumProgramType.Practice)
+                    {
+                        <li>
+                            <div class="peoplecont">
+                                <div class="top"><a href="/info/details/@item.Id"><i></i><img src="@item.Picture" alt="" /></a></div>
+                                <div class="c-guide">
+                                    <p> <b><a href="/about/show/@item.Id">@item.Name</a></b> <span>@item.NameEn</span> </p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="hd mar-top">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
+    </div>
+    <div class="title">
+        <h2>iN申请干货</h2>
+    </div>
+    <div class="chenggong padding30" id="applydiv">
+        <div class="success-people com-cont noborder bd">
+            <ul class="applyul" style="width:100%">
+                @foreach (Program item in ViewBag.programList)
+                {
+                    if (item.Type == Instart.Models.Enums.EnumProgramType.Apply)
+                    {
+                        <li>
+                            <div class="peoplecont">
+                                <div class="top"><a href="/info/details/@item.Id"><i></i><img src="@item.Picture" alt="" /></a></div>
+                                <div class="c-guide">
+                                    <p> <b><a href="/about/show/@item.Id">@item.Name</a></b> <span>@item.NameEn</span> </p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="hd mar-top">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
+    </div>
+    <div class="title">
+        <h2>iN院校分享</h2>
+    </div>
+    <div class="chenggong padding30" id="schooldiv">
+        <div class="success-people com-cont noborder bd">
+            <ul class="schoolul" style="width:100%">
+                @foreach (Program item in ViewBag.programList)
+                {
+                    if (item.Type == Instart.Models.Enums.EnumProgramType.School)
+                    {
+                        <li>
+                            <div class="peoplecont">
+                                <div class="top"><a href="/info/details/@item.Id"><i></i><img src="@item.Picture" alt="" /></a></div>
+                                <div class="c-guide">
+                                    <p> <b><a href="/about/show/@item.Id">@item.Name</a></b> <span>@item.NameEn</span> </p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="hd mar-top">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
+    </div>
+    <div class="title">
+        <h2>iN设计资讯</h2>
+    </div>
+    <div class="chenggong padding30" id="actordiv">
+        <div class="success-people com-cont noborder bd">
+            <ul class="actorul" style="width:100%">
+                @foreach (Program item in ViewBag.programList)
+                {
+                    if (item.Type == Instart.Models.Enums.EnumProgramType.Actor)
+                    {
+                        <li>
+                            <div class="peoplecont">
+                                <div class="top"><a href="/info/details/@item.Id"><i></i><img src="@item.Picture" alt="" /></a></div>
+                                <div class="c-guide">
+                                    <p> <b><a href="/about/show/@item.Id">@item.Name</a></b> <span>@item.NameEn</span> </p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="hd mar-top">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
+    </div>
+</div>
+@section Bottom{
+    <script type="text/javascript">
+        $("#practicediv").slide({ titCell: ".hd ul", mainCell: ".bd .practiceul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
+        $("#applydiv").slide({ titCell: ".hd ul", mainCell: ".bd .applyul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
+        $("#schooldiv").slide({ titCell: ".hd ul", mainCell: ".bd .schoolul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
+        $("#actordiv").slide({ titCell: ".hd ul", mainCell: ".bd .actorul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
+    </script>
+}

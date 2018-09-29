@@ -49,12 +49,11 @@
 .peoplecont,.teacher-cont,.school-cont,.list-cont{ padding:0 20px;}
 .peoplecont div.top img,.teacher-cont div.top img{ height:2.95rem;}
 .school-cont div.top img{ height:2.97rem;}
-.peoplecont dl{ padding:10px 30px; height:170px; overflow:hidden; background:#f6f6f6; font-size:18px; line-height:26px; border-radius:0 0px 5px 5px;}
+.peoplecont dl{ padding:10px 30px; height:125px; overflow:hidden; background:#f6f6f6; font-size:18px; line-height:26px; border-radius:0 0px 5px 5px;}
 .peoplecont dt{ padding-top:5px; font-weight:bold;}
 .peoplecont dt a:hover{ color:#2525fe;}
-.peoplecont dd{ color:#000;}
-.peoplecont dd a{ color:#666; margin-right:5px;}
-.peoplecont dd a:first-child{ color:#000;}
+.peoplecont dd{ color:#000;font-weight:bold;}
+.peoplecont dd a{ color:#666;font-weight:normal; margin-right:5px;}
 .peoplecont dd.pe1{ padding:12px 0;}
 .peoplecont dd.pe2{ font-size:16px;}
 .teacher li{ margin-bottom:35px;}

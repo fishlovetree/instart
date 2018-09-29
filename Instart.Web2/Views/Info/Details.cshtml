@@ -1,0 +1,23 @@
+﻿@using Instart.Models
+@using Instart.Web2.Infrastructures
+@model Instart.Models.Program
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--banner展示图-->
+@Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.Info)
+
+<div class="maincont">
+    <div class="title">
+        <h2>@Model.Type.GetDescription()</h2>
+    </div>
+    <div class="borderkuan" style="margin-bottom:20px;">
+        <div class="inlist">
+            <h2>@Model.Name</h2>
+        </div>
+        <div class="inconts">
+            @Html.Raw(Model.Details)
+        </div>
+    </div>
+</div>

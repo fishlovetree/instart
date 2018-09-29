@@ -56,6 +56,11 @@ namespace Instart.Models.Enums
         /// 校区
         /// </summary>
         [Description("校区")]
-        Campus = 8
+        Campus = 8,
+        /// <summary>
+        /// 艺术资讯
+        /// </summary>
+        [Description("艺术资讯")]
+        Info = 9,
     }
 }

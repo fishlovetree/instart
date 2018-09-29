@@ -10,24 +10,24 @@ namespace Instart.Models.Enums
     public enum EnumProgramType
     {
         /// <summary>
-        /// ProToPro
+        /// iN实习内推
         /// </summary>
-        [Description("你好！面试官")]
-        ProToPro = 1,
+        [Description("iN实习内推")]
+        Practice = 1,
         /// <summary>
-        /// Workshop
+        /// iN申请干货
         /// </summary>
-        [Description("Workshop")]
-        Workshop = 2,
+        [Description("iN申请干货")]
+        Apply = 2,
         /// <summary>
-        /// 艺术家孵化平台
+        /// iN院校分享
         /// </summary>
-        [Description("艺术家孵化平台")]
-        Actor = 3,
+        [Description("iN院校分享")]
+        School = 3,
         /// <summary>
-        /// 公共艺术类
+        /// iN设计资讯
         /// </summary>
-        [Description("驻地项目")]
-        Area = 4
+        [Description("iN设计资讯")]
+        Actor = 4
     }
 }

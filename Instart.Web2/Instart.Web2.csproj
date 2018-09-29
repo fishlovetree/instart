@@ -179,6 +179,7 @@
     <Compile Include="Content\ueditor\net\App_Code\NotSupportedHandler.cs" />
     <Compile Include="Content\ueditor\net\App_Code\PathFormater.cs" />
     <Compile Include="Content\ueditor\net\App_Code\UploadHandler.cs" />
+    <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -989,6 +990,8 @@
     <Content Include="Views\About\Company.cshtml" />
     <Content Include="Views\About\CompanyDetail.cshtml" />
     <Content Include="Views\Course\CourseSystem.cshtml" />
+    <Content Include="Views\Info\Index.cshtml" />
+    <Content Include="Views\Info\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manage\Models\" />

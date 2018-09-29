@@ -91,5 +91,10 @@ namespace Instart.Models
         /// 院校专业简介
         /// </summary>
         public string SchoolInfo { get; set; }
+
+        /// <summary>
+        /// 显示顺序
+        /// </summary>
+        public int GroupIndex { get; set; }
     }
 }

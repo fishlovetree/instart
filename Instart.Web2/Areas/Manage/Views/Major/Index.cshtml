@@ -41,6 +41,7 @@
                     <th>#</th>
                     <th>专业名称</th>
                     <th>所属学部</th>
+                    <th>显示顺序</th>
                     <th>创建时间</th>
                     <th>操作</th>
                 </tr>
@@ -54,6 +55,7 @@
                             <td style="width:5%;">@item.Id</td>
                             <td>@item.Name</td>
                             <td>@item.DivisionName</td>
+                            <td>@item.GroupIndex</td>
                             <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                             <td style="width:10%;">
                                 <a href="/major/details/@item.Id" target="_blank">详情</a>
