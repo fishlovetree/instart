@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\EnumTeacherType.cs" />
     <Compile Include="MailInfo.cs" />
     <Compile Include="Copys.cs" />
     <Compile Include="CompanyApply.cs" />

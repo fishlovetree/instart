@@ -8,6 +8,7 @@
 .toper a.logo img{ width:100%; height:100%;}
 .D-info{ position:absolute; right:4%; color:#4d4d4d;}
 .D-info dl{ padding:18px 0 18px 28px; background:url(/content/images/top-icon.png) left center no-repeat; line-height:30px;}
+.D-info dt{margin-top:6px;}
 .D-info dd i{ color:#0000ff; margin-right:25px;}
 .meun{ background:url(/content/images/instart.png) 96% center no-repeat; height:88px; position:relative; z-index:100;}
 .nav{ text-align:center;}
@@ -55,7 +56,7 @@
 .peoplecont dd{ color:#000;font-weight:bold;}
 .peoplecont dd a{ color:#666;font-weight:normal; margin-right:5px;}
 .peoplecont dd.pe1{ padding:12px 0;}
-.peoplecont dd.pe2{ font-size:16px;}
+.peoplecont dd.pe2{ font-size:18px;}
 .teacher li{ margin-bottom:35px;}
 .teacher-cont dl,.list-cont dl{ border:1px dotted #bfbfbf; border-top:0; text-align:center; border-radius:0 0px 5px 5px;}
 .teacher-cont dt{ font-size:18px; padding:13px 0; overflow:hidden; border-bottom:1px dotted #bfbfbf; font-weight:bold; height:18px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
@@ -122,7 +123,7 @@
 .foot-info span{ display:inline-block; padding-left:37px; background:url(/content/images/foot-icon.png) no-repeat; margin-right:6px;}
 .foot-info span.i1{ background-position:0 -46px;}
 .foot-info span.i2{ background-position:0 -80px;}
-.foot-info span.i3{ background-position:10px -161px;}
+.foot-info span.i3{ background-position:0 -161px;}
 .foot-info span.i4{ background-position:0 -107px;}
 
 /*艺术专业列表*/
@@ -197,7 +198,7 @@
 .mee-info-top dd span{ color:#333;}
 .mee-info-top dd span a{ margin-right:15px; color:#0000ff;}
 .mee-info-top dd span a:hover{ color:#0000ff; text-decoration:underline;}
-.mee-info-bottom dd{ text-indent:2em;}
+.mee-info-bottom dd{ text-indent:0em;}
 .caselist li{ width:16.66%; margin-bottom:30px;}
 .case-cont{ margin:0 20px; border:1px dotted #bebebe; text-align:center; border-radius:8px;}
 .case-cont div.top i{ background:#000;}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Instart.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -120,5 +121,10 @@ namespace Instart.Models
         /// 擅长专业 Name列表，逗号拼接
         /// </summary>
         public string MajorNames { get; set; }
+
+        /// <summary>
+        /// 导师类型: 1-国内导师,2-海外审核官
+        /// </summary>
+        public EnumTeacherType Type { get; set; }
     }
 }

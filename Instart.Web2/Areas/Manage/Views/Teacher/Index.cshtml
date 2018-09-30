@@ -18,7 +18,16 @@
             <p class="pull-right list-info"><b>@ViewBag.Total</b>条记录，共<b>@ViewBag.TotalPages</b>页</p>
             <form method="post" action="" target="_self" class="form-inline">
                 <div class="form-group">
-                    <select id="selDivision" name="division" class="form-control" style="width:100px;">
+                    <select id="selType" name="type" class="form-control" style="width:100px;">
+                        <option value="-1">全部</option>
+                        @foreach (Instart.Common.EnumberEntity item in ViewBag.TypeList)
+                        {
+                            <option value="@item.EnumValue">@item.Description</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="selDivision" name="division" class="form-control" style="width:150px;">
                         <option value="-1">全部</option>
                         @if (ViewBag.divisionList != null)
                         {
@@ -43,6 +52,7 @@
                     <th>#</th>
                     <th>导师名称</th>
                     <th>头像</th>
+                    <th>导师类型</th>
                     <th>所属学部</th>
                     <th>创建时间</th>
                     <th>推荐首页</th>
@@ -60,6 +70,7 @@
                             <td>
                                 <img src="@item.Avatar" style="width:100px;height:100px" alt="" />
                             </td>
+                            <td>@item.Type.GetDescription()</td>
                             <td>@item.DivisionName</td>
                             <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", item.CreateTime)</td>
                             <td>
@@ -91,6 +102,7 @@
                         @Html.Pager((int)(ViewBag.TotalPages), (int)(ViewBag.PageIndex), "index", new
            {
                area = "manage",
+               type = ViewBag.type,
                division = ViewBag.division,
                keyword = ViewBag.keyword
            })
@@ -105,6 +117,7 @@
 @section Bottom{
     <script>
         $(function () {
+            $("#selType").val("@ViewBag.type");
             $("#selDivision").val("@ViewBag.division");
 
             $(".chkRecommend").click(function () {
@@ -144,6 +157,6 @@
         function setmajor(id) {
             location.href = '@Url.Action("majorselect", "teacher", new { area="manage" })' + "?id=" + id;
         }
-    </script>
+</script>
 }
 

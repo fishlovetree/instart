@@ -27,14 +27,14 @@ namespace Instart.Service
             return _teacherRepository.GetByIdAsync(id);
         }
 
-        public PageModel<Teacher> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null)
+        public PageModel<Teacher> GetListAsync(int pageIndex, int pageSize, int type = -1, int division = -1, string name = null)
         {
-            return _teacherRepository.GetListAsync(pageIndex, pageSize, division, name);
+            return _teacherRepository.GetListAsync(pageIndex, pageSize, type, division, name);
         }
 
-        public IEnumerable<Teacher> GetAllAsync()
+        public IEnumerable<Teacher> GetAllAsync(int type = 1)
         {
-            return _teacherRepository.GetAllAsync();
+            return _teacherRepository.GetAllAsync(type);
         }
 
         public bool InsertAsync(Teacher model)

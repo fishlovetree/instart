@@ -11,9 +11,9 @@ namespace Instart.Service
     {
          Teacher GetByIdAsync(int id);
 
-         PageModel<Teacher> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null);
+         PageModel<Teacher> GetListAsync(int pageIndex, int pageSize, int type = -1, int division = -1, string name = null);
 
-         IEnumerable<Teacher> GetAllAsync();
+         IEnumerable<Teacher> GetAllAsync(int type = 1);
 
          bool InsertAsync(Teacher model);
 

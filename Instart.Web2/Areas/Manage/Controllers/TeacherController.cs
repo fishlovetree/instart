@@ -1,5 +1,6 @@
 ﻿using Instart.Common;
 using Instart.Models;
+using Instart.Models.Enums;
 using Instart.Service;
 using Instart.Service.Base;
 using Instart.Web2.Attributes;
@@ -32,14 +33,16 @@ namespace Instart.Web2.Areas.Manage.Controllers
             base.AddDisposableObject(_majorService);
         }
 
-        public ActionResult Index(int page = 1, int division = -1, string keyword = null)
+        public ActionResult Index(int page = 1, int type = -1, int division = -1, string keyword = null)
         {
             int pageSize = 10;
-            var list = _teacherService.GetListAsync(page, pageSize, division, keyword);
+            var list = _teacherService.GetListAsync(page, pageSize, type, division, keyword);
             ViewBag.Total = list.Total;
             ViewBag.PageIndex = page;
             ViewBag.TotalPages = Math.Ceiling(list.Total * 1.0 / pageSize);
             ViewBag.Keyword = keyword;
+            ViewBag.type = type;
+            ViewBag.TypeList = EnumberHelper.EnumToList<EnumTeacherType>();
 
             ViewBag.divisionList = _divisionService.GetAllAsync();
             ViewBag.division = division;
@@ -58,6 +61,8 @@ namespace Instart.Web2.Areas.Manage.Controllers
             }
 
             ViewBag.Action = action;
+
+            ViewBag.TypeList = EnumberHelper.EnumToList<EnumTeacherType>();
 
             List<SelectListItem> divisionList = new List<SelectListItem>();
             IEnumerable<Division> divisions = _divisionService.GetAllAsync();

@@ -10,6 +10,38 @@
 
 
 <div class="maincont">
+    <div class="title">
+        <h2>海外审核官</h2>
+    </div>
+    <div class="chenggong padding30" id="overseasdiv">
+        <div class="success-people com-cont noborder bd">
+            <ul class="overseasul" style="width:100%">
+                @foreach (Teacher item in ViewBag.OverseasList)
+                {
+                    <li>
+                        <div class="teacher-cont">
+                            <div class="top"><a href="/teacher/details/@item.Id"><i></i><img src="@item.Avatar" alt="@item.Name" /></a></div>
+                            <dl>
+                                <dt><a href="/teacher/details/@item.Id">@(item.NameEn)</a></dt>
+                                <dd class="teac-m">
+                                    <p><a href="/school/details/@item.SchoolId"><span>@item.SchoolName</span><small>@item.SchoolNameEn</small></a></p>
+                                    <p><a href="/major/details/@item.MajorId"><span>@item.MajorName</span><small>@item.MajorNameEn</small></a></p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="hd mar-top">
+            <a class="prev"></a>
+            <ul></ul>
+            <a class="next"></a>
+        </div>
+    </div>
+    <div class="title">
+        <h2>艺术导师</h2>
+    </div>
     <!--文章列表-->
     <div class="pagemeun">
         @if (-1 == ViewBag.DivisionId)
@@ -42,7 +74,7 @@
 @section Bottom{
     <script src="~/content/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
     <script type="text/javascript">
-
+        $("#overseasdiv").slide({ titCell: ".hd ul", mainCell: ".bd .overseasul", autoPage: true, effect: "left", autoPlay: false, scroll: 4, vis: 4, trigger: "click" });
         $(function () {
             getData(1);
             $('.pagelist').on('click', 'li a', function () {

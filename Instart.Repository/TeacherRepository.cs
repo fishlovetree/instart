@@ -29,10 +29,14 @@ namespace Instart.Repository
             }
         }
 
-        public PageModel<Teacher> GetListAsync(int pageIndex, int pageSize, int division = -1, string name = null) {
+        public PageModel<Teacher> GetListAsync(int pageIndex, int pageSize, int type = -1, int division = -1, string name = null) {
             using (var conn = DapperFactory.GetConnection()) {
                 #region generate condition
                 string where = "where t.Status=1";
+                if (type != -1)
+                {
+                    where += string.Format(" and t.Type = {0}", type);
+                }
                 if (!string.IsNullOrEmpty(name)) {
                     where += string.Format(" and (t.Name like '%{0}%' or t.NameEn like '%{1}%')", name, name);
                 }
@@ -61,15 +65,18 @@ namespace Instart.Repository
             }
         }
 
-        public IEnumerable<Teacher> GetAllAsync()
+        public IEnumerable<Teacher> GetAllAsync(int type = 1)
         {
             using (var conn = DapperFactory.GetConnection())
             {
                 #region generate condition
-                string where = "where t.Status=1";
+                string where = string.Format("where t.Status=1 and t.Type={0}",type);
                 #endregion
 
-                string sql = string.Format(@"select t.*, s.MajorIds, s.MajorNames from [Teacher] as t 
+                string sql = string.Format(@"select t.*, b.Name as MajorName, b.NameEn as MajorNameEn, e.Name as SchoolName, 
+                    e.NameEn as SchoolNameEn, s.MajorIds, s.MajorNames from [Teacher] as t 
+                    left join [Major] as b on b.Id = t.MajorId 
+                    left join [School] as e on e.Id = t.SchoolId
                     left join (SELECT TeacherId,(SELECT CONVERT(varchar(8), r.Id) +',' FROM [TeacherMajor] ss LEFT JOIN [Major] r ON r.Id = ss.MajorId
                     WHERE TeacherId=A.TeacherId FOR XML PATH('')) AS MajorIds,
                     (SELECT r.Name +',' FROM [TeacherMajor] ss LEFT JOIN [Major] r ON r.Id = ss.MajorId
@@ -114,7 +121,8 @@ namespace Instart.Repository
                     "IsSelected",
                     "IsRecommend", 
                     "MajorIds", 
-                    "MajorNames"
+                    "MajorNames",
+                    "Type"
                 });
 
                 if (fields == null || fields.Count == 0) {
@@ -270,7 +278,7 @@ namespace Instart.Repository
             using (var conn = DapperFactory.GetConnection())
             {
                 #region generate condition
-                string where = "where t.Status=1";
+                string where = "where t.Status=1 and t.Type=1";
                 if (divisionId != -1)
                 {
                     where += string.Format(" and t.DivisionId = {0}", divisionId);

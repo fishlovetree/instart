@@ -47,6 +47,8 @@ namespace Instart.Web2.Controllers
 
             ViewBag.DivisionList = divisionList;
             ViewBag.DivisionId = id;
+
+            ViewBag.OverseasList = _teacherService.GetAllAsync((int)EnumTeacherType.Overseas) ?? new List<Teacher>();
             return View();
         }
 
