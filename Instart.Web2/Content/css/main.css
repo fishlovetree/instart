@@ -8,15 +8,15 @@
 .toper a.logo img{ width:100%; height:100%;}
 .D-info{ position:absolute; right:4%; color:#4d4d4d;}
 .D-info dl{ padding:18px 0 18px 28px; background:url(/content/images/top-icon.png) left center no-repeat; line-height:30px;}
-.D-info dt{margin-top:6px;}
+.D-info dt{margin-top:2px;}
 .D-info dd i{ color:#0000ff; margin-right:25px;}
 .meun{ background:url(/content/images/instart.png) 96% center no-repeat; height:88px; position:relative; z-index:100;}
 .nav{ text-align:center;}
-.nav ul{ height:88px; line-height:88px; text-align:center; padding-right:13%;}
+.nav ul{ height:88px; line-height:88px; text-align:center; }
 .nav li{ display:inline-block;}
 .nav li a{ display:block; padding:0 20px; font-size:18px; color:#4d4d4d;}
 .nav li a:hover{ color:#0802ff;}
-.here{ width:130px; height:130px; border-radius:50%; behavior:url("/content/js/PIE.htc"); overflow:hidden; background:#0000ff url(/content/images/here.png) center center no-repeat; position:absolute; top:-21px; right:16%;}
+.here{ width:130px; height:130px; border-radius:50%; behavior:url("/content/js/PIE.htc"); overflow:hidden; background:#0000ff url(/content/images/here.png) center center no-repeat; position:absolute; top:-21px; left:7%;}
 .here a{ width:100%; height:100%; display:block;}
 /*banner*/
 #loads{ position:absolute; top:0; left:0; right:0; bottom:0; z-index:99; background:#fff url(/content/images/loading-2.gif) center center no-repeat}
@@ -422,8 +422,7 @@
 @media screen and (max-width: 1500px){
 	 .yuanxiao{ height:180px;}
 	 .peoplecont dl{ height:200px;}
-	 .here{ right:18%;}
-     .nav ul{ padding-right:23%}
+	 .here{ left:4%;}
 	 .teacher-cont dd.teac-m{ height:125px!important;}
 	 .list-cont dd.teac-m{ height:295px;}
 	 .c-guide+ .c-infos{ height:171px}
