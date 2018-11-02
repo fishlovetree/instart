@@ -74,7 +74,7 @@ namespace Instart.Repository
         {
             using (var conn = DapperFactory.GetConnection())
             {
-                string sql = string.Format(@"select a.*, s.Name as SystemName, s.NameEn as SystemNameEn from [Course] as a left join [CourseSystem] s on a.SystemId = s.Id where a.SystemId = {0};", systemId);
+                string sql = string.Format(@"select a.*, s.Name as SystemName, s.NameEn as SystemNameEn from [Course] as a left join [CourseSystem] s on a.SystemId = s.Id where a.SystemId = {0} and a.Status=1;", systemId);
                 return conn.Query<Course>(sql);
             }
         }
