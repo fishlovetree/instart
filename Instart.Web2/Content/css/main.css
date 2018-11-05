@@ -8,7 +8,7 @@
 .toper a.logo img{ width:100%; height:100%;}
 .D-info{ position:absolute; right:4%; color:#4d4d4d;}
 .D-info dl{ padding:18px 0 18px 28px; background:url(/content/images/top-icon.png) left center no-repeat; line-height:30px;}
-.D-info dt{margin-top:2px;}
+.D-info dt{/*margin-top:2px;*/}
 .D-info dd i{ color:#0000ff; margin-right:25px;}
 .meun{ background:url(/content/images/instart.png) 96% center no-repeat; height:88px; position:relative; z-index:100;}
 .nav{ text-align:center;}
@@ -22,7 +22,7 @@
 #loads{ position:absolute; top:0; left:0; right:0; bottom:0; z-index:99; background:#fff url(/content/images/loading-2.gif) center center no-repeat}
 .banner{ width: 100%; clear: both; position: relative; height:500px; height:4.12rem; overflow:hidden;}
 .lubo_box{ position: relative; width: 100%; height:500px; height:4.12rem }
-.lubo_box li{ float: left;position: absolute; top: 0; left: 0; width: 100%; height:500px; height:4.12rem; opacity: 0;filter:alpha(opacity=0);}
+.lubo_box li{ float: left;position: absolute; top: 0; left: 0; width: 100%; height:500px; height:4.12rem; }
 .lubo_box li a{ display: block;width: 100%;  height: 100%;}
 .lubo_box li img{ width: 100%; height: 500px; height:4.12rem;}
 .cir_box{ overflow: hidden; position: absolute; z-index: 99;}
@@ -73,7 +73,7 @@
 .school li{ width:33.333%; margin-bottom:40px;}
 .s-name{ padding:15px;height:162px; border-bottom:1px dotted #bfbfbf; overflow:hidden; border-left:1px dotted #bfbfbf; border-right:1px dotted #bfbfbf; display:-webkit-box;display:-webkit-flex;-webkit-box-align:center;-webkit-align-items:center;}
 .s-name:hover{ background:#f2f2f2}
-.yuanxiao{ border:1px dotted #bfbfbf; height:130px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:18px; position:relative;}
+.yuanxiao{ border:1px dotted #bfbfbf; height:180px; border-top:0; border-radius:0 0 5px 5px; overflow:hidden; padding:15px; line-height:18px; position:relative;}
 .yuanxiao p{ margin-bottom:10px; /*overflow:hidden; text-overflow:ellipsis; white-space:nowrap; height:16px;*/}
 .yuanxiao p span{ margin-right:10px; display:inline-block;}
 .yuanxiao .morea-left{ text-align:left; position:absolute; bottom:10px; left:10px;}
@@ -124,7 +124,7 @@
 .foot-info span.i1{ background-position:0 -46px;}
 .foot-info span.i2{ background-position:0 -80px;}
 .foot-info span.i3{ background-position:0 -161px;}
-.foot-info span.i4{ background-position:0 -107px;}
+.foot-info span.i4{ background-position:0 -108px;}
 
 /*艺术专业列表*/
 .pagemeun{ text-align:center; padding-top:38px; height:53px; margin-bottom:4px;}
@@ -275,8 +275,8 @@
 .pagenum li.active a,.pagenum li:hover a{ color:#0000ff; font-size:16px; background:none;}
 .banner-img{ position:relative;}
 .neitu img{ width:100%;}
-.ban-collage{ position:absolute; left:12%; top:20%; width:30%;}
-.ban-collage .s-name{ border-radius:5px; overflow:hidden; box-shadow:1px 1px 5px rgba(0,0,0,.4); display:-webkit-box;display:-webkit-flex;-webkit-box-align:center;-webkit-align-items:center; padding:40px 40px 40px 20px; margin-bottom:20px;}
+.ban-collage{ position:absolute; left:12%; top:50%; margin-top:-135px; width:40%;}
+.ban-collage .s-name{ border-radius:5px; overflow:hidden; box-shadow:1px 1px 5px rgba(0,0,0,.4); display:-webkit-box;display:-webkit-flex;-webkit-box-align:center;-webkit-align-items:center; padding:20px 40px 20px 20px; margin-bottom:20px;}
 .ban-collage .s-name p{ font-size:16px; margin-bottom:5px;}
 .ban-collage .s-name-left dd{ margin-bottom:25px;}
 .collshen a{ display:inline-block; background:#0000ff; color:#fff; padding:10px 20px; border-radius:5px;}
@@ -331,11 +331,11 @@
 .program-item .cimg img{ width:100%; border-radius:5px 5px 0 0; -webkit-transition:0.3s; transition:0.3s;}
 .program-item .cimg:hover img{ -webkit-transform:scale(1.1); transform:scale(1.1); opacity:0.8}
 .c-guide,.c-infos,.c-yue{ border:1px dotted #bebebe; border-top:0; overflow:hidden;}
-.c-guide{ text-align:center; line-height:26px; height:83px;}
+.c-guide{ text-align:center; line-height:26px; height:83px; position:relative}
 .c-infos{ padding:10px 30px; text-align:justify; line-height:1.8em; text-indent:2em; height:121px;}
 .c-guide+ .c-infos{ height:121px}
 .c-guide p{ display:inline-block; padding:15px 20px; position:relative;}
-.c-guide p:after{ content:""; position:absolute; bottom:-1px; left:0; width:100%; height:8px; background:#0000ff}
+.c-guide:after{ content:""; position:absolute; bottom:0px; left:0; width:100%; height:8px; background:#0000ff}
 .c-guide p b{ display:block; font-size:20px;}
 .c-guide p span{ display:block; font-size:14px;}
 .c-yue{ font-size:16px; border-radius:0 0 5px 5px; padding:10px; color:#0000ff; font-size:16px; font-weight:bold;}

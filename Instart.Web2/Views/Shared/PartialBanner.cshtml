@@ -10,12 +10,12 @@
         {
             if (item.Type == Instart.Models.Enums.EnumBannerType.Image)
             {
-                <li><a style="background:url(@item.ImageUrl) center top no-repeat;background-size:100% 100%" href="@item.Link"></a></li>
+                <li><a style="background:url(@item.ImageUrl) center top no-repeat;background-size:100% 100%" href="@(item.Link ?? "#")"></a></li>
             }
             else if (item.Type == Instart.Models.Enums.EnumBannerType.Video)
             {
                 <li>
-                    <a href="@item.Link" style="background:url(@item.ImageUrl) center top no-repeat;background-size:100% 100%">
+                    <a href="@(item.Link ?? "#")" style="background:url(@item.ImageUrl) center top no-repeat;background-size:100% 100%">
                         <video autoplay="autoplay" muted="muted" loop="loop" poster="@item.ImageUrl" title="">
                             <source class="video--mp4" src="@item.VideoUrl" type="video/mp4">
                         </video>
