@@ -18,10 +18,10 @@
 			var _cirOn='.cir_on';
 			var cirlen=_box.children(Li).length; //圆点的数量  图片的数量
 			var luboTime=10000; //轮播时间
-			var switchTime=400;//图片切换时间
+			var switchTime=0;//图片切换时间
 			cir();
 			Btn();
-			_box.find("li:first").animate({"opacity":"1"},300);
+			_box.find("li:first").show(switchTime).siblings().hide(switchTime);
 		//根据图片的数量来生成圆点
 
 			function cir(){
@@ -52,15 +52,10 @@
 				leftBtn.bind(Click,function(){
 				var cir_box=jQuery(_cirBox);
 			 	var onLen=jQuery(_cirOn).val();	
-				_box.children(Li).eq(onLen).stop(false,false).animate({
-					opacity:0
-				},switchTime);
 				if(onLen==0){
 			 		onLen=cirlen;
 			 	}
-				_box.children(Li).eq(onLen-1).stop(false,false).animate({
-					opacity:1
-				 },switchTime);
+				_box.children(Li).eq(onLen - 1).show(switchTime).siblings().hide(switchTime);
 				cir_box.children(Li).eq(onLen-1).addClass(cirOn).siblings().removeClass(cirOn);
 				})
 
@@ -69,15 +64,10 @@
 				rightBtn.bind(Click,function(){
 				var cir_box=jQuery(_cirBox);
 			 	var onLen=jQuery(_cirOn).val();	
-				_box.children(Li).eq(onLen).stop(false,false).animate({
-					opacity:0
-				},switchTime);
 				if(onLen==cirlen-1){
 				 		onLen=-1;
 				 	}
-				_box.children(Li).eq(onLen+1).stop(false,false).animate({
-					opacity:1
-				 },switchTime);
+				_box.children(Li).eq(onLen + 1).show(switchTime).siblings().hide(switchTime);
 				cir_box.children(Li).eq(onLen+1).addClass(cirOn).siblings().removeClass(cirOn);
 				})
 			}
@@ -88,15 +78,10 @@
 			 function clock(){
 			 	var cir_box=jQuery(_cirBox);
 			 	var onLen=jQuery(_cirOn).val();	
-				_box.children(Li).eq(onLen).stop(false,false).animate({
-					opacity:0
-				},switchTime);
 				if(onLen==cirlen-1){
 				 		onLen=-1;
 				 	}
-				_box.children(Li).eq(onLen+1).stop(false,false).animate({
-					opacity:1
-				 },switchTime);
+				_box.children(Li).eq(onLen + 1).show(switchTime).siblings().hide(switchTime);
 				cir_box.children(Li).eq(onLen+1).addClass(cirOn).siblings().removeClass(cirOn);
 			 }
 
@@ -115,12 +100,7 @@
 			jQuery(_cirBox).children(Li).bind(Over,function(){
 				var inde = jQuery(this).index();
 				jQuery(this).addClass(cirOn).siblings().removeClass(cirOn);
-				_box.children(Li).stop(false,false).animate({
-					opacity:0
-				},switchTime);
-				_box.children(Li).eq(inde).stop(false,false).animate({
-					opacity:1
-				},switchTime);
+				_box.children(Li).eq(inde).show(switchTime).siblings().hide(switchTime);
 			});
 		});
 	}
