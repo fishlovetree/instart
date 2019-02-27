@@ -26,7 +26,7 @@
     max-width: inherit;
     }
 </style>
-<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=mj6jifwPYGkCx0PhbAFGRoUiDYhPt0e1&s=1"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=WpcmH3RcGazvis4EYNDs51xKmzqs9AHV&s=1"></script>
 }
 <!--banner展示图-->
 @Html.Partial("PartialBanner", Instart.Models.Enums.EnumBannerPos.Campus)
@@ -144,9 +144,14 @@
             markerArr = [{ title: "一沙国际创意教育", content: "杭州校区", point: "120.211532|30.284964", isOpen: 0, icon: { w: 23, h: 25, l: 46, t: 21, x: 9, lb: 12 } }
             ];
         }
-        else{
+        else if (@Model.Id == 2){
             point = new BMap.Point(118.791706,32.047041);//定义一个中心点坐标
             markerArr = [{title:"一沙国际创意教育",content:"南京校区",point:"118.791643|32.046964",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+            ];
+        }
+        else{
+            point = new BMap.Point(121.563261,29.874343);//定义一个中心点坐标
+            markerArr = [{title:"一沙国际创意教育",content:"宁波校区",point:"121.563261|29.874343",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
             ];
         }
 

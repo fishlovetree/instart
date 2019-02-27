@@ -9,7 +9,7 @@
 .D-info{ position:absolute; right:4%; color:#4d4d4d;}
 .D-info dl{ padding:18px 0 18px 28px; background:url(/content/images/top-icon.png) left center no-repeat; line-height:30px;}
 .D-info dt{/*margin-top:2px;*/}
-.D-info dd i{ color:#0000ff; margin-right:25px;}
+.D-info dd i{ color:#0000ff; margin-right:15px;}
 .meun{ background:url(/content/images/instart.png) 96% center no-repeat; height:88px; position:relative; z-index:100;}
 .nav{ text-align:center;}
 .nav ul{ height:88px; line-height:88px; text-align:center; }
