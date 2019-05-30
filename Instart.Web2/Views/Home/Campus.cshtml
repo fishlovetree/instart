@@ -141,7 +141,7 @@
         var markerArr;
         if (@Model.Id == 1){
             point = new BMap.Point(120.211487, 30.285291);//定义一个中心点坐标
-            markerArr = [{ title: "一沙国际创意教育", content: "杭州校区", point: "120.211532|30.284964", isOpen: 0, icon: { w: 23, h: 25, l: 46, t: 21, x: 9, lb: 12 } }
+            markerArr = [{ title: "一沙国际创意教育", content: "杭州总部校区", point: "120.211532|30.284964", isOpen: 0, icon: { w: 23, h: 25, l: 46, t: 21, x: 9, lb: 12 } }
             ];
         }
         else if (@Model.Id == 2){
@@ -149,9 +149,14 @@
             markerArr = [{title:"一沙国际创意教育",content:"南京校区",point:"118.791643|32.046964",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
             ];
         }
-        else{
+        else if (@Model.Id == 3) {
             point = new BMap.Point(121.563261,29.874343);//定义一个中心点坐标
             markerArr = [{title:"一沙国际创意教育",content:"宁波校区",point:"121.563261|29.874343",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+            ];
+        }
+        else if (@Model.Id == 4) {
+            point = new BMap.Point(120.053295,30.230996);//定义一个中心点坐标
+            markerArr = [{title:"一沙国际创意教育",content:"杭州分校区",point:"120.053295|30.230996",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
             ];
         }
 

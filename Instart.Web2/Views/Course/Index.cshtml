@@ -21,43 +21,6 @@
             }
         </ul>
     </div>
-    <!--课程介绍-->
-    <div class="title">
-        <h2>课程介绍</h2>
-    </div>
-    <div class="whatthis">
-        <div class="course-info com-cont bd">
-            <div class="whatthisWrap">
-                @foreach (List<Course> list in ViewBag.CourseList)
-                {
-                    <ul>
-                        @foreach (Course item in list)
-                        {
-                            <li>
-                                <div class="course-item">
-                                    <a href="/course/details/@item.Id" class="cimg"><img src="@item.Picture" alt="" /></a>
-                                    <div class="c-guide">
-                                        <p><a href="/course/details/@item.Id"><b>@item.Name</b> <span>@item.NameEn</span> </a></p>
-                                    </div>
-                                    <div class="c-infos"> @Html.Raw(item.Introduce)</div>
-                                    <div class="c-guide">
-                                        <p> <b>针对人群</b></p>
-                                    </div>
-                                    <div class="c-infos"> @Html.Raw(item.ForPeople) </div>
-                                    <div class="c-yue"><a href="javascript:void(0)" onclick="order(@item.Id)">课程预约</a></div>
-                                </div>
-                            </li>
-                        }
-                    </ul>
-                }
-            </div>
-        </div>
-        <div class="hd mar-top">
-            <a class="prev"></a>
-            <ul></ul>
-            <a class="next"></a>
-        </div>
-    </div>
     <!--成功学员-->
     <div class="title">
         <h2>成功学员</h2>

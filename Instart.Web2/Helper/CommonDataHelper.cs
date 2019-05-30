@@ -25,7 +25,7 @@ namespace Instart.Web2.Helper
 
         public static List<Course> GetCourseList()
         {
-            return (AutofacService.Resolve<ICourseService>().GetRecommendListAsync(3)) ?? new List<Instart.Models.Course>();
+            return (AutofacService.Resolve<ICourseService>().GetRecommendListAsync(5)) ?? new List<Instart.Models.Course>();
         }
     }
 }
