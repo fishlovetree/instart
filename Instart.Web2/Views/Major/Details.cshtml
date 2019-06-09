@@ -62,51 +62,51 @@
         </div>
     </div>
 </div>
-<div class="maincont">
-    <!--成功案例-->
-    <div class="title">
-        <h2>成功案例</h2>
-    </div>
-    <div class="chenggong padding30">
-        <div class="success-people com-cont noborder bd">
-            <ul>
-                @foreach (Student item in ViewBag.MajorStudents)
-                {
-                    <li>
-                        <div class="peoplecont">
-                            <div class="top"><a href="/student/details/@item.Id"><i></i><span>@item.Motto</span><img src="@item.Avatar" alt="" /></a></div>
-                            <dl>
-                                <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
-                                <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
-                                <dd class="pe2">
-                                    OFFER：
-                                    @if (item.SchoolIds != null)
-                                    {
-                                        string[] ids = item.SchoolIds.Split(',');
-                                        string[] names = item.SchoolNames.Split(',');
-                                        for (int i = 0; i < 1; i++)
+@*<div class="maincont">
+        <!--成功案例-->
+        <div class="title">
+            <h2>成功案例</h2>
+        </div>
+        <div class="chenggong padding30">
+            <div class="success-people com-cont noborder bd">
+                <ul>
+                    @foreach (Student item in ViewBag.MajorStudents)
+                    {
+                        <li>
+                            <div class="peoplecont">
+                                <div class="top"><a href="/student/details/@item.Id"><i></i><span>@item.Motto</span><img src="@item.Avatar" alt="" /></a></div>
+                                <dl>
+                                    <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
+                                    <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
+                                    <dd class="pe2">
+                                        OFFER：
+                                        @if (item.SchoolIds != null)
                                         {
-                                            if (!String.IsNullOrEmpty(ids[i]))
+                                            string[] ids = item.SchoolIds.Split(',');
+                                            string[] names = item.SchoolNames.Split(',');
+                                            for (int i = 0; i < 1; i++)
                                             {
-                                                <a href="/school/details/@ids[i]">@names[i] </a>
-                                            }
+                                                if (!String.IsNullOrEmpty(ids[i]))
+                                                {
+                                                    <a href="/school/details/@ids[i]">@names[i] </a>
+                                                }
 
+                                            }
                                         }
-                                    }
-                                </dd>
-                            </dl>
-                        </div>
-                    </li>
-                }
-            </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="hd mar-top">
+                <a class="prev"></a>
+                <ul></ul>
+                <a class="next"></a>
+            </div>
         </div>
-        <div class="hd mar-top">
-            <a class="prev"></a>
-            <ul></ul>
-            <a class="next"></a>
-        </div>
-    </div>
-</div>
+    </div>*@
 
 @section Bottom{
     <script type="text/javascript">

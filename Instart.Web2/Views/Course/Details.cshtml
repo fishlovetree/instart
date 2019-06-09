@@ -42,75 +42,75 @@
         </div>
     </div>
 </div>
-<div class="maincont">
-    <!--学员成果-->
-    <div class="title topborder">
-        <h2>学员成果</h2>
-    </div>
-    <div class="consequent">
-        <div class="quent-img bd">
-            <ul>
-                @foreach (Works item in ViewBag.WorkList)
-                {
-                    <li><a href="javascript:void(0)"><img src="@item.ImgUrl" /></a></li>
-                }
-            </ul>
+@*<div class="maincont">
+        <!--学员成果-->
+        <div class="title topborder">
+            <h2>学员成果</h2>
         </div>
-        <div class="hd">
-            <a class="prev"></a>
-            <ul></ul>
-            <a class="next"></a>
-        </div>
-    </div>
-    <!--成功学员-->
-    <div class="title topborder">
-        <h2>成功学员</h2>
-    </div>
-    <div class="chenggong1 padding30">
-        <div class="success-people com-cont noborder bd">
-            <div class="chenggongWrap">
-                @foreach (List<Student> list in ViewBag.StudentMap)
-                {
-                    <ul>
-                        @foreach (Student item in list)
-                        {
-                            <li>
-                                <div class="peoplecont">
-                                    <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
-                                    <dl>
-                                        <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
-                                        <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
-                                        <dd class="pe2">
-                                            OFFER：
-                                            @if (item.SchoolIds != null)
-                                            {
-                                                string[] ids = item.SchoolIds.Split(',');
-                                                string[] names = item.SchoolNames.Split(',');
-                                                for (int i = 0; i < 1; i++)
-                                                {
-                                                    if (!String.IsNullOrEmpty(ids[i]))
-                                                    {
-                                                        <a href="/school/details/@ids[i]">@names[i] </a>
-                                                    }
-
-                                                }
-                                            }
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </li>
-                        }
-                    </ul>
-                }
+        <div class="consequent">
+            <div class="quent-img bd">
+                <ul>
+                    @foreach (Works item in ViewBag.WorkList)
+                    {
+                        <li><a href="javascript:void(0)"><img src="@item.ImgUrl" /></a></li>
+                    }
+                </ul>
+            </div>
+            <div class="hd">
+                <a class="prev"></a>
+                <ul></ul>
+                <a class="next"></a>
             </div>
         </div>
-        <div class="hd mar-top">
-            <a class="prev"></a>
-            <ul></ul>
-            <a class="next"></a>
+        <!--成功学员-->
+        <div class="title topborder">
+            <h2>成功学员</h2>
         </div>
-    </div>
-</div>
+        <div class="chenggong1 padding30">
+            <div class="success-people com-cont noborder bd">
+                <div class="chenggongWrap">
+                    @foreach (List<Student> list in ViewBag.StudentMap)
+                    {
+                        <ul>
+                            @foreach (Student item in list)
+                            {
+                                <li>
+                                    <div class="peoplecont">
+                                        <div class="top"><a href="/student/details/@item.Id"><i></i><img src="@item.Avatar" alt="" /></a></div>
+                                        <dl>
+                                            <dt><a href="/student/details/@item.Id">@item.Name</a></dt>
+                                            <dd class="pe1">录取专业：<a href="/major/details/@item.MajorId">@item.MajorName</a></dd>
+                                            <dd class="pe2">
+                                                OFFER：
+                                                @if (item.SchoolIds != null)
+                                                {
+                                                    string[] ids = item.SchoolIds.Split(',');
+                                                    string[] names = item.SchoolNames.Split(',');
+                                                    for (int i = 0; i < 1; i++)
+                                                    {
+                                                        if (!String.IsNullOrEmpty(ids[i]))
+                                                        {
+                                                            <a href="/school/details/@ids[i]">@names[i] </a>
+                                                        }
+
+                                                    }
+                                                }
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+            <div class="hd mar-top">
+                <a class="prev"></a>
+                <ul></ul>
+                <a class="next"></a>
+            </div>
+        </div>
+    </div>*@
 @section Bottom
     {
     <script type="text/javascript">

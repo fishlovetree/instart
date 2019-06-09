@@ -184,7 +184,7 @@
 .noborder ul{ border:0}
 .mee-left{ width:43%;}
 .mee-left img{ width:100%; border-radius:5px;}
-.mee-right{ border:1px dotted #bebebe; border-radius:5px; width:54%;}
+.mee-right{width:54%;}
 .stel{ position:absolute; z-index:1; top:28px; right:16%; width:130px; height:130px; line-height:130px; border-radius:50%; background:#0100fe; text-align:center; font-size:18px; font-weight:bold; -webkit-transform:rotate(-15deg); transform:rotate(-15deg)}
 .stel a{ color:#fff; width:100%; height:100%; display:block;}
 .stel a:hover{ -webkit-transform:rotate(360deg); transform:rotate(360deg);}

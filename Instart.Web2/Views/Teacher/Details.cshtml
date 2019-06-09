@@ -12,7 +12,7 @@
 <div class="title">
     <h2>导师介绍</h2>
 </div>
-<div class="relative">
+<div class="relative" style="margin-bottom:20px;">
     <div class="maincont meester overflow">
         <div class="mee-left fl"><img src="@Model.Avatar" alt=""></div>
         <div class="mee-right fr">
@@ -49,29 +49,29 @@
         </div>
     </div>
 </div>
-<div class="maincont">
-    <div class="title">
-        <h2>学部案例</h2>
-    </div>
-    <div class="caselist com-cont">
-        <ul>
-            @foreach (School item in ViewBag.SchoolList)
-            {
-                <li>
-                    <div class="case-cont">
-                        <div class="top"><a href="/school/details/@item.Id"><i></i><img src="@item.Logo" alt=""></a></div>
-                        <dl>
-                            <a href="/school/details/@item.Id">
-                                <dt>@item.Name</dt>
-                                <dd><span class="glaxfont">录取比例：</span> @(item.AcceptRate + "%")</dd>
-                            </a>
-                        </dl>
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
-</div>
+@*<div class="maincont">
+        <div class="title">
+            <h2>学部案例</h2>
+        </div>
+        <div class="caselist com-cont">
+            <ul>
+                @foreach (School item in ViewBag.SchoolList)
+                {
+                    <li>
+                        <div class="case-cont">
+                            <div class="top"><a href="/school/details/@item.Id"><i></i><img src="@item.Logo" alt=""></a></div>
+                            <dl>
+                                <a href="/school/details/@item.Id">
+                                    <dt>@item.Name</dt>
+                                    <dd><span class="glaxfont">录取比例：</span> @(item.AcceptRate + "%")</dd>
+                                </a>
+                            </dl>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>*@
 @section Bottom{
     <script type="text/javascript">
         function ask(id) {
